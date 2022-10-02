@@ -1,0 +1,59 @@
+{
+    "user_id": {
+        "data": {
+                "timetable1":{
+                    "name": "เทอม 1 ปี 2565",
+                    "data":{
+                        "timetable":{
+                            "monday":[
+                                {
+                                    "subj_name" : "TCP/IP",
+                                    "subj_code": "00123456",
+                                    "start_time": "09:00",
+                                    "end_time": "12:00",
+                                    "place": "32100",
+                                    "image": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+                                    "details": "วิชาที่ยอดเยี่ยม อาจารย์สอนดีมาก",
+                                    "color": "#FF0000"
+        
+                                },
+                                {
+                                    "subj_name": "TCP/IP",
+                                    "subj_code": "00123456",
+                                    "start_time": "09:00",
+                                    "end_time": "12:00",
+                                    "place": "32100",
+                                    "image": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+                                    "details": "วิชาที่ยอดเยี่ยม อาจารย์สอนดีมาก",
+                                    "color": "#FF0000"
+                                }
+                            ]
+                        },
+                            "notes":[
+                                {
+                                    "title": "Lecture about Hardware Lab",
+                                    "subj_code": "00123456",
+                                    "details": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                                    "type": "Lecture",
+                                    "image": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+                                    "color": "#FF0000"
+                                }
+                            ],
+                            "todolist":[
+                                {
+                                    "title": "ทำงาน App ส่งอาจารย์",
+                                    "subj_code": "00123456",
+                                    "details": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                                    "status": "in-progress",
+                                    "image": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+                                    "color": "#FF0000",
+                                    "start" : "2022-09-25 10:00:00",
+                                    "end" : "2022-11-01 08:00:00"
+                                }
+
+                            ]
+                        }
+                }
+            }
+        }
+    }
