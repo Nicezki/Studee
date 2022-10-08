@@ -4,6 +4,37 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studee/view_subject.dart';
 
+class User {
+  final String? id;
+  final String? name;
+  final String? date_time;
+  final String? location;
+  const User({
+    this.id,
+    this.name,
+    this.date_time,
+    this.location,
+  });
+}
+
+class UserProvider with ChangeNotifier {
+  List<User> _nuser = [];
+  //Map<String, dynamic> _user = {};
+
+  List<User> get users {
+    return _nuser;
+  }
+
+  // Map<String, dynamic> get users {
+  //   return _user;
+  // }
+
+  addNewUser(User data) {
+    _nuser.add(data);
+    notifyListeners();
+  }
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -36,7 +67,14 @@ class MyApp extends StatelessWidget {
     return Scaffold(
       body: MyStatefulWidget(),
       appBar: AppBar(
-        title: const Text('Flutter Demo'),
+        title: const Text('Studee'),
+        actions: [
+          IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () {
+                Navigator.pushNamed(context, '/secondpage');
+              })
+        ],
       ),
       drawer: Drawer(
           child: ListView(
@@ -116,21 +154,10 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: 888Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    MyStatelessWidget(),
+    MyStatelessWidget2(),
+    MyStatelessWidget3(),
   ];
 
   void _onItemTapped(int index) {
@@ -142,30 +169,27 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
-      ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: 'Time-Table',
+            // activeIcon: TabBarDemo(),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
-            label: '888Business',
+            label: 'Note',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.school),
-            label: 'School',
+            label: 'Task',
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.teal[800],
+        selectedItemColor: Colors.amber[800],
         unselectedItemColor: Colors.teal[200],
         onTap: _onItemTapped,
       ),
@@ -173,7 +197,308 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   }
 }
 
+const List<Tab> tabs = <Tab>[
+  Tab(
+    text: 'Mon',
+  ),
+  Tab(text: 'Tue'),
+  Tab(text: 'Wed'),
+  Tab(
+    text: 'Thu',
+  ),
+  Tab(text: 'Fri'),
+  Tab(text: 'Sat'),
+  Tab(text: 'Sun'),
+];
+
+class MyStatelessWidget extends StatelessWidget {
+  const MyStatelessWidget({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: tabs.length,
+      // The Builder widget is used to have a different BuildContext to access
+      // closest DefaultTabController.
+      child: Builder(builder: (BuildContext context) {
+        final TabController tabController = DefaultTabController.of(context)!;
+        tabController.addListener(() {
+          if (!tabController.indexIsChanging) {
+            // Your code goes here.
+            // To get index of current tab use tabController.index
+          }
+        });
+        return Scaffold(
+          appBar: AppBar(
+            toolbarHeight: 0,
+            bottom: const TabBar(
+              tabs: tabs,
+            ),
+          ),
+          body: TabBarView(
+            children: tabs.map((Tab tab) {
+              return Column(
+                children: [
+                  Container(),
+                  SizedBox(height: 6),
+                  Container(),
+                  Container(
+                    height: 900,
+                    child: ListView.builder(
+                        physics: AlwaysScrollableScrollPhysics(),
+                        //shrinkWrap: true,
+                        itemCount: 10,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            margin:
+                                EdgeInsets.only(left: 5, right: 5, bottom: 10),
+                            child: Row(children: [
+                              Container(
+                                width: 120,
+                                height: 120,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Color.fromARGB(209, 189, 189, 189),
+                                    image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(
+                                            'https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg'))),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  height: 100,
+                                  width: 200,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(20),
+                                        bottomRight: Radius.circular(20),
+                                      ),
+                                      color:
+                                          Color.fromARGB(209, 189, 189, 189)),
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 10, right: 10),
+                                    child: Column(
+                                      children: [
+                                        Text("tee888 Go Go Go"),
+                                        Text(
+                                            "Good game, pays hard, pays quickly."),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("B:50"),
+                                            Text("A:99"),
+                                            Text("money:9999"),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ]),
+                          );
+                        }),
+                  )
+                ],
+              );
+            }).toList(),
+          ),
+        );
+      }),
+    );
+  }
+}
+
+class MyStatelessWidget2 extends StatelessWidget {
+  const MyStatelessWidget2({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: tabs.length,
+      // The Builder widget is used to have a different BuildContext to access
+      // closest DefaultTabController.
+      child: Builder(builder: (BuildContext context) {
+        final TabController tabController = DefaultTabController.of(context)!;
+        tabController.addListener(() {
+          if (!tabController.indexIsChanging) {
+            // Your code goes here.
+            // To get index of current tab use tabController.index
+          }
+        });
+        return Scaffold(
+          body: TabBarView(
+            children: tabs.map((Tab tab) {
+              return Column(
+                children: [
+                  Container(),
+                  SizedBox(height: 6),
+                  Container(),
+                  Container(
+                    height: 900,
+                    child: ListView.builder(
+                        physics: AlwaysScrollableScrollPhysics(),
+                        //shrinkWrap: true,
+                        itemCount: 10,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            margin:
+                                EdgeInsets.only(left: 5, right: 5, bottom: 10),
+                            child: Row(children: [
+                              Container(
+                                width: 120,
+                                height: 120,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Color.fromARGB(209, 189, 189, 189),
+                                    image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(
+                                            'https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg'))),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  height: 100,
+                                  width: 200,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(20),
+                                        bottomRight: Radius.circular(20),
+                                      ),
+                                      color:
+                                          Color.fromARGB(209, 189, 189, 189)),
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 10, right: 10),
+                                    child: Column(
+                                      children: [
+                                        Text("tee888 Go Go Go"),
+                                        Text(
+                                            "Good game, pays hard, pays quickly."),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("B:50"),
+                                            Text("A:99"),
+                                            Text("money:9999"),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ]),
+                          );
+                        }),
+                  )
+                ],
+              );
+            }).toList(),
+          ),
+        );
+      }),
+    );
+  }
+}
+
+class MyStatelessWidget3 extends StatelessWidget {
+  const MyStatelessWidget3({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: tabs.length,
+      // The Builder widget is used to have a different BuildContext to access
+      // closest DefaultTabController.
+      child: Builder(builder: (BuildContext context) {
+        final TabController tabController = DefaultTabController.of(context)!;
+        tabController.addListener(() {
+          if (!tabController.indexIsChanging) {
+            // Your code goes here.
+            // To get index of current tab use tabController.index
+          }
+        });
+        return Scaffold(
+          body: TabBarView(
+            children: tabs.map((Tab tab) {
+              return Column(
+                children: [
+                  Container(),
+                  SizedBox(height: 6),
+                  Container(),
+                  Container(
+                    height: 900,
+                    child: ListView.builder(
+                        physics: AlwaysScrollableScrollPhysics(),
+                        //shrinkWrap: true,
+                        itemCount: 10,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            margin:
+                                EdgeInsets.only(left: 5, right: 5, bottom: 10),
+                            child: Row(children: [
+                              Container(
+                                width: 120,
+                                height: 120,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Color.fromARGB(209, 189, 189, 189),
+                                    image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(
+                                            'https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg'))),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  height: 100,
+                                  width: 200,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(20),
+                                        bottomRight: Radius.circular(20),
+                                      ),
+                                      color:
+                                          Color.fromARGB(209, 189, 189, 189)),
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 10, right: 10),
+                                    child: Column(
+                                      children: [
+                                        Text("tee888 Go Go Go"),
+                                        Text(
+                                            "Good game, pays hard, pays quickly."),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("B:50"),
+                                            Text("A:99"),
+                                            Text("money:9999"),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ]),
+                          );
+                        }),
+                  )
+                ],
+              );
+            }).toList(),
+          ),
+        );
+      }),
+    );
+  }
+}
+
+/*
 class Categories extends StatefulWidget {
+  const Categories({Key? key}) : super(key: key);
   @override
   State<Categories> createState() => _CategoriesState();
 }
@@ -202,34 +527,45 @@ class _CategoriesState extends State<Categories> {
 
   Widget buildCategory(int index) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 1),
+      padding: const EdgeInsets.symmetric(horizontal: 5),
       child: Text(
         categories[index],
+        style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(220, 29, 29, 29)),
       ),
     );
   }
 }
+*/
 
 /*
-Class TabBarDemo extend StatelessWidget {
-  const TabBarDemo({Key? key} : super(key: key));
+class TabBarDemo extends StatelessWidget {
+  const TabBarDemo({Key? key}) : super(key: key);
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return MaterialApp(
       home: DefaultTabController(
         length: 3,
         child: Scaffold(
           appBar: AppBar(
-            bottom:const TabBar(tabs: [
+            bottom: const TabBar(tabs: [
               Tab(icon: Icon(Icons.directions_car)),
               Tab(icon: Icon(Icons.directions_train)),
               Tab(icon: Icon(Icons.directions_bike)),
             ]),
             title: const Text('Tab Demo'),
           ),
-          body: const
-        )
-      )
-    )
+          body: const TabBarView(
+            children: [
+              Icon(Icons.directions_car),
+              Icon(Icons.directions_train),
+              Icon(Icons.directions_bike),
+            ],
+          ),
+        ),
+      ),
+    );
   }
-}*/
+}
+*/
