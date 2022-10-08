@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyHome());
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: MyStatefulWidget(),
       appBar: AppBar(
         title: const Text('Flutter Demo'),
       ),
@@ -81,7 +83,6 @@ class MyApp extends StatelessWidget {
           ),
         ],
       )),
-      body: Center(child: ListView(children: const <Widget>[])),
     );
   }
 }
@@ -116,7 +117,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       style: optionStyle,
     ),
     Text(
-      'Index 1: Business',
+      'Index 1: 888Business',
       style: optionStyle,
     ),
     Text(
@@ -149,7 +150,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
-            label: 'Business',
+            label: '888Business',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.school),
@@ -164,3 +165,64 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     );
   }
 }
+
+class Categories extends StatefulWidget {
+  @override
+  State<Categories> createState() => _CategoriesState();
+}
+
+class _CategoriesState extends State<Categories> {
+  List<String> categories = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+  ];
+  int SelectedIndex = 0;
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        height: 25,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: categories.length,
+          itemBuilder: (context, index) => buildCategory(index),
+        ));
+  }
+
+  Widget buildCategory(int index) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 1),
+      child: Text(
+        categories[index],
+      ),
+    );
+  }
+}
+
+/*
+Class TabBarDemo extend StatelessWidget {
+  const TabBarDemo({Key? key} : super(key: key));
+  @override
+  Widget build(BuildContext context){
+    return MaterialApp(
+      home: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            bottom:const TabBar(tabs: [
+              Tab(icon: Icon(Icons.directions_car)),
+              Tab(icon: Icon(Icons.directions_train)),
+              Tab(icon: Icon(Icons.directions_bike)),
+            ]),
+            title: const Text('Tab Demo'),
+          ),
+          body: const
+        )
+      )
+    )
+  }
+}*/
