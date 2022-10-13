@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studee/view_subject.dart';
+import 'package:studee/register.dart';
+import 'package:studee/login.dart';
+
+int? cur_page;
 
 class User {
   final String? id;
@@ -52,7 +56,12 @@ class MyHome extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => MyApp(title: appTitle),
-        '/secondpage': (context) => SecondPage(),
+        '/LoginPage': (context) => LoginPage(),
+        '/RegisterPage': (context) => RegisterPage(),
+        '/add_SecondPage': (context) => add_SecondPage(),
+        '/add_SecondPage2': (context) => add_SecondPage2(),
+        '/add_SecondPage3': (context) => add_SecondPage3(),
+        '/view_subject': (context) => SubjectDetail('00123456'),
       },
       //home: MyApp(title: appTitle),
     );
@@ -72,7 +81,15 @@ class MyApp extends StatelessWidget {
           IconButton(
               icon: const Icon(Icons.add),
               onPressed: () {
-                Navigator.pushNamed(context, '/secondpage');
+                Navigator.pushNamed(
+                    context,
+                    cur_page == 0
+                        ? "/add_SecondPage"
+                        : cur_page == 1
+                            ? "/add_SecondPage2"
+                            : cur_page == 2
+                                ? "/add_SecondPage3"
+                                : "/");
               })
         ],
       ),
@@ -119,7 +136,7 @@ class MyApp extends StatelessWidget {
             leading: Icon(Icons.access_alarm),
             title: const Text('Item 1'),
             onTap: () {
-              Navigator.pushNamed(context, '/secondpage');
+              Navigator.pushNamed(context, '/LoginPage');
             },
           ),
           ListTile(
@@ -132,15 +149,41 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class SecondPage extends StatelessWidget {
-  const SecondPage({Key? key}) : super(key: key);
+class add_SecondPage extends StatelessWidget {
+  const add_SecondPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Second Page'),
+        title: const Text('Add time-table'),
       ),
-      body: Center(child: Text('หน้าที่2')),
+      body: Center(child: Text('Add time-table here')),
+    );
+  }
+}
+
+class add_SecondPage2 extends StatelessWidget {
+  const add_SecondPage2({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Add note'),
+      ),
+      body: Center(child: Text('Add note here')),
+    );
+  }
+}
+
+class add_SecondPage3 extends StatelessWidget {
+  const add_SecondPage3({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Add task'),
+      ),
+      body: Center(child: Text('Add task here')),
     );
   }
 }
@@ -162,6 +205,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   void _onItemTapped(int index) {
     setState(() {
+      cur_page = index;
       _selectedIndex = index;
     });
   }
@@ -289,6 +333,12 @@ class MyStatelessWidget extends StatelessWidget {
                                             Text("B:50"),
                                             Text("A:99"),
                                             Text("money:9999"),
+                                            IconButton(
+                                                icon: const Icon(Icons.add),
+                                                onPressed: () {
+                                                  Navigator.pushNamed(
+                                                      context, '/view_subject');
+                                                }),
                                           ],
                                         )
                                       ],
@@ -354,7 +404,7 @@ class MyStatelessWidget2 extends StatelessWidget {
                                     image: DecorationImage(
                                         fit: BoxFit.cover,
                                         image: NetworkImage(
-                                            'https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg'))),
+                                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWHW53Mm8mM9h4flyCwCm4gar1WgnTPnjMSrOWp1DsmYrs6olw5KulNo1ZZS1D8kV-fpo&usqp=CAU'))),
                               ),
                               Expanded(
                                 child: Container(
@@ -382,6 +432,12 @@ class MyStatelessWidget2 extends StatelessWidget {
                                             Text("B:50"),
                                             Text("A:99"),
                                             Text("money:9999"),
+                                            IconButton(
+                                                icon: const Icon(Icons.add),
+                                                onPressed: () {
+                                                  Navigator.pushNamed(
+                                                      context, '/view_subject');
+                                                })
                                           ],
                                         )
                                       ],
@@ -447,7 +503,7 @@ class MyStatelessWidget3 extends StatelessWidget {
                                     image: DecorationImage(
                                         fit: BoxFit.cover,
                                         image: NetworkImage(
-                                            'https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg'))),
+                                            'https://i.pinimg.com/736x/bb/e7/4f/bbe74f25d8ad8e3dcc130d8548151275.jpg'))),
                               ),
                               Expanded(
                                 child: Container(
@@ -475,6 +531,12 @@ class MyStatelessWidget3 extends StatelessWidget {
                                             Text("B:50"),
                                             Text("A:99"),
                                             Text("money:9999"),
+                                            IconButton(
+                                                icon: const Icon(Icons.add),
+                                                onPressed: () {
+                                                  Navigator.pushNamed(
+                                                      context, '/view_subject');
+                                                }),
                                           ],
                                         )
                                       ],

@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:studee/main.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
       child: Text('Register new account'),
       onPressed: () {
         print('Goto  Regis pagge');
-        Navigator.pushNamed(context, '/register');
+        Navigator.pushNamed(context, '/RegisterPage ');
       },
     );
   }
@@ -77,7 +77,6 @@ class _LoginPageState extends State<LoginPage> {
             print('Invalid Form');
         });
   }
-
 
   TextFormField passwordTextFormField() {
     return TextFormField(
@@ -127,4 +126,3 @@ class _LoginPageState extends State<LoginPage> {
     return (!regex.hasMatch(value)) ? false : true;
   }
 }
-
