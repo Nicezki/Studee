@@ -44,8 +44,40 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   ElevatedButton loginButton() {
-     return ElevatedButton(child: Text('Login'), onPressed: () {});
+    return ElevatedButton(
+        child: Text('Login'),
+        onPressed: () async {
+          if (_formstate.currentState!.validate()) {
+            print('Valid Form');
+            _formstate.currentState!.save();
+            try {
+              await auth
+                  .signInWithEmailAndPassword(
+                      email: email!, password: password!)
+                  .then((value) {
+                if (value.user!.emailVerified) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Login Pass")));
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Please verify email")));
+                }
+              }).catchError((reason) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Login or Password Invalid")));
+              });
+            } on FirebaseAuthException catch (e) {
+              if (e.code == 'user-not-found') {
+                print('No user found for that email.');
+              } else if (e.code == 'wrong-password') {
+                print('Wrong password provided for that user.');
+              }
+            }
+          } else
+            print('Invalid Form');
+        });
   }
+
 
   TextFormField passwordTextFormField() {
     return TextFormField(
