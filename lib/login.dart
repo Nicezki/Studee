@@ -1,93 +1,98 @@
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  _MyLoginPageState createState() => _MyLoginPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _MyLoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> {
+  final _formstate = GlobalKey<FormState>();
+  String? email;
+  String? password;
+  final auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          
-        ),
-        body: Container(
-            color: Colors.green[50],
-            child: Center(
-              child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      gradient: LinearGradient(
-                          colors: [Color.fromARGB(255, 113, 181, 213), Color.fromARGB(255, 117, 210, 120)])),
-                  margin: EdgeInsets.all(32),
-                  padding: EdgeInsets.all(24),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      
-          Text("Welcom to", style: TextStyle(fontSize: 26)),          
-          Text("STUDEE", style: TextStyle(fontSize: 26)),
-          Text("", style: TextStyle(fontSize: 26)),
-          
-                    
-                      buildTextFieldEmail(),
-                      buildTextFieldPassword(),
-                      buildButtonSignIn(),
-                      buildButtonRegister(),
-                    ],
-                  )),
-            )));
+        body: Form(
+      autovalidateMode: AutovalidateMode.always,
+      key: _formstate,
+      child: ListView(
+        children: <Widget>[
+          emailTextFormField(),
+          passwordTextFormField(),
+          loginButton(),
+          registerButton(context),
+        ],
+      ),
+    ));
   }
 
-  Container buildButtonSignIn() {
-    return Container(
-        constraints: BoxConstraints.expand(height: 50),
-        child: Text("Sign in",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 18, color: Colors.white)),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16), color: Color.fromARGB(255, 83, 119, 227)),
-        margin: EdgeInsets.only(top: 16),
-        padding: EdgeInsets.all(12));
+  ElevatedButton registerButton(BuildContext context) {
+    return ElevatedButton(
+      // ignore: prefer_const_constructors
+      child: Text('Register new account'),
+      onPressed: () {
+        print('Goto  Regis pagge');
+        Navigator.pushNamed(context, '/register');
+      },
+    );
   }
 
-  Container buildButtonRegister() {
-    return Container(
-        constraints: BoxConstraints.expand(height: 50),
-        child: Text("Register",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 18, color: Colors.white)),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16), color: Color.fromARGB(255, 83, 119, 227)),
-        margin: EdgeInsets.only(top: 16),
-        padding: EdgeInsets.all(12));
-  }
-  Container buildTextFieldEmail() {
-    return Container(
-        padding: EdgeInsets.all(12),
-        decoration: BoxDecoration(
-            color: Colors.yellow[50], borderRadius: BorderRadius.circular(16)),
-        child: TextField(
-            decoration: InputDecoration.collapsed(hintText: "Email"),
-            style: TextStyle(fontSize: 18)));
+  ElevatedButton loginButton() {
+     return ElevatedButton(child: Text('Login'), onPressed: () {});
   }
 
-  Container buildTextFieldPassword() {
-    return Container(
-        padding: EdgeInsets.all(12),
-        margin: EdgeInsets.only(top: 12),
-        decoration: BoxDecoration(
-            color: Colors.yellow[50], borderRadius: BorderRadius.circular(16)),
-        child: TextField(
-            obscureText: true,
-            decoration: InputDecoration.collapsed(hintText: "Password"),
-            style: TextStyle(fontSize: 18)));
+  TextFormField passwordTextFormField() {
+    return TextFormField(
+      onSaved: (value) {
+        password = value!.trim();
+      },
+      validator: (value) {
+        if (value!.length < 8)
+          return 'Please Enter more than 8 Character';
+        else
+          return null;
+      },
+      obscureText: true,
+      keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'Password',
+        icon: Icon(Icons.lock),
+      ),
+    );
+  }
+
+  TextFormField emailTextFormField() {
+    return TextFormField(
+      onSaved: (value) {
+        email = value!.trim();
+      },
+      validator: (value) {
+        if (!validateEmail(value!))
+          return 'Please fill in E-mail field';
+        else
+          return null;
+      },
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      decoration: const InputDecoration(
+        labelText: 'E-mail',
+        icon: Icon(Icons.email),
+        hintText: 'x@x.com',
+      ),
+    );
+  }
+
+  bool validateEmail(String value) {
+    RegExp regex = RegExp(
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
+
+    return (!regex.hasMatch(value)) ? false : true;
   }
 }
-
 
