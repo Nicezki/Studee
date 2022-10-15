@@ -15,7 +15,7 @@ class _AddScheduleState extends State<AddSchedule>{
     return Scaffold(
         appBar: AppBar(
           leading: Icon(Icons.book),
-          title: Text('เพิ่มชั้นเรียน'),
+          title: Text('เพิ่มโน๊ต'),
           
           
           
