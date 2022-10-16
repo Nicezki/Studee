@@ -155,25 +155,214 @@ class add_SecondPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add time-table'),
+          leading: Icon(Icons.book),
+          title: Text('เพิ่มชั้นเรียน'),
+          
+          
+          
+          
+        ),
+        body: Container(
+            child: Center(
+              child: Container(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                     children: <Widget>[
+                        buildNameclassField(),
+                        buildCodeclassField(),
+                        buildTeachernameField(),
+                        buildStartclssField(),
+                        buildEndclssField(),
+                        buildDetailsField(),
+                        buildRegisterButton(),
+                    ],
+                    
+                  )),
+            ),
+            color: Color.fromARGB(255, 255, 255, 255),));
+                          
+                  
+
+    }
+}
+
+TextFormField buildNameclassField() {
+    return TextFormField(
+      obscureText: true,
+      keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'ชื่อวิชา :',
+       
       ),
-      body: Center(child: Text('Add time-table here')),
     );
   }
-}
+
+  TextFormField buildCodeclassField() {
+    return TextFormField(
+      obscureText: true,
+      keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'รหัสวิชา :',
+        
+      ),
+    );
+  }
+
+  TextFormField buildTeachernameField() {
+    return TextFormField(
+      obscureText: true,
+      keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'อาจารย์ :',
+        
+      ),
+    );
+  }
+
+  TextFormField buildStartclssField() {
+    return TextFormField(
+      obscureText: true,
+      keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'เวลาเริ่ม :',
+       
+      ),
+    );
+  }
+
+TextFormField buildEndclssField() {
+    return TextFormField(
+      obscureText: true,
+      keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'เวลาสิ้นสุด :',
+        
+      ),
+    );
+  }
+
+  TextFormField buildDetailsField() {
+    return TextFormField(
+      obscureText: true,
+      keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'รายละเอียด :',
+        
+      ),
+    );
+  }
+
+  ElevatedButton buildRegisterButton() {
+    return ElevatedButton(
+      child: Container(
+            child: Center(child:
+                   Column(mainAxisSize: MainAxisSize.min,
+                   children: <Widget>[
+                   Text("บันทึก", style: TextStyle(fontSize: 20)),
+                   
+                      ],)),),
+      onPressed: () async {
+      
+      },
+    );
+  }
+  
+
 
 class add_SecondPage2 extends StatelessWidget {
   const add_SecondPage2({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Add note'),
+      
+        appBar: AppBar(
+          leading: Icon(Icons.book),
+          title: Text('เพิ่มโน๊ต'),
+
+        ),
+        body: Container(
+            child: Center(
+              child: Container(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                     children: <Widget>[
+                        buildTitleField(),
+                        buildCourseField(),
+                        buildMessageField(),
+                        buildTagsField(),
+                        buildRegisterButton2(),
+                    ],
+                    
+                  )),
+            ),
+            color: Color.fromARGB(255, 255, 255, 255),));
+                          
+                  
+
+    }
+}
+
+TextFormField buildTitleField() {
+    return TextFormField(
+      obscureText: true,
+      keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'หัวข้อ :',
+       
       ),
-      body: Center(child: Text('Add note here')),
     );
   }
-}
+TextFormField buildCourseField() {
+    return TextFormField(
+      obscureText: true,
+      keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'รายวิชา :',
+       
+      ),
+    );
+  }
+
+  TextFormField buildMessageField() {
+    return TextFormField(
+      obscureText: true,
+      keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'ข้อความ :',
+       
+      ),
+    );
+  }
+
+  TextFormField buildTagsField() {
+    return TextFormField(
+      obscureText: true,
+      keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'แท็ก :',
+       
+      ),
+    );
+  }
+
+  ElevatedButton buildRegisterButton2() {
+    return ElevatedButton(
+      child: Container(
+            child: Center(child:
+                   Column(mainAxisSize: MainAxisSize.min,
+                   children: <Widget>[
+                   Text("บันทึก", style: TextStyle(fontSize: 20)),
+                   
+                      ],)),),
+      onPressed: () async {
+      
+      },
+    );
+  }
+
+
 
 class add_SecondPage3 extends StatelessWidget {
   const add_SecondPage3({Key? key}) : super(key: key);
@@ -181,12 +370,108 @@ class add_SecondPage3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add task'),
+          leading: Icon(Icons.book),
+          title: Text('เพิ่มสิ่งที่ต้องทำ'),
+          
+          
+          
+          
+        ),
+        body: Container(
+            child: Center(
+              child: Container(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                     children: <Widget>[
+                        buildTitleField3(),
+                        buildSubjectField(),
+                        buildStartDateField(),
+                        buildEndDateField(),
+                        buildDetailsField3(),
+                        buildRegisterButton3(),
+                    ],
+                    
+                  )),
+            ),
+            color: Color.fromARGB(255, 255, 255, 255),));
+                          
+                  
+
+    }
+}
+
+TextFormField buildTitleField3() {
+    return TextFormField(
+      obscureText: true,
+      keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'หัวข้องาน :',
+       
       ),
-      body: Center(child: Text('Add task here')),
     );
   }
-}
+
+  TextFormField buildSubjectField() {
+    return TextFormField(
+      obscureText: true,
+      keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'วิชา :',
+       
+      ),
+    );
+  }
+
+  TextFormField buildStartDateField() {
+    return TextFormField(
+      obscureText: true,
+      keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'วันที่สั่ง :',
+       
+      ),
+    );
+  }
+
+   TextFormField buildEndDateField() {
+    return TextFormField(
+      obscureText: true,
+      keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'วันที่ส่ง :',
+       
+      ),
+    );
+  }
+
+  TextFormField buildDetailsField3() {
+    return TextFormField(
+      obscureText: true,
+      keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'รายละเอียด :',
+        
+      ),
+    );
+  }
+
+  ElevatedButton buildRegisterButton3() {
+    return ElevatedButton(
+      child: Container(
+            child: Center(child:
+                   Column(mainAxisSize: MainAxisSize.min,
+                   children: <Widget>[
+                   Text("บันทึก", style: TextStyle(fontSize: 20)),
+                   
+                      ],)),),
+      onPressed: () async {
+      
+      },
+    );
+  }
+
+
 
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
