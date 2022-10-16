@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
       child: Text('Register new account'),
       onPressed: () {
         print('Goto  Regis pagge');
-        Navigator.pushNamed(context, '/RegisterPage ');
+        Navigator.pushNamed(context, '/RegisterPage');
       },
     );
   }
