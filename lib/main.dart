@@ -61,7 +61,7 @@ class MyHome extends StatelessWidget {
         '/add_SecondPage': (context) => add_SecondPage(),
         '/add_SecondPage2': (context) => add_SecondPage2(),
         '/add_SecondPage3': (context) => add_SecondPage3(),
-        '/view_subject': (context) => SubjectDetail('00123456'),
+        '/view_subject': (context) => SubjectDetail('00000888'),
       },
       //home: MyApp(title: appTitle),
     );
@@ -163,7 +163,8 @@ class add_SecondPage extends StatelessWidget {
           
         ),
         body: Container(
-            child: Center(
+            child: SafeArea(
+                child: Center(
               child: Container(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -179,6 +180,7 @@ class add_SecondPage extends StatelessWidget {
                     ],
                     
                   )),
+            )
             ),
             color: Color.fromARGB(255, 255, 255, 255),));
                           
@@ -189,7 +191,7 @@ class add_SecondPage extends StatelessWidget {
 
 TextFormField buildNameclassField() {
     return TextFormField(
-      obscureText: true,
+      
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'ชื่อวิชา :',
@@ -200,7 +202,7 @@ TextFormField buildNameclassField() {
 
   TextFormField buildCodeclassField() {
     return TextFormField(
-      obscureText: true,
+      
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'รหัสวิชา :',
@@ -211,7 +213,7 @@ TextFormField buildNameclassField() {
 
   TextFormField buildTeachernameField() {
     return TextFormField(
-      obscureText: true,
+      
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'อาจารย์ :',
@@ -222,7 +224,7 @@ TextFormField buildNameclassField() {
 
   TextFormField buildStartclssField() {
     return TextFormField(
-      obscureText: true,
+      
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'เวลาเริ่ม :',
@@ -233,7 +235,7 @@ TextFormField buildNameclassField() {
 
 TextFormField buildEndclssField() {
     return TextFormField(
-      obscureText: true,
+      
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'เวลาสิ้นสุด :',
@@ -244,7 +246,7 @@ TextFormField buildEndclssField() {
 
   TextFormField buildDetailsField() {
     return TextFormField(
-      obscureText: true,
+      
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'รายละเอียด :',
@@ -275,7 +277,6 @@ class add_SecondPage2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
         appBar: AppBar(
           leading: Icon(Icons.book),
           title: Text('เพิ่มโน๊ต'),
@@ -306,17 +307,15 @@ class add_SecondPage2 extends StatelessWidget {
 
 TextFormField buildTitleField() {
     return TextFormField(
-      obscureText: true,
+      
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'หัวข้อ :',
-       
       ),
     );
   }
 TextFormField buildCourseField() {
     return TextFormField(
-      obscureText: true,
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'รายวิชา :',
@@ -327,7 +326,6 @@ TextFormField buildCourseField() {
 
   TextFormField buildMessageField() {
     return TextFormField(
-      obscureText: true,
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'ข้อความ :',
@@ -338,7 +336,6 @@ TextFormField buildCourseField() {
 
   TextFormField buildTagsField() {
     return TextFormField(
-      obscureText: true,
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'แท็ก :',
@@ -403,18 +400,16 @@ class add_SecondPage3 extends StatelessWidget {
 
 TextFormField buildTitleField3() {
     return TextFormField(
-      obscureText: true,
+      
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'หัวข้องาน :',
-       
       ),
     );
   }
 
   TextFormField buildSubjectField() {
     return TextFormField(
-      obscureText: true,
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'วิชา :',
@@ -425,18 +420,16 @@ TextFormField buildTitleField3() {
 
   TextFormField buildStartDateField() {
     return TextFormField(
-      obscureText: true,
+      
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'วันที่สั่ง :',
-       
       ),
     );
   }
 
    TextFormField buildEndDateField() {
     return TextFormField(
-      obscureText: true,
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'วันที่ส่ง :',
@@ -447,7 +440,6 @@ TextFormField buildTitleField3() {
 
   TextFormField buildDetailsField3() {
     return TextFormField(
-      obscureText: true,
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'รายละเอียด :',
@@ -565,13 +557,13 @@ class MyStatelessWidget extends StatelessWidget {
           ),
           body: TabBarView(
             children: tabs.map((Tab tab) {
-              return Column(
+              return SafeArea(child: Column(
                 children: [
                   Container(),
                   SizedBox(height: 6),
                   Container(),
                   Container(
-                    height: 900,
+                    height: MediaQuery.of(context).size.height * 0.8,
                     child: ListView.builder(
                         physics: AlwaysScrollableScrollPhysics(),
                         //shrinkWrap: true,
@@ -636,7 +628,7 @@ class MyStatelessWidget extends StatelessWidget {
                         }),
                   )
                 ],
-              );
+              ));
             }).toList(),
           ),
         );
