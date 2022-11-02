@@ -35,7 +35,7 @@ class _AddtableState extends State<Addtable> {
     return Scaffold(
       appBar: AppBar(
           leading: Icon(Icons.book),
-          title: Text('เพิ่มชั้นเรียน'),
+          title: Text('เพิ่มสิ่งที่ต้องทำ'),
         ),
         body: Container(
             child: SafeArea(
@@ -56,7 +56,6 @@ class _AddtableState extends State<Addtable> {
                     
                         buildNameclassField(),
                         buildCodeclassField(),
-                        buildTeachernameField(),
                         buildStartclssField(),
                         buildEndclssField(),
                         buildDetailsField(),
@@ -78,7 +77,7 @@ TextFormField buildNameclassField() {
       
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        labelText: 'ชื่อวิชา :',
+        labelText: 'หัวข้องาน :',
        
       ),
     );
@@ -89,29 +88,20 @@ TextFormField buildNameclassField() {
       
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        labelText: 'รหัสวิชา :',
+        labelText: 'วิชา :',
         
       ),
     );
   }
 
-  TextFormField buildTeachernameField() {
-    return TextFormField(
-      
-      keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        labelText: 'อาจารย์ :',
-        
-      ),
-    );
-  }
+  
 
   TextFormField buildStartclssField() {
     return TextFormField(
       
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        labelText: 'เวลาเริ่ม :',
+        labelText: 'เวลาสั่ง :',
        
       ),
     );
@@ -122,7 +112,7 @@ TextFormField buildEndclssField() {
       
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        labelText: 'เวลาสิ้นสุด :',
+        labelText: 'เวลาส่ง :',
         
       ),
     );

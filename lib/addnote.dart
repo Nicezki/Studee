@@ -4,15 +4,15 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:image_picker/image_picker.dart';
 
-class Addtable extends StatefulWidget {
-  const Addtable({Key? key}) : super(key: key);
+class Addnote extends StatefulWidget {
+  const Addnote({Key? key}) : super(key: key);
   
 
   @override
-  State<Addtable> createState() => _AddtableState();
+  State<Addnote> createState() => _AddnoteState();
 }
 
-class _AddtableState extends State<Addtable> {
+class _AddnoteState extends State<Addnote> {
   File? _avatar;
 
   onChooseImage() async {
@@ -35,7 +35,7 @@ class _AddtableState extends State<Addtable> {
     return Scaffold(
       appBar: AppBar(
           leading: Icon(Icons.book),
-          title: Text('เพิ่มชั้นเรียน'),
+          title: Text('เพิ่มบันทึก'),
         ),
         body: Container(
             child: SafeArea(
@@ -56,10 +56,8 @@ class _AddtableState extends State<Addtable> {
                     
                         buildNameclassField(),
                         buildCodeclassField(),
-                        buildTeachernameField(),
-                        buildStartclssField(),
-                        buildEndclssField(),
-                        buildDetailsField(),
+                        buildMessageField(),
+                        buildTageField(),
                           SizedBox(
                             height: 10,
                           ),
@@ -78,7 +76,7 @@ TextFormField buildNameclassField() {
       
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        labelText: 'ชื่อวิชา :',
+        labelText: 'หัวข้อ :',
        
       ),
     );
@@ -89,55 +87,35 @@ TextFormField buildNameclassField() {
       
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        labelText: 'รหัสวิชา :',
+        labelText: 'รายวิชา :',
         
       ),
     );
   }
 
-  TextFormField buildTeachernameField() {
+  TextFormField buildMessageField() {
     return TextFormField(
       
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        labelText: 'อาจารย์ :',
+        labelText: 'ข้อความ :',
         
       ),
     );
   }
 
-  TextFormField buildStartclssField() {
+  TextFormField buildTageField() {
     return TextFormField(
       
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        labelText: 'เวลาเริ่ม :',
+        labelText: 'แท็ก :',
        
       ),
     );
   }
 
-TextFormField buildEndclssField() {
-    return TextFormField(
-      
-      keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        labelText: 'เวลาสิ้นสุด :',
-        
-      ),
-    );
-  }
 
-  TextFormField buildDetailsField() {
-    return TextFormField(
-      
-      keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        labelText: 'รายละเอียด :',
-        
-      ),
-    );
-  }
 
    ElevatedButton buildRegisterButton() {
     return ElevatedButton(
