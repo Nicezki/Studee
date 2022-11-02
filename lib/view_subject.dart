@@ -156,7 +156,7 @@ class _SubjectDetailState extends State<SubjectDetail> {
   //       .snapshots();
   //   }
 
-  Stream<QuerySnapshot> getSubject(String doc_id) {
+  Stream<QuerySnapshot> getSubject(String docId) {
     return _firestore
         //user_id.data.timetable1.data.timetable.monday[0].subj_code
         ///studee/newst1/timetable1/timetable/monday
@@ -165,7 +165,7 @@ class _SubjectDetailState extends State<SubjectDetail> {
         .collection('timetable1')
         .doc('timetable')
         .collection('monday')
-        .where(FieldPath.documentId, isEqualTo: doc_id)
+        .where(FieldPath.documentId, isEqualTo: docId)
         .snapshots();
   }
 }
