@@ -2,16 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:studee/edit_subject.dart';
 
-class SubjectDetail extends StatefulWidget {
+class TaskDetail extends StatefulWidget {
   final String _idi; //if you have multiple values add here
-  const SubjectDetail(this._idi, {Key? key})
+  const TaskDetail(this._idi, {Key? key})
       : super(key: key); //add also..example this.abc,this...
 
   @override
-  _SubjectDetailState createState() => _SubjectDetailState();
+  _TaskDetailState createState() => _TaskDetailState();
 }
 
-class _SubjectDetailState extends State<SubjectDetail> {
+class _TaskDetailState extends State<TaskDetail> {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {

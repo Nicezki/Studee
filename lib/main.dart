@@ -10,7 +10,8 @@ import 'package:studee/tabuser.dart';
 import 'package:studee/pase_note.dart';
 import 'package:studee/pase_task.dart';
 import 'package:studee/pase_timetable.dart';
-import 'package:studee/edit_subject.dart';
+import 'package:studee/view_notes.dart';
+import 'package:studee/view_todolist.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,6 +36,7 @@ class MyHome extends StatelessWidget {
         '/add_SecondPage2': (context) => add_SecondPage2(),
         '/add_SecondPage3': (context) => add_SecondPage3(),
         '/view_subject': (context) => SubjectDetail(ID),
+        '/view_note': (context) => NoteDetail(ID),
       },
       //home: MyApp(title: appTitle),
     );
