@@ -93,7 +93,7 @@ class _NoteDetailState extends State<NoteDetail> {
               height: 20,
             ),
             Text(
-              results['subj_name'],
+              results['title'],
               style: TextStyle(height: 1, fontSize: 36),
             ),
             DataTable(columns: [

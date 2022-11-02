@@ -136,11 +136,11 @@ class MyStatelessWidget2 extends StatelessWidget {
                                                               ID = snapshot
                                                                       .data!.docs
                                                                       .elementAt(
-                                                                          index)
+                                                                          index).id
                                                                   as String;
                                                               Navigator.pushNamed(
                                                                   context,
-                                                                  '/view_subject');
+                                                                  '/view_note');
                                                             })
                                                       ],
                                                     )

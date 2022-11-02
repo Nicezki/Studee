@@ -157,6 +157,7 @@ class _SubjectDetailState extends State<SubjectDetail> {
   //   }
 
   Stream<QuerySnapshot> getSubject(String docId) {
+    print(docId);
     return _firestore
         //user_id.data.timetable1.data.timetable.monday[0].subj_code
         ///studee/newst1/timetable1/timetable/monday
