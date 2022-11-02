@@ -49,7 +49,7 @@ class MyStatelessWidget extends StatelessWidget {
                   SizedBox(height: 6),
                   Container(),
                   Container(
-                    height: 900,
+                    height: MediaQuery.of(context).size.height * 0.735,
                     child: ListView.builder(
                         physics: AlwaysScrollableScrollPhysics(),
                         //shrinkWrap: true,
