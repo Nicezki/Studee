@@ -9,6 +9,7 @@ import 'package:studee/tabuser.dart';
 import 'package:studee/pase_note.dart';
 import 'package:studee/pase_task.dart';
 import 'package:studee/pase_timetable.dart';
+import 'package:studee/edit_subject.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +34,7 @@ class MyHome extends StatelessWidget {
         '/add_SecondPage2': (context) => add_SecondPage2(),
         '/add_SecondPage3': (context) => add_SecondPage3(),
         '/view_subject': (context) => SubjectDetail('00000888'),
+        '/edit_subject': (context) => EditItem(),
       },
       //home: MyApp(title: appTitle),
     );

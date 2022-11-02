@@ -138,7 +138,7 @@ class _EditItemState extends State<EditItem>{
                     'end_time':_controllerEnd.text,
                   };
                   CollectionReference collection = FirebaseFirestore.instance.collection('studee');
-                  DocumentReference document = collection.doc(Widget.shoppingItem['doc_id']);
+                  DocumentReference document = collection.doc(widget.shoppingItem['doc_id']);
                   document.update(dataToUpdate);
                 }
               },
