@@ -20,10 +20,10 @@ class _SubjectDetailState extends State<SubjectDetail> {
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text("Subject Details"),
+              title: const Text("รายละเอียดตารางเรียน"),
             ),
             body: snapshot.hasData
-                ? buildSubjectList(snapshot.data!)
+                ? SafeArea(child: buildSubjectList(snapshot.data!))
                 : const Center(
                     child: CircularProgressIndicator(),
                   ),

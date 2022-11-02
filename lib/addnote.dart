@@ -1,52 +1,79 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:image_picker/image_picker.dart';
 
-
-void main() => runApp(AddSchedule());
-
-class AddSchedule extends StatefulWidget {
- AddSchedule({Key? key}) : super(key: key);
+class Addnote extends StatefulWidget {
+  const Addnote({Key? key}) : super(key: key);
+  
 
   @override
-  _AddScheduleState createState() => _AddScheduleState();
+  State<Addnote> createState() => _AddnoteState();
 }
 
-class _AddScheduleState extends State<AddSchedule>{
-   Widget build(BuildContext context) {
+class _AddnoteState extends State<Addnote> {
+  File? _avatar;
+
+  onChooseImage() async {
+  final picker = ImagePicker();
+  final pickedFile = await picker.pickImage(
+    source: ImageSource.camera);
+
+  setState(() {
+    if (pickedFile != null) {
+    _avatar = File(pickedFile.path);
+    } else {
+      print('No image selected.');
+    }
+
+});
+
+}
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
           leading: Icon(Icons.book),
-          title: Text('เพิ่มโน๊ต'),
-          
-          
-          
-          
+          title: Text('เพิ่มบันทึก'),
         ),
         body: Container(
-            child: Center(
+            child: SafeArea(
+                child: Center(
               child: Container(
+                 padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
+                    
                      children: <Widget>[
-                        buildTitleField(),
-                        buildCourseField(),
+                        _avatar == null
+                        ? ElevatedButton(onPressed: () {
+                          onChooseImage();
+                        },child: const Text('ใส่รูปภาพ'),
+                        )
+                        : Image.file(_avatar!),
+                    
+                        buildNameclassField(),
+                        buildCodeclassField(),
                         buildMessageField(),
-                        buildTagsField(),
+                        buildTageField(),
+                          SizedBox(
+                            height: 10,
+                          ),
                         buildRegisterButton(),
                     ],
                     
                   )),
+            )
             ),
             color: Color.fromARGB(255, 255, 255, 255),));
-                          
-                  
-
-    }
+  }
 }
 
-TextFormField buildTitleField() {
+TextFormField buildNameclassField() {
     return TextFormField(
-      obscureText: true,
+      
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'หัวข้อ :',
@@ -54,31 +81,32 @@ TextFormField buildTitleField() {
       ),
     );
   }
-TextFormField buildCourseField() {
+
+  TextFormField buildCodeclassField() {
     return TextFormField(
-      obscureText: true,
+      
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'รายวิชา :',
-       
+        
       ),
     );
   }
 
   TextFormField buildMessageField() {
     return TextFormField(
-      obscureText: true,
+      
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'ข้อความ :',
-       
+        
       ),
     );
   }
 
-  TextFormField buildTagsField() {
+  TextFormField buildTageField() {
     return TextFormField(
-      obscureText: true,
+      
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'แท็ก :',
@@ -87,7 +115,9 @@ TextFormField buildCourseField() {
     );
   }
 
-  ElevatedButton buildRegisterButton() {
+
+
+   ElevatedButton buildRegisterButton() {
     return ElevatedButton(
       child: Container(
             child: Center(child:
@@ -101,3 +131,4 @@ TextFormField buildCourseField() {
       },
     );
   }
+  
