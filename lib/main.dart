@@ -34,7 +34,7 @@ class MyHome extends StatelessWidget {
         '/add_SecondPage': (context) => add_SecondPage(),
         '/add_SecondPage2': (context) => add_SecondPage2(),
         '/add_SecondPage3': (context) => add_SecondPage3(),
-        '/view_subject': (context) => SubjectDetail('00000888'),
+        '/view_subject': (context) => SubjectDetail(ID),
       },
       //home: MyApp(title: appTitle),
     );

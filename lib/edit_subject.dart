@@ -138,7 +138,7 @@ class _EditItemState extends State<EditItem> {
                       CollectionReference collection =
                           FirebaseFirestore.instance.collection('studee');
                       DocumentReference document =
-                          collection.doc(Widget.shoppingItem['doc_id']);
+                          collection.doc(widget.shoppingItem['doc_id']);
                       document.update(dataToUpdate);
                     }
                   },
