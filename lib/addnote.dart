@@ -4,17 +4,13 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:image_picker/image_picker.dart';
 
-class Addnote extends StatefulWidget {
-  const Addnote({Key? key}) : super(key: key);
-  
-
+class Addtable extends StatefulWidget {
+  const Addtable({Key? key}) : super(key: key);
   @override
-  State<Addnote> createState() => _AddnoteState();
+  State<Addtable> createState() => _AddtableState();
 }
-
-class _AddnoteState extends State<Addnote> {
+class _AddtableState extends State<Addtable> {
   File? _avatar;
-
   onChooseImage() async {
   final picker = ImagePicker();
   final pickedFile = await picker.pickImage(
@@ -26,26 +22,21 @@ class _AddnoteState extends State<Addnote> {
     } else {
       print('No image selected.');
     }
-
 });
-
 }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
           leading: Icon(Icons.book),
-          title: Text('เพิ่มบันทึก'),
+          title: Text('เพิ่มชั้นเรียน'),
         ),
-        body: Container(
+          body: Container(
             child: SafeArea(
                 child: Center(
               child: Container(
                  padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    
+                  child: ListView(
                      children: <Widget>[
                         _avatar == null
                         ? ElevatedButton(onPressed: () {
@@ -53,25 +44,28 @@ class _AddnoteState extends State<Addnote> {
                         },child: const Text('ใส่รูปภาพ'),
                         )
                         : Image.file(_avatar!),
-                    
-                        buildNameclassField(),
-                        buildCodeclassField(),
-                        buildMessageField(),
-                        buildTageField(),
-                          SizedBox(
+                        SizedBox(
                             height: 10,
                           ),
-                        buildRegisterButton(),
+                       nameBox(),
+                       classBox(),
+                       messageBox(),
+                       tageBox(),
+                        SizedBox(
+                            height: 10,
+                          ),
+                        registerButton(),
                     ],
                     
                   )),
             )
             ),
-            color: Color.fromARGB(255, 255, 255, 255),));
+            color: Color.fromARGB(255, 255, 255, 255),)  
+    );
   }
 }
 
-TextFormField buildNameclassField() {
+TextFormField nameBox() {
     return TextFormField(
       
       keyboardType: TextInputType.text,
@@ -82,18 +76,18 @@ TextFormField buildNameclassField() {
     );
   }
 
-  TextFormField buildCodeclassField() {
+  TextFormField classBox() {
     return TextFormField(
       
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        labelText: 'รายวิชา :',
+        labelText: 'วิชา :',
         
       ),
     );
   }
 
-  TextFormField buildMessageField() {
+  TextFormField messageBox() {
     return TextFormField(
       
       keyboardType: TextInputType.text,
@@ -104,7 +98,7 @@ TextFormField buildNameclassField() {
     );
   }
 
-  TextFormField buildTageField() {
+  TextFormField tageBox() {
     return TextFormField(
       
       keyboardType: TextInputType.text,
@@ -115,9 +109,7 @@ TextFormField buildNameclassField() {
     );
   }
 
-
-
-   ElevatedButton buildRegisterButton() {
+   ElevatedButton registerButton() {
     return ElevatedButton(
       child: Container(
             child: Center(child:

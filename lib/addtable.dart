@@ -6,15 +6,11 @@ import 'package:image_picker/image_picker.dart';
 
 class Addtable extends StatefulWidget {
   const Addtable({Key? key}) : super(key: key);
-  
-
   @override
   State<Addtable> createState() => _AddtableState();
 }
-
 class _AddtableState extends State<Addtable> {
   File? _avatar;
-
   onChooseImage() async {
   final picker = ImagePicker();
   final pickedFile = await picker.pickImage(
@@ -26,9 +22,7 @@ class _AddtableState extends State<Addtable> {
     } else {
       print('No image selected.');
     }
-
 });
-
 }
   @override
   Widget build(BuildContext context) {
@@ -37,15 +31,12 @@ class _AddtableState extends State<Addtable> {
           leading: Icon(Icons.book),
           title: Text('เพิ่มชั้นเรียน'),
         ),
-        body: Container(
+          body: Container(
             child: SafeArea(
                 child: Center(
               child: Container(
                  padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    
+                  child: ListView(
                      children: <Widget>[
                         _avatar == null
                         ? ElevatedButton(onPressed: () {
@@ -53,27 +44,30 @@ class _AddtableState extends State<Addtable> {
                         },child: const Text('ใส่รูปภาพ'),
                         )
                         : Image.file(_avatar!),
-                    
-                        buildNameclassField(),
-                        buildCodeclassField(),
-                        buildTeachernameField(),
-                        buildStartclssField(),
-                        buildEndclssField(),
-                        buildDetailsField(),
-                          SizedBox(
+                        SizedBox(
                             height: 10,
                           ),
-                        buildRegisterButton(),
+                       nameBox(),
+                       codeclassBox(),
+                       teachernameBox(),
+                       startclssBox(),
+                       endclssBox(),
+                       detailsBox(),
+                        SizedBox(
+                            height: 10,
+                          ),
+                        registerButton(),
                     ],
                     
                   )),
             )
             ),
-            color: Color.fromARGB(255, 255, 255, 255),));
+            color: Color.fromARGB(255, 255, 255, 255),)  
+    );
   }
 }
 
-TextFormField buildNameclassField() {
+TextFormField nameBox() {
     return TextFormField(
       
       keyboardType: TextInputType.text,
@@ -84,7 +78,7 @@ TextFormField buildNameclassField() {
     );
   }
 
-  TextFormField buildCodeclassField() {
+  TextFormField codeclassBox() {
     return TextFormField(
       
       keyboardType: TextInputType.text,
@@ -95,7 +89,7 @@ TextFormField buildNameclassField() {
     );
   }
 
-  TextFormField buildTeachernameField() {
+  TextFormField teachernameBox() {
     return TextFormField(
       
       keyboardType: TextInputType.text,
@@ -106,7 +100,7 @@ TextFormField buildNameclassField() {
     );
   }
 
-  TextFormField buildStartclssField() {
+  TextFormField startclssBox() {
     return TextFormField(
       
       keyboardType: TextInputType.text,
@@ -117,7 +111,7 @@ TextFormField buildNameclassField() {
     );
   }
 
-TextFormField buildEndclssField() {
+TextFormField endclssBox() {
     return TextFormField(
       
       keyboardType: TextInputType.text,
@@ -128,7 +122,7 @@ TextFormField buildEndclssField() {
     );
   }
 
-  TextFormField buildDetailsField() {
+  TextFormField detailsBox() {
     return TextFormField(
       
       keyboardType: TextInputType.text,
@@ -139,7 +133,7 @@ TextFormField buildEndclssField() {
     );
   }
 
-   ElevatedButton buildRegisterButton() {
+   ElevatedButton registerButton() {
     return ElevatedButton(
       child: Container(
             child: Center(child:
