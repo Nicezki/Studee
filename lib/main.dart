@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:studee/variable.dart';
 import 'package:studee/view_subject.dart';
 import 'package:studee/register.dart';
 import 'package:studee/login.dart';
@@ -32,7 +33,7 @@ class MyHome extends StatelessWidget {
         '/add_SecondPage': (context) => add_SecondPage(),
         '/add_SecondPage2': (context) => add_SecondPage2(),
         '/add_SecondPage3': (context) => add_SecondPage3(),
-        '/view_subject': (context) => SubjectDetail('00000888'),
+        '/view_subject': (context) => SubjectDetail(ID),
       },
       //home: MyApp(title: appTitle),
     );

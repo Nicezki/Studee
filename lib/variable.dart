@@ -8,6 +8,8 @@ import 'package:studee/pase_note.dart';
 import 'package:studee/pase_task.dart';
 import 'package:studee/pase_timetable.dart';
 
+final store = FirebaseFirestore.instance;
+String ID = "";
 int? cur_page;
 const List<Tab> tabs = <Tab>[
   Tab(

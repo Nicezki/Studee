@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class SubjectDetail extends StatefulWidget {
   final String _idi; //if you have multiple values add here
-  const SubjectDetail(this._idi,{Key? key})
+  const SubjectDetail(this._idi, {Key? key})
       : super(key: key); //add also..example this.abc,this...
 
   @override
@@ -11,7 +11,7 @@ class SubjectDetail extends StatefulWidget {
 }
 
 class _SubjectDetailState extends State<SubjectDetail> {
-    FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
     String _id = widget._idi;
@@ -55,68 +55,67 @@ class _SubjectDetailState extends State<SubjectDetail> {
   //   );
   // }
 
-
   Container buildSubjectList(QuerySnapshot data) {
     var model = data.docs.elementAt(0);
-    var results = Map<String,dynamic>.from(model.data() as Map);
+    var results = Map<String, dynamic>.from(model.data() as Map);
     return Container(
-      child: 
-      Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.max,
         children: [
-          Column(
-            children: [
-                SizedBox(height: 20,),
-                CircleAvatar(
-                  backgroundImage: NetworkImage(results['image']),
-                  radius: 100,
-                  ),
-                  SizedBox(height: 20,),
-                  Text(results['subj_name'],style: TextStyle(height: 1, fontSize: 36),),
-                  DataTable(
-                    columns: [
-                      DataColumn(label: Text('')),
-                      DataColumn(label: Text('')),
-                    ],
-                    rows: [
-                      DataRow(cells: [
-                        DataCell(Text('รหัสวิชา')),
-                        DataCell(Text(results['subj_code'])),
-
-                      ]),
-                      DataRow(cells: [
-                        DataCell(Text('ชื่อวิชา')),
-                        DataCell(Text(results['subj_name'])),
-                      ]),
-                      DataRow(cells: [
-                        DataCell(Text('ชื่ออาจารย์')),
-                        DataCell(Text(results['teacher_name'])),
-                      ]),
-                      DataRow(cells: [
-                        DataCell(Text('ห้องเรียน')),
-                        DataCell(Text(results['place'])),
-                      ]),
-                      DataRow(cells: [
-                        DataCell(Text('รายละเอียด')),
-                        DataCell(Text(results['details'])),
-                      ]),
-                      DataRow(cells: [
-                        DataCell(Text('เวลาเริ่มเรียน')),
-                        DataCell(Text(results['start_time'])),
-                      ]),
-                      DataRow(cells: [
-                        DataCell(Text('เวลาสิ้นสุด')),
-                        DataCell(Text(results['end_time'])),
-                      ]),
-                      ]),
-                    ]
-          ),
+          Column(children: [
+            SizedBox(
+              height: 20,
+            ),
+            CircleAvatar(
+              backgroundImage: NetworkImage(results['image']),
+              radius: 100,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              results['subj_name'],
+              style: TextStyle(height: 1, fontSize: 36),
+            ),
+            DataTable(columns: [
+              DataColumn(label: Text('')),
+              DataColumn(label: Text('')),
+            ], rows: [
+              DataRow(cells: [
+                DataCell(Text('รหัสวิชา')),
+                DataCell(Text(results['subj_code'])),
+              ]),
+              DataRow(cells: [
+                DataCell(Text('ชื่อวิชา')),
+                DataCell(Text(results['subj_name'])),
+              ]),
+              DataRow(cells: [
+                DataCell(Text('ชื่ออาจารย์')),
+                DataCell(Text(results['teacher_name'])),
+              ]),
+              DataRow(cells: [
+                DataCell(Text('ห้องเรียน')),
+                DataCell(Text(results['place'])),
+              ]),
+              DataRow(cells: [
+                DataCell(Text('รายละเอียด')),
+                DataCell(Text(results['details'])),
+              ]),
+              DataRow(cells: [
+                DataCell(Text('เวลาเริ่มเรียน')),
+                DataCell(Text(results['start_time'])),
+              ]),
+              DataRow(cells: [
+                DataCell(Text('เวลาสิ้นสุด')),
+                DataCell(Text(results['end_time'])),
+              ]),
+            ]),
+          ]),
         ],
       ),
     );
-  }  
-              
+  }
 
   //Future<void> deleteValue(String titleName) async {
   //  await _firestore
@@ -139,9 +138,8 @@ class _SubjectDetailState extends State<SubjectDetail> {
         .collection('monday')
         .where('subj_code', isEqualTo: subj_code)
         .snapshots();
-    }
-        
   }
+}
 
   // Stream<QuerySnapshot> getSubject(String subj_code) {
   //   final studeeRef = _firestore.collection("studee");

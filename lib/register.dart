@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
-
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
@@ -33,17 +32,17 @@ class _RegisterPageState extends State<RegisterPage> {
   ElevatedButton buildRegisterButton() {
     return ElevatedButton(
       child: const Text('Register'),
-      onPressed: ()  async{
+      onPressed: () async {
         print('Regis new Account');
         if (_formstate.currentState!.validate()) print(email.text);
         print(password.text);
         final _user = await auth.createUserWithEmailAndPassword(
-          email: email.text.trim(), password: password.text.trim());
+            email: email.text.trim(), password: password.text.trim());
         _user.user!.sendEmailVerification();
         Navigator.pushAndRemoveUntil(
-          context, 
-          MaterialPageRoute(builder: (context) => const LoginPage()),
-          ModalRoute.withName('/'));
+            context,
+            MaterialPageRoute(builder: (context) => const LoginPage()),
+            ModalRoute.withName('/'));
       },
     );
   }
