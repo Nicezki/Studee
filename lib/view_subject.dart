@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:studee/edit_subject.dart';
 
 class SubjectDetail extends StatefulWidget {
   final String _idi; //if you have multiple values add here
@@ -21,6 +22,21 @@ class _SubjectDetailState extends State<SubjectDetail> {
           return Scaffold(
             appBar: AppBar(
               title: const Text("รายละเอียดตารางเรียน"),
+              centerTitle: true,
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    //send map of data to edit page
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditItem(
+                            Map<String,dynamic>.from(snapshot.data!.docs[0].data() as Map)
+                          )));
+                  },
+                  icon: const Icon(Icons.add),
+                ),
+              ],
             ),
             body: snapshot.hasData
                 ? SafeArea(child: buildSubjectList(snapshot.data!))
@@ -128,7 +144,20 @@ class _SubjectDetailState extends State<SubjectDetail> {
   //  });
   //}
 
-  Stream<QuerySnapshot> getSubject(String subj_code) {
+  // Stream<QuerySnapshot> getSubject(String subj_code) {
+  //   return _firestore
+  //       //user_id.data.timetable1.data.timetable.monday[0].subj_code
+  //       ///studee/newst1/timetable1/timetable/monday
+  //       .collection('studee')
+  //       .doc('newst1')
+  //       .collection('timetable1')
+  //       .doc('timetable')
+  //       .collection('monday')
+  //       .where('subj_code', isEqualTo: subj_code)
+  //       .snapshots();
+  //   }
+
+  Stream<QuerySnapshot> getSubject(String doc_id) {
     return _firestore
         //user_id.data.timetable1.data.timetable.monday[0].subj_code
         ///studee/newst1/timetable1/timetable/monday
@@ -137,7 +166,7 @@ class _SubjectDetailState extends State<SubjectDetail> {
         .collection('timetable1')
         .doc('timetable')
         .collection('monday')
-        .where('subj_code', isEqualTo: subj_code)
+        .where(FieldPath.documentId, isEqualTo: doc_id)
         .snapshots();
     }
         
