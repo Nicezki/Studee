@@ -40,7 +40,7 @@ class _AddTableState extends State<AddTable2> {
     return Scaffold(
         appBar: AppBar(
           leading: Icon(Icons.book),
-          title: Text('เพิ่มสิ่งที่ต้องทำ'),
+          title: Text('Add to do list'),
         ),
         body: Container(
           key: _addtable,
@@ -53,7 +53,7 @@ class _AddTableState extends State<AddTable2> {
                     _avatar == null
                         ? ElevatedButton(
                             onPressed: () {},
-                            child: const Text('ใส่รูปภาพ'),
+                            child: const Text('Add picture'),
                           )
                         : Image.file(_avatar!),
                     SizedBox(
@@ -83,7 +83,7 @@ class _AddTableState extends State<AddTable2> {
               child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text("บันทึก", style: TextStyle(fontSize: 20)),
+              Text("Save", style: TextStyle(fontSize: 20)),
             ],
           )),
         ),
@@ -92,18 +92,18 @@ class _AddTableState extends State<AddTable2> {
           print('save button press');
           Map<String, dynamic> data = {
             'title': _name.text,
-            'subj_cod': _class.text,
+            'subj_code': _class.text,
             'start': _startdate.text,
             'end': _enddate.text,
-            'detaile': _details.text,
+            'details': _details.text,
           };
           try {
             DocumentReference ref = await store
                 .collection('studee')
                 .doc(uid)
                 .collection('timetable1')
-                .doc('timetable')
-                .collection('monday')
+                .doc('todolist')
+                .collection('1')
                 .add(data);
 //FirebaseFirestore.instance.collection("studee").doc(user.user!.uid).collection('timetable1').doc('note').collection('1').doc()
 
@@ -126,7 +126,7 @@ class _AddTableState extends State<AddTable2> {
       controller: _name,
       // keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        labelText: 'หัวข้อ :',
+        labelText: 'title :',
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -142,7 +142,7 @@ class _AddTableState extends State<AddTable2> {
       controller: _class,
       // keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        labelText: 'วิชา :',
+        labelText: 'subj_code :',
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -158,7 +158,7 @@ class _AddTableState extends State<AddTable2> {
       controller: _startdate,
       // keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        labelText: 'วันที่สั่ง :',
+        labelText: 'start :',
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -174,7 +174,7 @@ class _AddTableState extends State<AddTable2> {
       controller: _enddate,
       // keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        labelText: 'วันที่ส่ง :',
+        labelText: 'end :',
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -190,7 +190,7 @@ class _AddTableState extends State<AddTable2> {
       controller: _details,
       // keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        labelText: 'รายละเอียด :',
+        labelText: 'details :',
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {

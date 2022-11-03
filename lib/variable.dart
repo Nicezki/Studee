@@ -10,7 +10,7 @@ import 'package:studee/page_timetable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 var user = FirebaseAuth.instance.currentUser;
-var uid = user!.uid;
+var uid = 'Is4z0tu3tUYSKuOt9NoCwXDTTZl1'; //user!.uid;
 var appColorTheme = Color.fromARGB(255, 0, 180, 81);
 var defaultAppColorTheme = Color.fromARGB(255, 0, 180, 81);
 var backgroundColorTheme = Color.fromARGB(255, 229, 255, 230);
@@ -19,6 +19,7 @@ String ID = "";
 String Day = "";
 int? cur_page;
 String day = '';
+String gobalDay = 'monday';
 const List<Tab> tabs = <Tab>[
   Tab(
     text: 'Mon',

@@ -61,7 +61,7 @@ class _AddNoteState extends State<AddNote> {
                       height: 10,
                     ),
                     nameBox(),
-                    classBox(),
+                    //classBox(),
                     messageBox(),
                     tageBox(),
                     SizedBox(
@@ -91,17 +91,18 @@ class _AddNoteState extends State<AddNote> {
           //if (_addnote.currentState!.validate());// {
           print('save button press');
           Map<String, dynamic> data = {
-
-      'title': _name.text,
-      'class': _class.text,
-      'details': _message.text,
-      'type': _tage.text,
-       };
-       try {
-
-DocumentReference ref =
-
-await store.collection('studee').doc(uid).collection('timetable1').doc('note').collection('1').add(data);
+            'title': _name.text,
+            'details': _message.text,
+            'type': _tage.text,
+          };
+          try {
+            DocumentReference ref = await store
+                .collection('studee')
+                .doc(uid)
+                .collection('timetable1')
+                .doc('note')
+                .collection('1')
+                .add(data);
 //FirebaseFirestore.instance.collection("studee").doc(user.user!.uid).collection('timetable1').doc('note').collection('1').doc()
 
             print('save id = ${ref.id}');
@@ -123,7 +124,7 @@ await store.collection('studee').doc(uid).collection('timetable1').doc('note').c
       controller: _name,
       // keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        labelText: 'หัวข้อ :',
+        labelText: 'title :',
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -134,7 +135,7 @@ await store.collection('studee').doc(uid).collection('timetable1').doc('note').c
     );
   }
 
-  TextFormField classBox() {
+  /* TextFormField classBox() {
     return TextFormField(
       controller: _class,
       // keyboardType: TextInputType.text,
@@ -148,14 +149,14 @@ await store.collection('studee').doc(uid).collection('timetable1').doc('note').c
         return null;
       },
     );
-  }
+  }*/
 
   TextFormField messageBox() {
     return TextFormField(
       controller: _message,
       // keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        labelText: 'ข้อความ :',
+        labelText: 'details :',
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -171,7 +172,7 @@ await store.collection('studee').doc(uid).collection('timetable1').doc('note').c
       controller: _tage,
       // keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        labelText: 'แท็ก :',
+        labelText: 'type :',
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {

@@ -42,7 +42,7 @@ class _AddTableState extends State<AddTable> {
     return Scaffold(
         appBar: AppBar(
           leading: Icon(Icons.book),
-          title: Text('เพิ่มชั้นเรียน'),
+          title: Text('Add subject in ' + gobalDay),
         ),
         body: Container(
           key: _addtable,
@@ -57,13 +57,13 @@ class _AddTableState extends State<AddTable> {
                             onPressed: () {
                               onChooseImage();
                             },
-                            child: const Text('ใส่รูปภาพ'),
+                            child: const Text('Add picture'),
                           )
                         : Image.file(_avatar!),
                     SizedBox(
                       height: 10,
                     ),
-                    daysBox(),
+                    //  daysBox(),
                     nameclassBox(),
                     codeclassBox(),
                     teacherBox(),
@@ -89,7 +89,7 @@ class _AddTableState extends State<AddTable> {
               child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text("บันทึก", style: TextStyle(fontSize: 20)),
+              Text("Save", style: TextStyle(fontSize: 20)),
             ],
           )),
         ),
@@ -97,10 +97,9 @@ class _AddTableState extends State<AddTable> {
           //if (_addnote.currentState!.validate());// {
           print('save button press');
           Map<String, dynamic> data = {
-            'day': _days.text,
             'subj_name': _nameclass.text,
             'subj_code': _codeclass.text,
-            'teacher': _teacher.text,
+            'teacher_name': _teacher.text,
             'start_time': _startclass.text,
             'end_time': _endclass.text,
             'details': _details.text,
@@ -112,7 +111,7 @@ class _AddTableState extends State<AddTable> {
                 .doc(uid)
                 .collection('timetable1')
                 .doc('timetable')
-                .collection(_days.text)
+                .collection(gobalDay)
                 .add(data);
 //FirebaseFirestore.instance.collection("studee").doc(user.user!.uid).collection('timetable1').doc('note').collection('1').doc()
 
@@ -225,7 +224,7 @@ class _AddTableState extends State<AddTable> {
       },
     );
   }
-
+/*
   TextFormField daysBox() {
     return TextFormField(
       controller: _days,
@@ -241,7 +240,7 @@ class _AddTableState extends State<AddTable> {
         return null;
       },
     );
-  }
+  }*/
 }
 
 // DropdownButton setday(){
@@ -267,4 +266,4 @@ class _AddTableState extends State<AddTable> {
 //   onChanged: (_) {},
 // );
 //   }
-//}//final
+////final
