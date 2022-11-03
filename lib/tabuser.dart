@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       body: MyStatefulWidget(),
       appBar: AppBar(
         title: const Text('Studee'),
+        centerTitle: true,
         actions: [
           IconButton(
               icon: const Icon(Icons.add),

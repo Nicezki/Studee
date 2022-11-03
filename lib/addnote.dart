@@ -5,11 +5,13 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studee/variable.dart';
+
 class AddNote extends StatefulWidget {
   const AddNote({Key? key}) : super(key: key);
   @override
   State<AddNote> createState() => _AddNoteState();
 }
+
 class _AddNoteState extends State<AddNote> {
   final _addnote = GlobalKey<FormState>();
   final _name = TextEditingController();
@@ -39,19 +41,21 @@ class _AddNoteState extends State<AddNote> {
           leading: Icon(Icons.book),
           title: Text('เพิ่มบันทึก'),
         ),
-          body: Container(
-            key: _addnote,
-            child: SafeArea(
-                child: Center(
-              child: Container(
-                 padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-                  child: ListView(
-                     children: <Widget>[
-                        _avatar == null
-                        ? ElevatedButton(onPressed: () {
-                          onChooseImage();
-                        },child: const Text('ใส่รูปภาพ'),
-                        )
+        body: Container(
+          key: _addnote,
+          child: SafeArea(
+              child: Center(
+            child: Container(
+                padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+                child: ListView(
+                  children: <Widget>[
+                    _avatar == null
+                        ? ElevatedButton(
+                            onPressed: () {
+                              onChooseImage();
+                            },
+                            child: const Text('ใส่รูปภาพ'),
+                          )
                         : Image.file(_avatar!),
                     SizedBox(
                       height: 10,
@@ -70,20 +74,21 @@ class _AddNoteState extends State<AddNote> {
           color: Color.fromARGB(255, 255, 255, 255),
         ));
   }
-//}**** 
+//}****
 
-   ElevatedButton registerButton() {
+  ElevatedButton registerButton() {
     return ElevatedButton(
-      child: Container(
-            child: Center(child:
-                   Column(mainAxisSize: MainAxisSize.min,
-                   children: <Widget>[
-                   Text("บันทึก", style: TextStyle(fontSize: 20)),
-                   
-                      ],)),),
-      onPressed: ()async   {
-    
-      //if (_addnote.currentState!.validate());// {
+        child: Container(
+          child: Center(
+              child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text("บันทึก", style: TextStyle(fontSize: 20)),
+            ],
+          )),
+        ),
+        onPressed: () async {
+          //if (_addnote.currentState!.validate());// {
           print('save button press');
           Map<String, dynamic> data = {
 
@@ -99,93 +104,81 @@ DocumentReference ref =
 await store.collection('studee').doc(uid).collection('timetable1').doc('note').collection('1').add(data);
 //FirebaseFirestore.instance.collection("studee").doc(user.user!.uid).collection('timetable1').doc('note').collection('1').doc()
 
-print('save id = ${ref.id}');
+            print('save id = ${ref.id}');
 
-Navigator.pop(context);
-
-} catch (e) {
-
-ScaffoldMessenger.of(context).showSnackBar(
-
-SnackBar(
-
-content: Text('Error $e'),
-
-),
-
-);
-     };
-      }
-    );
+            Navigator.pop(context);
+          } catch (e) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Error $e'),
+              ),
+            );
+          }
+          ;
+        });
   }
 
-TextFormField nameBox() {
+  TextFormField nameBox() {
     return TextFormField(
       controller: _name,
-     // keyboardType: TextInputType.text,
+      // keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'หัวข้อ :',
-       
       ),
       validator: (value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter text';
-    }
-    return null;
-  },
+        if (value == null || value.isEmpty) {
+          return 'Please enter text';
+        }
+        return null;
+      },
     );
   }
 
   TextFormField classBox() {
     return TextFormField(
       controller: _class,
-     // keyboardType: TextInputType.text,
+      // keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'วิชา :',
-        
       ),
       validator: (value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter text';
-    }
-    return null;
-  },
+        if (value == null || value.isEmpty) {
+          return 'Please enter text';
+        }
+        return null;
+      },
     );
   }
 
   TextFormField messageBox() {
     return TextFormField(
       controller: _message,
-     // keyboardType: TextInputType.text,
+      // keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'ข้อความ :',
-        
       ),
       validator: (value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter text';
-    }
-    return null;
-  },
+        if (value == null || value.isEmpty) {
+          return 'Please enter text';
+        }
+        return null;
+      },
     );
   }
 
   TextFormField tageBox() {
     return TextFormField(
       controller: _tage,
-     // keyboardType: TextInputType.text,
+      // keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         labelText: 'แท็ก :',
-       
       ),
-     validator: (value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter text';
-    }
-    return null;
-  },
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter text';
+        }
+        return null;
+      },
     );
   }
-
-  
-}//final
+} //final

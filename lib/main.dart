@@ -24,22 +24,36 @@ void main() async {
   runApp(const MyHome());
 }
 
-class MyHome extends StatelessWidget {
-  final appTitle = 'Example Form';
 
-  const MyHome({Key? key}) : super(key: key);
+
+class MyHome extends StatefulWidget {
+  const MyHome({super.key});
+
+  @override
+  State<MyHome> createState() => _MyHomeState();
+}
+
+class _MyHomeState extends State<MyHome> {
   @override
   Widget build(BuildContext context) {
+    final appTitle = 'Studee';
     return MaterialApp(
       title: appTitle,
+      theme: ThemeData(
+       appBarTheme: AppBarTheme(
+          color: appColorTheme,
+        ),
+       fontFamily: 'IBMPlexSansThai', 
+        ),
+
       initialRoute: '/',
       routes: {
         '/': (context) => MyApp(title: appTitle),
         '/LoginPage': (context) => LoginPage(),
         '/RegisterPage': (context) => RegisterPage(),
-        '/add_SecondPage': (context) => Addtable1(),
-        '/add_SecondPage2': (context) => Addtable2(),
-        '/add_SecondPage3': (context) => Addtable3(),
+        '/add_SecondPage': (context) => AddNote(),
+        '/add_SecondPage2': (context) => AddTable(),
+        '/add_SecondPage3': (context) => AddTable2(),
         '/view_subject': (context) => SubjectDetail(ID),
         '/view_note': (context) => NoteDetail(ID),
         '/test': (context) => MyApp2(),
