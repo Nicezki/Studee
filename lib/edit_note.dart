@@ -1,34 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class EditItem extends StatefulWidget {
+class EditNote extends StatefulWidget {
   Map<String,dynamic> shoppingItem;
-  EditItem (this.shoppingItem,{Key? key}) : super(key: key);
+  EditNote (this.shoppingItem,{Key? key}) : super(key: key);
 
   @override
-  State<EditItem> createState() => _EditItemState();
+  State<EditNote> createState() => _EditNoteState();
 }
 
-class _EditItemState extends State<EditItem>{
-  late TextEditingController _controllerCode;
+class _EditNoteState extends State<EditNote>{
   late TextEditingController _controllerName;
-  late TextEditingController _controllerTeacher;
-  late TextEditingController _controllerPlace;
   late TextEditingController _controllerDetails;
-  late TextEditingController _controllerStart;
-  late TextEditingController _controllerEnd;
   GlobalKey<FormState> key = GlobalKey();
 
   @override
   void initState() {
     super.initState();
-    _controllerCode = TextEditingController(text: widget.shoppingItem['subj_code']);
     _controllerName = TextEditingController(text: widget.shoppingItem['subj_name']);
-    _controllerTeacher = TextEditingController(text: widget.shoppingItem['teacher_name']);
-    _controllerPlace = TextEditingController(text: widget.shoppingItem['place']);
     _controllerDetails = TextEditingController(text: widget.shoppingItem['details']);
-    _controllerStart = TextEditingController(text: widget.shoppingItem['start_time']);
-    _controllerEnd = TextEditingController(text: widget.shoppingItem['end_time']);
   }
 
   @override
@@ -41,13 +31,8 @@ class _EditItemState extends State<EditItem>{
         key: key,
         child: ListView(
           children: [
-            buildCodeField(),
             buildNameField(),
-            buildTeacherField(),
-            buildPlaceField(),
             buildDetailsField(),
-            buildStartField(),
-            buildEndField(),
             buildSaveButton(),
           ],
         ),
@@ -55,22 +40,6 @@ class _EditItemState extends State<EditItem>{
     );
   }
 
-  TextFormField buildCodeField() {
-    return TextFormField(
-      controller: _controllerCode,
-      decoration: InputDecoration(
-        labelText: 'Code',
-        icon: Icon(Icons.code),
-      ),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'Please fill code in blank';
-        } else {
-          return null;
-        }
-      },
-    );
-  }
 
   TextFormField buildNameField() {
     return TextFormField(
@@ -89,39 +58,7 @@ class _EditItemState extends State<EditItem>{
     );
   }
 
-  TextFormField buildTeacherField() {
-    return TextFormField(
-      controller: _controllerTeacher,
-      decoration: InputDecoration(
-        labelText: 'Teacher',
-        icon: Icon(Icons.person),
-      ),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'Please fill teacher in blank';
-        } else {
-          return null;
-        }
-      },
-    );
-  }
-
-  TextFormField buildPlaceField() {
-    return TextFormField(
-      controller: _controllerPlace,
-      decoration: InputDecoration(
-        labelText: 'Place',
-        icon: Icon(Icons.place),
-      ),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'Please fill place in blank';
-        } else {
-          return null;
-        }
-      },
-    );
-  }
+  
 
 
   TextFormField buildDetailsField() {
@@ -141,57 +78,18 @@ class _EditItemState extends State<EditItem>{
     );
   }
 
-  TextFormField buildStartField() {
-    return TextFormField(
-      controller: _controllerStart,
-      decoration: InputDecoration(
-        labelText: 'Start',
-        icon: Icon(Icons.start),
-      ),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'Please fill start in blank';
-        } else {
-          return null;
-        }
-      },
-    );
-  }
-
-  TextFormField buildEndField() {
-    return TextFormField(
-      controller: _controllerEnd,
-      decoration: InputDecoration(
-        labelText: 'End',
-        icon: Icon(Icons.star),
-      ),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'Please fill end in blank';
-        } else {
-          return null;
-        }
-      },
-    );
-  }
+  
 
   ElevatedButton buildSaveButton() {
     return ElevatedButton(
       onPressed: () {
         if (key.currentState!.validate()) {
           FirebaseFirestore.instance
-              .collection('studee')
-              .doc('newst1')
-              .collection('timetable1')
+              .collection('shopping')
               .doc(widget.shoppingItem['id'])
               .update({
-            'code': _controllerCode.text,
             'name': _controllerName.text,
-            'teacher': _controllerTeacher.text,
-            'place': _controllerPlace.text,
             'details': _controllerDetails.text,
-            'start': _controllerStart.text,
-            'end': _controllerEnd.text,
           }).then((value) => Navigator.pop(context));
         }
       },
@@ -202,13 +100,8 @@ class _EditItemState extends State<EditItem>{
   @override
 
   void dispose() {
-    _controllerCode.dispose();
     _controllerName.dispose();
-    _controllerTeacher.dispose();
-    _controllerPlace.dispose();
     _controllerDetails.dispose();
-    _controllerStart.dispose();
-    _controllerEnd.dispose();
     super.dispose();
   }
 
