@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Studee'),
         centerTitle: true,
-        actions: [
+        /*actions: [
           IconButton(
               icon: const Icon(Icons.add),
               onPressed: () {
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
                                 ? "/add_SecondPage3"
                                 : "/");
               })
-        ],
+        ],*/
       ),
       drawer: Drawer(
           child: ListView(

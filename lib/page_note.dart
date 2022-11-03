@@ -34,6 +34,15 @@ class MyStatelessWidget2 extends StatelessWidget {
         });
         return Container(
             child: Scaffold(
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () {
+              Navigator.pushNamed(context, '/add_SecondPage2');
+            },
+            autofocus: true,
+            icon: const Icon(Icons.add),
+            label: const Text('ADD'),
+            backgroundColor: Color.fromARGB(255, 4, 188, 16),
+          ),
           body: createTimeTableView('1'),
         ));
       }),
