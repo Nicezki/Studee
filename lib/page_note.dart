@@ -11,6 +11,7 @@ class add_SecondPage2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColorTheme,
       appBar: AppBar(
         title: const Text('Add time-table'),
       ),
@@ -34,6 +35,7 @@ class MyStatelessWidget2 extends StatelessWidget {
         });
         return Container(
             child: Scaffold(
+              backgroundColor: backgroundColorTheme,
           body: createTimeTableView('1'),
         ));
       }),

@@ -38,6 +38,7 @@ class MyStatelessWidget1 extends StatelessWidget {
         });
         return Container(
             child: Scaffold(
+              backgroundColor: backgroundColorTheme,
           appBar: AppBar(
             titleSpacing: 00.0,
             centerTitle: true,

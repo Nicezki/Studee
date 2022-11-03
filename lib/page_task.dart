@@ -34,6 +34,7 @@ class MyStatelessWidget3 extends StatelessWidget {
         });
         return Container(
             child: Scaffold(
+              backgroundColor: backgroundColorTheme,
           body: createTimeTableView('1'),
         ));
       }),

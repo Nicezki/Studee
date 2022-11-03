@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:studee/test.dart';
 import 'package:studee/variable.dart';
 
 class MyApp extends StatelessWidget {
@@ -37,13 +38,16 @@ class MyApp extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
+            decoration: BoxDecoration(
+              color: defaultAppColorTheme,
+            ),
             accountName: const Text('Thanapol Kaenjan'),
             accountEmail: const Text('1163104004424@mail.rmutt.ac.th'),
             currentAccountPicture: CircleAvatar(
               child: FlutterLogo(
                 size: 42,
               ),
-              backgroundColor: Colors.white,
+              backgroundColor: backgroundColorTheme,
             ),
             otherAccountsPictures: [
               const CircleAvatar(

@@ -10,9 +10,10 @@ import 'package:studee/page_timetable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 var user = FirebaseAuth.instance.currentUser;
-var uid = "aZoZeJzW3aSk9u6aLxEMRHKpSWh1"; //user!.uid;
+var uid = user!.uid;
 var appColorTheme = Color.fromARGB(255, 0, 180, 81);
 var defaultAppColorTheme = Color.fromARGB(255, 0, 180, 81);
+var backgroundColorTheme = Color.fromARGB(255, 229, 255, 230);
 final store = FirebaseFirestore.instance;
 String ID = "";
 String Day = "";
