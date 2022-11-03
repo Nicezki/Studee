@@ -169,6 +169,8 @@ class _EditTodoState extends State<EditTodo>{
               .collection('studee')
               .doc(user_id)
               .collection('timetable1')
+              .doc('todolist')
+              .collection('1')
               .doc(widget.dbid)
               .update({
             'title': _controllerTitle.text,

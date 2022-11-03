@@ -111,6 +111,8 @@ class _EditNoteState extends State<EditNote>{
               .collection('studee')
               .doc(user_id)
               .collection('timetable1')
+              .doc('note')
+              .collection('1')
               .doc(widget.dbid)
               .update({
             'title': _controllerTitle.text,
