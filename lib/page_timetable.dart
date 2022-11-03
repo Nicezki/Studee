@@ -36,49 +36,47 @@ class MyStatelessWidget extends StatelessWidget {
         });
         return Container(
             child: Scaffold(
-                  appBar: AppBar(
-                    flexibleSpace: TabBar(
-                      isScrollable: true,
-                      tabs: [
-                        Tab(text: 'Monday'),
-                        Tab(text: 'Tuesday'),
-                        Tab(text: 'Wednesday'),
-                        Tab(text: 'Thursday'),
-                        Tab(text: 'Friday '),
-                        Tab(text: 'Saturday'),
-                        Tab(text: 'Sunday'),
-                      ],
-                    ),
-                  ),
-                  body: TabBarView(
-                    children: [
-                      createTimeTableView('monday'),
-                      createTimeTableView('tuesday'),
-                      createTimeTableView('wednesday'),
-                      createTimeTableView('thursday'),
-                      createTimeTableView('friday'),
-                      createTimeTableView('saturday'),
-                      createTimeTableView('sunday'),
-                    ],
-                  ),
-                ));
-        
+          appBar: AppBar(
+            flexibleSpace: TabBar(
+              isScrollable: true,
+              tabs: [
+                Tab(text: 'Monday'),
+                Tab(text: 'Tuesday'),
+                Tab(text: 'Wednesday'),
+                Tab(text: 'Thursday'),
+                Tab(text: 'Friday '),
+                Tab(text: 'Saturday'),
+                Tab(text: 'Sunday'),
+              ],
+            ),
+          ),
+          body: TabBarView(
+            children: [
+              createTimeTableView('monday'),
+              createTimeTableView('tuesday'),
+              createTimeTableView('wednesday'),
+              createTimeTableView('thursday'),
+              createTimeTableView('friday'),
+              createTimeTableView('saturday'),
+              createTimeTableView('sunday'),
+            ],
+          ),
+        ));
       }),
     );
   }
 
-
   Container createTimeTableView(String dayname) {
-  //return Container of steambuilder firebase data in card
-  return Container(
+    //return Container of steambuilder firebase data in card
+    return Container(
       child: StreamBuilder(
-            stream: store
-            .collection('studee')
-            .doc(uid)
-            .collection('timetable1')
-            .doc('timetable')
-            .collection(dayname)
-            .snapshots(),
+          stream: store
+              .collection('studee')
+              .doc(uid)
+              .collection('timetable1')
+              .doc('timetable')
+              .collection(dayname)
+              .snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             return snapshot.hasData
                 ? ListView.builder(
@@ -89,16 +87,88 @@ class MyStatelessWidget extends StatelessWidget {
                       DocumentSnapshot ds = snapshot.data!.docs[index];
                       //card with im
                       return Card(
-                        child: ListTile(
+                          child: InkWell(
+                        onTap: () {
+                          ID =
+                              snapshot.data!.docs.elementAt(index).id as String;
+                          Navigator.pushNamed(context, '/view_subject');
+                        },
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(
+                                  left: 5, right: 5, bottom: 10),
+                              child: Row(children: [
+                                Container(
+                                  width: 125,
+                                  height: 125,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          bottomLeft: Radius.circular(20)),
+                                      color: Color.fromARGB(233, 233, 233, 233),
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(ds['image']),
+                                      )),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    height: 125,
+                                    width: 200,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(20),
+                                          bottomRight: Radius.circular(20),
+                                        ),
+                                        color:
+                                            Color.fromARGB(233, 233, 233, 233)),
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 10, right: 10),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            ds['subj_name'],
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          Text(
+                                            ds['details'],
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "เริ่ม : " + ds['start_time'],
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              Text(
+                                                " จบ : " + ds['end_time'],
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ]),
+                            ),
+                          ],
+                        ),
+                      )
+                          /*ListTile(
+                          leading: Icon(Icons.car_rental),
                           title: Text(ds['subj_name']),
                           subtitle: Text(ds['details']),
-                        ),
-                      );
+                        ),*/
+                          );
                     })
                 : Center(child: CircularProgressIndicator());
           }),
     );
-    
   }
-
 }

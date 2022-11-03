@@ -39,7 +39,7 @@ class MyStatelessWidget2 extends StatelessWidget {
                 .collection('studee')
                 .doc(uid)
                 .collection('timetable1')
-                .doc('notes')
+                .doc('note')
                 .collection('1')
                 .snapshots(),
             builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -111,18 +111,12 @@ class MyStatelessWidget2 extends StatelessWidget {
                                                           TextOverflow.ellipsis,
                                                     ),
                                                     Text(
+                                                      results['title'],
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                    Text(
                                                       results['details'],
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                    Text(
-                                                      "เริ่ม : " +
-                                                          results['start'],
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                    Text(
-                                                      "จบ : " + results['end'],
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                     ),

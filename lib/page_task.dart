@@ -39,7 +39,7 @@ class MyStatelessWidget3 extends StatelessWidget {
                 .collection('studee')
                 .doc(uid)
                 .collection('timetable1')
-                .doc('notes')
+                .doc('todolist')
                 .collection('1')
                 .snapshots(),
             builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
