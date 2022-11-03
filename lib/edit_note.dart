@@ -105,12 +105,24 @@ class _EditNoteState extends State<EditNote>{
 
   ElevatedButton buildSaveButton() {
     return ElevatedButton(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+        elevation: MaterialStateProperty.all(15),
+        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18.0),
+          )
+        )
+      ),
       onPressed: () {
         if (key.currentState!.validate()) {
           FirebaseFirestore.instance
               .collection('studee')
               .doc(user_id)
               .collection('timetable1')
+              .doc('note')
+              .collection('1')
               .doc(widget.dbid)
               .update({
             'title': _controllerTitle.text,
