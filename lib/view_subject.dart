@@ -21,7 +21,8 @@ class _SubjectDetailState extends State<SubjectDetail> {
         stream: getSubject(Day,uid,_id),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           return Scaffold(
-            appBar: AppBar(
+            appBar: AppBar( 
+              backgroundColor: appColorTheme,
               title: const Text("รายละเอียดตารางเรียน"),
               centerTitle: true,
               actions: [
@@ -78,6 +79,8 @@ class _SubjectDetailState extends State<SubjectDetail> {
     try{
     var model = data.docs.elementAt(0);
     results = Map<String, dynamic>.from(model.data() as Map);
+    appColorTheme = Color(int.parse(results['color'].substring(1, 7), radix: 16) +
+        0xFF000000);
     }catch(e){
       results = {
           "subj_name" : "ไม่มีข้อมูล",

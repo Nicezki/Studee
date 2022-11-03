@@ -44,7 +44,7 @@ class _EditSubjectState extends State<EditSubject>{
   Widget build(BuildContext context)  {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Subject'),
+        title: Text('แก้ไขวิชา '+_controllerName.text),
       ),
       body: Form(
         key: key,

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:studee/edit_todo.dart';
+import 'package:studee/variable.dart';
 
 class TaskDetail extends StatefulWidget {
   final String _idi; //if you have multiple values add here
@@ -17,11 +18,12 @@ class _TaskDetailState extends State<TaskDetail> {
   Widget build(BuildContext context) {
     String _id = widget._idi;
     return StreamBuilder(
-        stream: getSubject(_id),
+        stream: getSubject(uid,_id),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text("รายละเอียดตารางเรียน"),
+              backgroundColor: appColorTheme,
+              title: const Text("งานที่ต้องทำ"),
               centerTitle: true,
               actions: [
                 IconButton(
@@ -35,7 +37,7 @@ class _TaskDetailState extends State<TaskDetail> {
                                 Map<String, dynamic>.from(
                                     snapshot.data!.docs[0].data() as Map))));
                   },
-                  icon: const Icon(Icons.add),
+                  icon: const Icon(Icons.edit),
                 ),
               ],
             ),
@@ -75,6 +77,10 @@ class _TaskDetailState extends State<TaskDetail> {
   Container buildSubjectList(QuerySnapshot data) {
     var model = data.docs.elementAt(0);
     var results = Map<String, dynamic>.from(model.data() as Map);
+    //results color format is #AABBCC
+    appColorTheme = Color(int.parse(results['color'].substring(1, 7), radix: 16) +
+        0xFF000000);
+    
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -91,44 +97,41 @@ class _TaskDetailState extends State<TaskDetail> {
             SizedBox(
               height: 20,
             ),
-            Flexible(
-                child: Text(
-              results['subj_name'],
-              style: TextStyle(height: 1, fontSize: 36),
-            )),
-            DataTable(columns: [
-              DataColumn(label: Text('')),
-              DataColumn(label: Text('')),
-            ], rows: [
-              DataRow(cells: [
-                DataCell(Text('รหัสวิชา')),
-                DataCell(Text(results['subj_code'])),
-              ]),
-              DataRow(cells: [
-                DataCell(Text('ชื่อวิชา')),
-                DataCell(Text(results['subj_name'])),
-              ]),
-              DataRow(cells: [
-                DataCell(Text('ชื่ออาจารย์')),
-                DataCell(Text(results['teacher_name'])),
-              ]),
-              DataRow(cells: [
-                DataCell(Text('ห้องเรียน')),
-                DataCell(Text(results['place'])),
-              ]),
-              DataRow(cells: [
-                DataCell(Text('รายละเอียด')),
-                DataCell(Text(results['details'])),
-              ]),
-              DataRow(cells: [
-                DataCell(Text('เวลาเริ่มเรียน')),
-                DataCell(Text(results['start_time'])),
-              ]),
-              DataRow(cells: [
-                DataCell(Text('เวลาสิ้นสุด')),
-                DataCell(Text(results['end_time'])),
-              ]),
-            ]),
+            // Flexible(child: Text(results['subj_name'],style: TextStyle(fontSize: 36),maxLines: 8,softWrap: true,overflow: TextOverflow.ellipsis,)),
+            Card(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: DataTable(columns: [
+                  DataColumn(label: Text('')),
+                  DataColumn(label: Text('')),
+                ], rows: [
+                  DataRow(cells: [
+                    DataCell(Text('รหัสวิชา')),
+                    DataCell(Text(results['subj_code'])),
+                  ]),
+                  DataRow(cells: [
+                    DataCell(Text('หัวข้อ')),
+                    DataCell(Text(results['title'])),
+                  ]),
+                  DataRow(cells: [
+                    DataCell(Text('สถานะ')),
+                    DataCell(Text(results['status'])),
+                  ]),
+                  DataRow(cells: [
+                    DataCell(Text('รายละเอียด')),
+                    DataCell(Text(results['details'])),
+                  ]),
+                  DataRow(cells: [
+                    DataCell(Text('วันที่เริ่ม')),
+                    DataCell(Text(results['start'])),
+                  ]),
+                  DataRow(cells: [
+                    DataCell(Text('วันที่สิ้นสุด')),
+                    DataCell(Text(results['end'])),
+                  ]),
+                ]),
+              ),
+            ),
           ]),
         ],
       ),
@@ -158,15 +161,15 @@ class _TaskDetailState extends State<TaskDetail> {
   //       .snapshots();
   //   }
 
-  Stream<QuerySnapshot> getSubject(String doc_id) {
+  Stream<QuerySnapshot> getSubject(String user,String doc_id) {
     return _firestore
         //user_id.data.timetable1.data.timetable.monday[0].subj_code
         ///studee/newst1/timetable1/timetable/monday
         .collection('studee')
-        .doc('newst1')
+        .doc(user)
         .collection('timetable1')
-        .doc('timetable')
-        .collection('monday')
+        .doc('todolist')
+        .collection('1')
         .where(FieldPath.documentId, isEqualTo: doc_id)
         .snapshots();
   }

@@ -32,7 +32,7 @@ class _EditNoteState extends State<EditNote>{
   Widget build(BuildContext context)  {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Note'),
+        title: Text('แก้ไขบันทึก '+_controllerTitle.text),
       ),
       body: Form(
         key: key,

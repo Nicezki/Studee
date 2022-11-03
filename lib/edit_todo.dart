@@ -14,7 +14,7 @@ class EditTodo extends StatefulWidget {
   State<EditTodo> createState() => _EditTodoState();
 }
 var user = FirebaseAuth.instance.currentUser;
-var uid = user!.uid;
+var user_id = user!.uid;
 
 class _EditTodoState extends State<EditTodo>{
   late TextEditingController _controllerCode;
@@ -40,7 +40,7 @@ class _EditTodoState extends State<EditTodo>{
   Widget build(BuildContext context)  {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Todo'),
+        title: Text('แก้ไขสิ่งที่ต้องทำ '+_controllerTitle.text),
       ),
       body: Form(
         key: key,
@@ -167,7 +167,7 @@ class _EditTodoState extends State<EditTodo>{
         if (key.currentState!.validate()) {
           FirebaseFirestore.instance
               .collection('studee')
-              .doc(uid)
+              .doc(user_id)
               .collection('timetable1')
               .doc(widget.dbid)
               .update({
