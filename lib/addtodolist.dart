@@ -6,13 +6,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studee/variable.dart';
 
-class AddTable3 extends StatefulWidget {
-  const AddTable3({Key? key}) : super(key: key);
+class AddTable2 extends StatefulWidget {
+  const AddTable2({Key? key}) : super(key: key);
   @override
-  State<AddTable3> createState() => _AddTableState();
+  State<AddTable2> createState() => _AddTableState();
 }
 
-class _AddTableState extends State<AddTable3> {
+class _AddTableState extends State<AddTable2> {
   final _addtable = GlobalKey<FormState>();
   final _name = TextEditingController();
   final _class = TextEditingController();
