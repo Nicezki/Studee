@@ -97,13 +97,13 @@ class _AddTableState extends State<AddTable> {
           //if (_addnote.currentState!.validate());// {
           print('save button press');
           Map<String, dynamic> data = {
-            'วัน': _days.text,
-            'ชื่อวิชา': _nameclass.text,
-            'รหัสวิชา': _codeclass.text,
-            'อาจารย์': _teacher.text,
-            'เวลาเริ่ม': _startclass.text,
-            'เวลาสิ้นสุด': _endclass.text,
-            'รายละเอียด': _details.text,
+            'day': _days.text,
+            'subj_name': _nameclass.text,
+            'subj_code': _codeclass.text,
+            'teacher': _teacher.text,
+            'start_time': _startclass.text,
+            'end_time': _endclass.text,
+            'details': _details.text,
           };
 
           try {

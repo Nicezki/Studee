@@ -91,11 +91,11 @@ class _AddTableState extends State<AddTable2> {
           //if (_addnote.currentState!.validate());// {
           print('save button press');
           Map<String, dynamic> data = {
-            'หัวข้อ': _name.text,
-            'วิชา': _class.text,
-            'วันที่สั่ง': _startdate.text,
-            'วันที่ส่ง': _enddate.text,
-            'รายละเอียด': _details.text,
+            'title': _name.text,
+            'subj_cod': _class.text,
+            'start': _startdate.text,
+            'end': _enddate.text,
+            'detaile': _details.text,
           };
           try {
             DocumentReference ref = await store
