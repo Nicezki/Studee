@@ -19,22 +19,51 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Form(
+      backgroundColor: Color.fromARGB(255, 229, 255, 230),
+        body: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Form(
       key: _formstate,
       child: ListView(
-        children: <Widget>[
-          buildNameField(),
-          buildEmailField(),
-          buildPasswordField(),
-          buildRegisterButton(),
-        ],
+          children: <Widget>[
+            SizedBox(height: 25),
+            Icon(
+              Icons.app_registration_rounded,
+              size: 100,),
+            SizedBox(height: 25),
+            Text(
+              'Register Now!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 36,
+              ),
+            ),
+            SizedBox(height: 20),
+            buildNameField(),
+            buildEmailField(),
+            buildPasswordField(),
+            SizedBox(height: 10),
+            buildRegisterButton(),
+          ],
       ),
-    ));
+    ),
+        ));
   }
 
   ElevatedButton buildRegisterButton() {
     return ElevatedButton(
       child: const Text('Register'),
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+        elevation: MaterialStateProperty.all(15),
+        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18.0),
+          )
+        )
+      ),
       onPressed: () async {
         print('Regis new Account');
         if (_formstate.currentState!.validate()) print(email.text);
@@ -80,6 +109,7 @@ class _RegisterPageState extends State<RegisterPage> {
     .collection(days).doc().set({
       "subj_name" : "Mobile Device Programming",
       "subj_code": "00123456",
+      "teacher_name" : "นชิรัตน์ ราชบุรี",
       "start_time": "09:00",
       "end_time": "12:00",
       "place": "32100",

@@ -13,7 +13,7 @@ class EditSubject extends StatefulWidget {
   State<EditSubject> createState() => _EditSubjectState();
 }
 var user = FirebaseAuth.instance.currentUser;
-var uid = user!.uid;
+var user_id = user!.uid;
 
 class _EditSubjectState extends State<EditSubject>{
   late TextEditingController _controllerCode;
@@ -187,7 +187,7 @@ class _EditSubjectState extends State<EditSubject>{
         if (key.currentState!.validate()) {
           FirebaseFirestore.instance
               .collection('studee')
-              .doc(uid)
+              .doc(user_id)
               .collection('timetable1')
               .doc(widget.subjectItem['id'])
               .update({

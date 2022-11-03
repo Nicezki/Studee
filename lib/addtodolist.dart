@@ -21,25 +21,26 @@ class _AddTableState extends State<AddTable> {
 
   File? _avatar;
   onChooseImage() async {
-  final picker = ImagePicker();
-  final pickedFile = await picker.pickImage(
-    source: ImageSource.camera);
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
 
-  setState(() {
-    if (pickedFile != null) {
-    _avatar = File(pickedFile.path);
-    } else {
-      print('No image selected.');
-    }
-});
-}
+    setState(() {
+      if (pickedFile != null) {
+        _avatar = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+        appBar: AppBar(
           leading: Icon(Icons.book),
           title: Text('เพิ่มสิ่งที่ต้องทำ'),
         ),
+
           body: Container(
             key: _addtable,
             child: SafeArea(
@@ -50,7 +51,6 @@ class _AddTableState extends State<AddTable> {
                      children: <Widget>[
                         _avatar == null
                         ? ElevatedButton(onPressed: () {
-                          onChooseImage();
                         },child: const Text('ใส่รูปภาพ'),
                         )
                         : Image.file(_avatar!),
@@ -210,3 +210,4 @@ content: Text('Error $e'),
   }
   
 }//final
+

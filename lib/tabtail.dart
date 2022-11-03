@@ -7,6 +7,9 @@ import 'package:studee/page_note.dart';
 import 'package:studee/page_task.dart';
 import 'package:studee/page_timetable.dart';
 import 'package:studee/variable.dart';
+import 'package:studee/addnote.dart';
+import 'package:studee/addtable.dart';
+import 'package:studee/addtodolist.dart';
 
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
@@ -18,7 +21,7 @@ class MyStatefulWidget extends StatefulWidget {
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
-    MyStatelessWidget(),
+    MyStatelessWidget1(),
     MyStatelessWidget2(),
     MyStatelessWidget3(),
   ];

@@ -11,9 +11,9 @@ class add_SecondPage2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add note'),
+        title: const Text('Add time-table'),
       ),
-      body: Center(child: Text('Add note here')),
+      body: Center(child: Text('Add time-table here')),
     );
   }
 }
@@ -29,142 +29,110 @@ class MyStatelessWidget2 extends StatelessWidget {
       child: Builder(builder: (BuildContext context) {
         final TabController tabController = DefaultTabController.of(context)!;
         tabController.addListener(() {
-          if (!tabController.indexIsChanging) {
-            // Your code goes here.
-            // To get index of current tab use tabController.index
-          }
+          if (!tabController.indexIsChanging) {}
         });
-        return StreamBuilder(
-            stream: store
-                .collection('studee')
-                .doc(uid)
-                .collection('timetable1')
-                .doc('notes')
-                .collection('1')
-                .snapshots(),
-            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              return Scaffold(
-                body: snapshot.hasData
-                    ? TabBarView(
-                        children: tabs.map((Tab tab) {
-                          return Column(
-                            children: [
-                              Container(),
-                              SizedBox(height: 6),
-                              Container(),
-                              Container(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.8,
-                                child: ListView.builder(
-                                    physics: AlwaysScrollableScrollPhysics(),
-                                    //shrinkWrap: true,
-                                    itemCount: snapshot.data!.size,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      var model =
-                                          snapshot.data!.docs.elementAt(index);
-                                      var results = Map<String, dynamic>.from(
-                                          model.data() as Map);
-                                      return Container(
-                                        margin: EdgeInsets.only(
-                                            left: 5, right: 5, bottom: 10),
-                                        child: Row(children: [
-                                          Container(
-                                            width: 125,
-                                            height: 125,
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(20),
-                                                    bottomLeft:
-                                                        Radius.circular(20)),
-                                                color: Color.fromARGB(
-                                                    209, 189, 189, 189),
-                                                image: DecorationImage(
-                                                  fit: BoxFit.cover,
-                                                  image: NetworkImage(
-                                                      results['image']),
-                                                )),
-                                          ),
-                                          Expanded(
-                                            child: Container(
-                                              height: 125,
-                                              width: 200,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                    topRight:
-                                                        Radius.circular(20),
-                                                    bottomRight:
-                                                        Radius.circular(20),
-                                                  ),
-                                                  color: Color.fromARGB(
-                                                      209, 189, 189, 189)),
-                                              child: Padding(
-                                                padding: EdgeInsets.only(
-                                                    left: 10, right: 10),
-                                                child: Column(
-                                                  children: [
-                                                    Text(
-                                                      results['title'],
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                    Text(
-                                                      results['details'],
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                    Text(
-                                                      "เริ่ม : " +
-                                                          results['start'],
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                    Text(
-                                                      "จบ : " + results['end'],
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        IconButton(
-                                                            icon: const Icon(Icons
-                                                                .document_scanner_sharp),
-                                                            onPressed: () {
-                                                              ID = snapshot
-                                                                  .data!.docs
-                                                                  .elementAt(
-                                                                      index)
-                                                                  .id as String;
-                                                              Navigator.pushNamed(
-                                                                  context,
-                                                                  '/view_note');
-                                                            })
-                                                      ],
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                        ]),
-                                      );
-                                    }),
-                              )
-                            ],
-                          );
-                        }).toList(),
-                      )
-                    : const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-              );
-            });
+        return Container(
+            child: Scaffold(
+          body: createTimeTableView('1'),
+        ));
       }),
+    );
+  }
+
+  Container createTimeTableView(String dayname) {
+    //return Container of steambuilder firebase data in card
+    return Container(
+      child: StreamBuilder(
+          stream: store
+              .collection('studee')
+              .doc(uid)
+              .collection('timetable1')
+              .doc('note')
+              .collection(dayname)
+              .snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            return snapshot.hasData
+                ? ListView.builder(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    //shrinkWrap: true,
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      DocumentSnapshot ds = snapshot.data!.docs[index];
+                      //card with im
+                      return Card(
+                          child: InkWell(
+                        onTap: () {
+                          ID = snapshot.data!.docs.elementAt(index).id;
+                          Day = dayname;
+                          Navigator.pushNamed(context, '/view_note');
+                        },
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(
+                                  left: 5, right: 5, bottom: 10),
+                              child: Row(children: [
+                                Container(
+                                  width: 125,
+                                  height: 125,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(20),
+                                        bottomLeft: Radius.circular(20)),
+                                    color: Color.fromARGB(233, 233, 233, 233),
+                                    /*  image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(ds['image']),
+                                      )*/
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    height: 125,
+                                    width: 200,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(20),
+                                          bottomRight: Radius.circular(20),
+                                        ),
+                                        color:
+                                            Color.fromARGB(233, 233, 233, 233)),
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 10, right: 10),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            "Title :" + ds['title'],
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          Text(
+                                            "Type :" + ds['type'],
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          Text(
+                                            "Details :" + ds['details'],
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ]),
+                            ),
+                          ],
+                        ),
+                      )
+                          /*ListTile(
+                          leading: Icon(Icons.car_rental),
+                          title: Text(ds['subj_name']),
+                          subtitle: Text(ds['details']),
+                        ),*/
+                          );
+                    })
+                : Center(child: CircularProgressIndicator());
+          }),
     );
   }
 }
