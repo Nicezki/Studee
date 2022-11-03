@@ -90,6 +90,62 @@ class _SubjectDetailState extends State<SubjectDetail> {
           "color": "#000000"
         };
     }
+    // return Container(
+    //   child: Row(
+    //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    //     mainAxisSize: MainAxisSize.max,
+    //     children: [
+    //       Column(children: [
+    //         SizedBox(
+    //           height: 20,
+    //         ),
+    //         CircleAvatar(
+    //           backgroundImage: NetworkImage(results['image']),
+    //           radius: 100,
+    //         ),
+    //         SizedBox(
+    //           height: 20,
+    //         ),
+    //         // Flexible(child: Text(results['subj_name'],style: TextStyle(fontSize: 36),maxLines: 8,softWrap: true,overflow: TextOverflow.ellipsis,)),
+            
+    //         DataTable(columns: [
+    //           DataColumn(label: Text('')),
+    //           DataColumn(label: Text('')),
+    //         ], rows: [
+    //           DataRow(cells: [
+    //             DataCell(Text('รหัสวิชา')),
+    //             DataCell(Text(results['subj_code'])),
+    //           ]),
+    //           DataRow(cells: [
+    //             DataCell(Text('ชื่อวิชา')),
+    //             DataCell(Text(results['subj_name'])),
+    //           ]),
+    //           // DataRow(cells: [
+    //           //   DataCell(Text('ชื่ออาจารย์')),
+    //           //   DataCell(Text(results['teacher_name'])),
+    //           // ]),
+    //           DataRow(cells: [
+    //             DataCell(Text('ห้องเรียน')),
+    //             DataCell(Text(results['place'])),
+    //           ]),
+    //           DataRow(cells: [
+    //             DataCell(Text('รายละเอียด')),
+    //             DataCell(Text(results['details'])),
+    //           ]),
+    //           DataRow(cells: [
+    //             DataCell(Text('เวลาเริ่มเรียน')),
+    //             DataCell(Text(results['start_time'])),
+    //           ]),
+    //           DataRow(cells: [
+    //             DataCell(Text('เวลาสิ้นสุด')),
+    //             DataCell(Text(results['end_time'])),
+    //           ]),
+    //         ]),
+    //       ]),
+    //     ],
+    //   ),
+    // );
+    //display as card with circle avatar with handled overflow as safearea
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -106,40 +162,45 @@ class _SubjectDetailState extends State<SubjectDetail> {
             SizedBox(
               height: 20,
             ),
-            Flexible(child: Text(results['subj_name'],style: TextStyle(height: 1, fontSize: 36),)),
-            DataTable(columns: [
-              DataColumn(label: Text('')),
-              DataColumn(label: Text('')),
-            ], rows: [
-              DataRow(cells: [
-                DataCell(Text('รหัสวิชา')),
-                DataCell(Text(results['subj_code'])),
-              ]),
-              DataRow(cells: [
-                DataCell(Text('ชื่อวิชา')),
-                DataCell(Text(results['subj_name'])),
-              ]),
-              // DataRow(cells: [
-              //   DataCell(Text('ชื่ออาจารย์')),
-              //   DataCell(Text(results['teacher_name'])),
-              // ]),
-              DataRow(cells: [
-                DataCell(Text('ห้องเรียน')),
-                DataCell(Text(results['place'])),
-              ]),
-              DataRow(cells: [
-                DataCell(Text('รายละเอียด')),
-                DataCell(Text(results['details'])),
-              ]),
-              DataRow(cells: [
-                DataCell(Text('เวลาเริ่มเรียน')),
-                DataCell(Text(results['start_time'])),
-              ]),
-              DataRow(cells: [
-                DataCell(Text('เวลาสิ้นสุด')),
-                DataCell(Text(results['end_time'])),
-              ]),
-            ]),
+            // Flexible(child: Text(results['subj_name'],style: TextStyle(fontSize: 36),maxLines: 8,softWrap: true,overflow: TextOverflow.ellipsis,)),
+            Card(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: DataTable(columns: [
+                  DataColumn(label: Text('')),
+                  DataColumn(label: Text('')),
+                ], rows: [
+                  DataRow(cells: [
+                    DataCell(Text('รหัสวิชา')),
+                    DataCell(Text(results['subj_code'])),
+                  ]),
+                  DataRow(cells: [
+                    DataCell(Text('ชื่อวิชา')),
+                    DataCell(Text(results['subj_name'])),
+                  ]),
+                  // DataRow(cells: [
+                  //   DataCell(Text('ชื่ออาจารย์')),
+                  //   DataCell(Text(results['teacher_name'])),
+                  // ]),
+                  DataRow(cells: [
+                    DataCell(Text('ห้องเรียน')),
+                    DataCell(Text(results['place'])),
+                  ]),
+                  DataRow(cells: [
+                    DataCell(Text('รายละเอียด')),
+                    DataCell(Text(results['details'])),
+                  ]),
+                  DataRow(cells: [
+                    DataCell(Text('เวลาเริ่มเรียน')),
+                    DataCell(Text(results['start_time'])),
+                  ]),
+                  DataRow(cells: [
+                    DataCell(Text('เวลาสิ้นสุด')),
+                    DataCell(Text(results['end_time'])),
+                  ]),
+                ]),
+              ),
+            ),
           ]),
         ],
       ),

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:studee/edit_todo.dart';
+import 'package:studee/variable.dart';
 
 
 class TaskDetail extends StatefulWidget {
@@ -75,6 +76,7 @@ class _TaskDetailState extends State<TaskDetail> {
   Container buildSubjectList(QuerySnapshot data) {
     var model = data.docs.elementAt(0);
     var results = Map<String, dynamic>.from(model.data() as Map);
+    appColorTheme = Color(results['color']);
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -85,7 +87,7 @@ class _TaskDetailState extends State<TaskDetail> {
               height: 20,
             ),
             CircleAvatar(
-              backgroundImage: NetworkImage(results['image']),
+              backgroundImage: NetworkImage(results['image'] ?? 'https://newyoubible.com/wp-content/uploads/2021/07/todo.jpg'),
               radius: 100,
             ),
             SizedBox(
@@ -98,31 +100,31 @@ class _TaskDetailState extends State<TaskDetail> {
             ], rows: [
               DataRow(cells: [
                 DataCell(Text('รหัสวิชา')),
-                DataCell(Text(results['subj_code'])),
+                DataCell(Text(results['subj_code']  ??  "ไม่มีข้อมูล")),
               ]),
               DataRow(cells: [
                 DataCell(Text('ชื่อวิชา')),
-                DataCell(Text(results['subj_name'])),
+                DataCell(Text(results['subj_name']  ??  "ไม่มีข้อมูล")),
               ]),
               DataRow(cells: [
                 DataCell(Text('ชื่ออาจารย์')),
-                DataCell(Text(results['teacher_name'])),
+                DataCell(Text(results['teacher_name']  ??  "ไม่มีข้อมูล")),
               ]),
               DataRow(cells: [
                 DataCell(Text('ห้องเรียน')),
-                DataCell(Text(results['place'])),
+                DataCell(Text(results['place']  ??  "ไม่มีข้อมูล")),
               ]),
               DataRow(cells: [
                 DataCell(Text('รายละเอียด')),
-                DataCell(Text(results['details'])),
+                DataCell(Text(results['details']  ??  "ไม่มีข้อมูล")),
               ]),
               DataRow(cells: [
                 DataCell(Text('เวลาเริ่มเรียน')),
-                DataCell(Text(results['start_time'])),
+                DataCell(Text(results['start_time']  ??  "--:--")),
               ]),
               DataRow(cells: [
                 DataCell(Text('เวลาสิ้นสุด')),
-                DataCell(Text(results['end_time'])),
+                DataCell(Text(results['end_time']  ??  "--:--")),
               ]),
             ]),
           ]),
@@ -167,6 +169,17 @@ class _TaskDetailState extends State<TaskDetail> {
         .snapshots();
   }
 }
+
+
+
+//Function to Change color of AppBar from firestore
+void changeColor(color)  {
+  var primaryColor = Color.fromARGB(255, 255, 0, 85);
+  
+  
+}
+
+
 
   // Stream<QuerySnapshot> getSubject(String subj_code) {
   //   final studeeRef = _firestore.collection("studee");

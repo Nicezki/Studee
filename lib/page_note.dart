@@ -83,7 +83,7 @@ class MyStatelessWidget2 extends StatelessWidget {
                                                 image: DecorationImage(
                                                   fit: BoxFit.cover,
                                                   image: NetworkImage(
-                                                      results['image']),
+                                                      results['image'] ?? 'https://learnenglishteens.britishcouncil.org/sites/teens/files/rs261_157781379-low.jpg'),
                                                 )),
                                           ),
                                           Expanded(
@@ -106,17 +106,17 @@ class MyStatelessWidget2 extends StatelessWidget {
                                                 child: Column(
                                                   children: [
                                                     Text(
-                                                      results['title'],
+                                                      results['title']  ??  "ไม่มีข้อมูล",
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                     ),
                                                     Text(
-                                                      results['title'],
+                                                      results['title']  ??  "ไม่มีข้อมูล",
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                     ),
                                                     Text(
-                                                      results['details'],
+                                                      results['details']  ??  "ไม่มีข้อมูล",
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                     ),
