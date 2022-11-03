@@ -109,6 +109,7 @@ class _RegisterPageState extends State<RegisterPage> {
     .collection(days).doc().set({
       "subj_name" : "Mobile Device Programming",
       "subj_code": "00123456",
+      "teacher_name" : "นชิรัตน์ ราชบุรี",
       "start_time": "09:00",
       "end_time": "12:00",
       "place": "32100",
