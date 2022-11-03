@@ -18,24 +18,65 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Form(
+      backgroundColor: Color.fromARGB(255, 229, 255, 230),
+        body: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Form(
       autovalidateMode: AutovalidateMode.always,
       key: _formstate,
       child: ListView(
-        children: <Widget>[
-          emailTextFormField(),
-          passwordTextFormField(),
-          loginButton(),
-          registerButton(context),
-        ],
+          children: <Widget>[
+            SizedBox(height: 25),
+            Icon(
+              Icons.school_rounded,
+              size: 100,),
+            SizedBox(height: 25),
+            Text(
+              'Studee',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 36,
+              ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              'Best app for student.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+            SizedBox(height: 20),
+            emailTextFormField(),
+            passwordTextFormField(),
+            SizedBox(height: 10),
+            loginButton(),
+            SizedBox(height: 10),
+            registerButton(context),
+          ],
       ),
-    ));
+      ),
+        ),
+    );
   }
 
   ElevatedButton registerButton(BuildContext context) {
     return ElevatedButton(
       // ignore: prefer_const_constructors
-      child: Text('Register new account'),
+      child: Text('Register new account',
+      style: TextStyle(fontSize: 14)
+      ),
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+        elevation: MaterialStateProperty.all(15),
+        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18.0),
+          )
+        )
+      ),
       onPressed: () {
         print('Goto  Regis pagge');
         Navigator.pushNamed(context, '/RegisterPage');
@@ -45,7 +86,20 @@ class _LoginPageState extends State<LoginPage> {
 
   ElevatedButton loginButton() {
     return ElevatedButton(
-        child: Text('Login'),
+        child: Text(
+        "Log in",
+        style: TextStyle(fontSize: 14)
+      ),
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+        elevation: MaterialStateProperty.all(15),
+        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18.0),
+          )
+        )
+      ),
         onPressed: () async {
           if (_formstate.currentState!.validate()) {
             print('Valid Form');
