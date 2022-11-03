@@ -4,9 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:studee/pase_note.dart';
-import 'package:studee/pase_task.dart';
-import 'package:studee/pase_timetable.dart';
+import 'package:studee/page_note.dart';
+import 'package:studee/page_task.dart';
+import 'package:studee/page_timetable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 var user = FirebaseAuth.instance.currentUser;

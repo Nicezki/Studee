@@ -7,9 +7,9 @@ import 'package:studee/view_subject.dart';
 import 'package:studee/register.dart';
 import 'package:studee/login.dart';
 import 'package:studee/tabuser.dart';
-import 'package:studee/pase_note.dart';
-import 'package:studee/pase_task.dart';
-import 'package:studee/pase_timetable.dart';
+import 'package:studee/page_note.dart';
+import 'package:studee/page_task.dart';
+import 'package:studee/page_timetable.dart';
 import 'package:studee/view_notes.dart';
 import 'package:studee/view_todolist.dart';
 
