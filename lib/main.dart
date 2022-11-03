@@ -13,6 +13,7 @@ import 'package:studee/page_timetable.dart';
 import 'package:studee/view_notes.dart';
 import 'package:studee/view_todolist.dart';
 import 'package:studee/test.dart';
+import 'package:studee/view_todolist.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +40,7 @@ class MyHome extends StatelessWidget {
         '/view_subject': (context) => SubjectDetail(ID),
         '/view_note': (context) => NoteDetail(ID),
         '/test': (context) => MyApp2(),
+        '/view_todolist': (context) => TaskDetail(ID),
       },
       //home: MyApp(title: appTitle),
     );

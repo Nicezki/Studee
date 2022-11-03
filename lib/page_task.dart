@@ -142,7 +142,7 @@ class MyStatelessWidget3 extends StatelessWidget {
                                                                   .id as String;
                                                               Navigator.pushNamed(
                                                                   context,
-                                                                  '/view_note');
+                                                                  '/view_todolist');
                                                             })
                                                       ],
                                                     )

@@ -73,18 +73,13 @@ class MyStatelessWidget2 extends StatelessWidget {
                                             width: 125,
                                             height: 125,
                                             decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(20),
-                                                    bottomLeft:
-                                                        Radius.circular(20)),
-                                                color: Color.fromARGB(
-                                                    209, 189, 189, 189),
-                                                image: DecorationImage(
-                                                  fit: BoxFit.cover,
-                                                  image: NetworkImage(
-                                                      results['image']),
-                                                )),
+                                              borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(20),
+                                                  bottomLeft:
+                                                      Radius.circular(20)),
+                                              color: Color.fromARGB(
+                                                  209, 189, 189, 189),
+                                            ),
                                           ),
                                           Expanded(
                                             child: Container(
