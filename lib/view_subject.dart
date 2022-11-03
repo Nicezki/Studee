@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:studee/edit_subject.dart';
+import 'package:studee/variable.dart';
 
 class SubjectDetail extends StatefulWidget {
   final String _idi; //if you have multiple values add here
@@ -17,7 +18,7 @@ class _SubjectDetailState extends State<SubjectDetail> {
   Widget build(BuildContext context) {
     String _id = widget._idi;
     return StreamBuilder(
-        stream: getSubject(_id),
+        stream: getSubject(Day,uid,_id),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           return Scaffold(
             appBar: AppBar(
@@ -72,8 +73,23 @@ class _SubjectDetailState extends State<SubjectDetail> {
   // }
 
   Container buildSubjectList(QuerySnapshot data) {
+    var results = Map();
+    try{
     var model = data.docs.elementAt(0);
-    var results = Map<String, dynamic>.from(model.data() as Map);
+    results = Map<String, dynamic>.from(model.data() as Map);
+    }catch(e){
+      results = {
+          "subj_name" : "ไม่มีข้อมูล",
+          "subj_code": "ไม่มีข้อมูล",
+          "start_time": "00:00",
+          "end_time": "01:00",
+          "place": "ไม่มีข้อมูล",
+          "image": "https://timeoutcomputers.com.au/wp-content/uploads/2016/12/noimage.jpg",
+          "details": "ไม่มีข้อมูล",
+          "teacher_name" : "ไม่มีข้อมูล",
+          "color": "#000000"
+        };
+    }
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -106,10 +122,10 @@ class _SubjectDetailState extends State<SubjectDetail> {
                 DataCell(Text('ชื่อวิชา')),
                 DataCell(Text(results['subj_name'])),
               ]),
-              DataRow(cells: [
-                DataCell(Text('ชื่ออาจารย์')),
-                DataCell(Text(results['teacher_name'])),
-              ]),
+              // DataRow(cells: [
+              //   DataCell(Text('ชื่ออาจารย์')),
+              //   DataCell(Text(results['teacher_name'])),
+              // ]),
               DataRow(cells: [
                 DataCell(Text('ห้องเรียน')),
                 DataCell(Text(results['place'])),
@@ -156,16 +172,19 @@ class _SubjectDetailState extends State<SubjectDetail> {
   //       .snapshots();
   //   }
 
-  Stream<QuerySnapshot> getSubject(String docId) {
+  Stream<QuerySnapshot> getSubject(String thisday,String user,String docId) {
     print(docId);
+    print(user);
+    print(thisday);
+
     return _firestore
         //user_id.data.timetable1.data.timetable.monday[0].subj_code
         ///studee/newst1/timetable1/timetable/monday
         .collection('studee')
-        .doc('newst1')
+        .doc(user)
         .collection('timetable1')
         .doc('timetable')
-        .collection('monday')
+        .collection(thisday)
         .where(FieldPath.documentId, isEqualTo: docId)
         .snapshots();
   }

@@ -90,7 +90,8 @@ class MyStatelessWidget extends StatelessWidget {
                           child: InkWell(
                         onTap: () {
                           ID =
-                              snapshot.data!.docs.elementAt(index).id as String;
+                              snapshot.data!.docs.elementAt(index).id;
+                          Day = dayname;
                           Navigator.pushNamed(context, '/view_subject');
                         },
                         child: Column(

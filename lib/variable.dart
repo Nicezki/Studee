@@ -10,11 +10,12 @@ import 'package:studee/page_timetable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 var user = FirebaseAuth.instance.currentUser;
-var uid = "HU7CkoiqOfWK14cnz0gVpYCy7tP2"; //user!.uid;
+var uid = "QhsZSqCBJjbfq4Tsoh5g9MDWNGn1"; //user!.uid;
 final store = FirebaseFirestore.instance;
 String ID = "";
+String Day = "";
 int? cur_page;
-String day = 'monday';
+String day = '';
 const List<Tab> tabs = <Tab>[
   Tab(
     text: 'Mon',
