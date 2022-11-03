@@ -18,8 +18,8 @@ class add_SecondPage extends StatelessWidget {
   }
 }
 
-class MyStatelessWidget extends StatelessWidget {
-  const MyStatelessWidget({Key? key}) : super(key: key);
+class MyStatelessWidget1 extends StatelessWidget {
+  const MyStatelessWidget1({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -89,8 +89,7 @@ class MyStatelessWidget extends StatelessWidget {
                       return Card(
                           child: InkWell(
                         onTap: () {
-                          ID =
-                              snapshot.data!.docs.elementAt(index).id;
+                          ID = snapshot.data!.docs.elementAt(index).id;
                           Day = dayname;
                           Navigator.pushNamed(context, '/view_subject');
                         },
