@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:studee/edit_note.dart';
+import 'package:studee/variable.dart';
 
 class NoteDetail extends StatefulWidget {
   final String _idi; //if you have multiple values add here
@@ -32,6 +33,7 @@ class _NoteDetailState extends State<NoteDetail> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => EditNote(
+                            _id,
                             Map<String,dynamic>.from(snapshot.data!.docs[0].data() as Map)
                           )));
                   },
@@ -40,7 +42,7 @@ class _NoteDetailState extends State<NoteDetail> {
               ],
             ),
             body: snapshot.hasData
-                ? SafeArea(child: buildSubjectList(snapshot.data!))
+                ? SafeArea(child: buildNoteList(snapshot.data!))
                 : const Center(
                     child: CircularProgressIndicator(),
                   ),
@@ -48,7 +50,7 @@ class _NoteDetailState extends State<NoteDetail> {
         });
   }
 
-  // ListView buildSubjectList(QuerySnapshot data) {
+  // ListView buildNoteList(QuerySnapshot data) {
   //   return ListView.builder(
   //     itemCount: data.docs.length,
   //     itemBuilder: (BuildContext context, int index) {
@@ -72,7 +74,7 @@ class _NoteDetailState extends State<NoteDetail> {
   //   );
   // }
 
-  Container buildSubjectList(QuerySnapshot data) {
+  Container buildNoteList(QuerySnapshot data) {
     var model = data.docs.elementAt(0);
     var results = Map<String, dynamic>.from(model.data() as Map);
     note_title = results['title'];
@@ -144,7 +146,7 @@ class _NoteDetailState extends State<NoteDetail> {
         //user_id.data.timetable1.data.timetable.monday[0].subj_code
         ///studee/newst1/timetable1/timetable/monday
         .collection('studee')
-        .doc('newst1')
+        .doc(uid)
         .collection('timetable1')
         .doc('notes')
         .collection('1')

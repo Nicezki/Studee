@@ -2,10 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:studee/variable.dart';
 
 class EditSubject extends StatefulWidget {
   Map<String,dynamic> subjectItem;
-  EditSubject (this.subjectItem,{Key? key}) : super(key: key);
+  String dbid;
+  EditSubject (this.dbid,this.subjectItem,{Key? key}) : super(key: key);
+
 
   Color pickerColor = Color(0xff443a49);
 
@@ -189,7 +192,9 @@ class _EditSubjectState extends State<EditSubject>{
               .collection('studee')
               .doc(user_id)
               .collection('timetable1')
-              .doc(widget.subjectItem['id'])
+              .doc('timetable')
+              .collection(Day)
+              .doc(widget.dbid)
               .update({
             'code': _controllerCode.text,
             'name': _controllerName.text,

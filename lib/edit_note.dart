@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 
 class EditNote extends StatefulWidget {
   Map<String,dynamic> noteItem;
-  EditNote (this.noteItem,{Key? key}) : super(key: key);
+  EditNote (this.dbid,this.noteItem,{Key? key}) : super(key: key);
+  String dbid;
 
   @override
   State<EditNote> createState() => _EditNoteState();
 }
 
 var user = FirebaseAuth.instance.currentUser;
-var uid = user!.uid;
+var user_id = user!.uid;
 
 class _EditNoteState extends State<EditNote>{
   late TextEditingController _controllerDetails;
@@ -108,9 +109,9 @@ class _EditNoteState extends State<EditNote>{
         if (key.currentState!.validate()) {
           FirebaseFirestore.instance
               .collection('studee')
-              .doc(uid)
+              .doc(user_id)
               .collection('timetable1')
-              .doc(widget.noteItem['id'])
+              .doc(widget.dbid)
               .update({
             'title': _controllerTitle.text,
             'Type': _controllerType.text,
