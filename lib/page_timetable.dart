@@ -39,6 +39,15 @@ class MyStatelessWidget1 extends StatelessWidget {
         return Container(
             child: Scaffold(
               backgroundColor: backgroundColorTheme,
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () {
+              Navigator.pushNamed(context, '/add_SecondPage');
+            },
+            autofocus: true,
+            icon: const Icon(Icons.add),
+            label: const Text('ADD'),
+            backgroundColor: Color.fromARGB(255, 4, 188, 16),
+          ),
           appBar: AppBar(
             titleSpacing: 00.0,
             centerTitle: true,
@@ -156,23 +165,14 @@ class MyStatelessWidget1 extends StatelessWidget {
                                                 ds['details'],
                                                 overflow: TextOverflow.ellipsis,
                                               ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "เริ่ม : " +
-                                                        ds['start_time'],
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                  ),
-                                                  Text(
-                                                    " จบ : " + ds['end_time'],
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                  ),
-                                                ],
-                                              )
+                                              Text(
+                                                ds['start_time'],
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              Text(
+                                                ds['end_time'],
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
                                             ],
                                           ),
                                         ),
