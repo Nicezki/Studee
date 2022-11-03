@@ -42,7 +42,7 @@ class _AddTableState extends State<AddTable> {
     return Scaffold(
         appBar: AppBar(
           leading: Icon(Icons.book),
-          title: Text('Add subject in ' + gobalDay),
+          title: Text('Add subject in ' + globalDay),
         ),
         body: Container(
           key: _addtable,
@@ -97,6 +97,8 @@ class _AddTableState extends State<AddTable> {
           //if (_addnote.currentState!.validate());// {
           print('save button press');
           Map<String, dynamic> data = {
+            'image':
+                'https://timeoutcomputers.com.au/wp-content/uploads/2016/12/noimage.jpg',
             'subj_name': _nameclass.text,
             'subj_code': _codeclass.text,
             'teacher_name': _teacher.text,
@@ -111,7 +113,7 @@ class _AddTableState extends State<AddTable> {
                 .doc(uid)
                 .collection('timetable1')
                 .doc('timetable')
-                .collection(gobalDay)
+                .collection(globalDay)
                 .add(data);
 //FirebaseFirestore.instance.collection("studee").doc(user.user!.uid).collection('timetable1').doc('note').collection('1').doc()
 

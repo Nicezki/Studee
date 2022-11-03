@@ -34,7 +34,6 @@ class MyStatelessWidget1 extends StatelessWidget {
         tabController.addListener(() {
           if (!tabController.indexIsChanging) {
             globalDay = dateName[tabController.index];
-            print(globalDay);
           }
         });
         return Container(
@@ -60,7 +59,6 @@ class MyStatelessWidget1 extends StatelessWidget {
                   bottomLeft: Radius.circular(6)),
             ),
             flexibleSpace: TabBar(
-              indicatorColor: Color.fromARGB(255, 0, 255, 8),
               isScrollable: true,
               tabs: [
                 Tab(text: 'Monday'),
@@ -123,6 +121,7 @@ class MyStatelessWidget1 extends StatelessWidget {
                               Day = dayname;
                               Navigator.of(context).push(_createRoute());
                             },
+                            onLongPress: () {},
                             child: Column(
                               children: [
                                 Container(
@@ -133,17 +132,16 @@ class MyStatelessWidget1 extends StatelessWidget {
                                       width: 125,
                                       height: 125,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(20),
-                                            bottomLeft: Radius.circular(20)),
-                                        color:
-                                            Color.fromARGB(233, 233, 233, 233),
-                                        /*image: DecorationImage(
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(20),
+                                              bottomLeft: Radius.circular(20)),
+                                          color: Color.fromARGB(
+                                              233, 233, 233, 233),
+                                          image: DecorationImage(
                                             fit: BoxFit.cover,
                                             image: NetworkImage(ds['image'] ??
                                                 "https://timeoutcomputers.com.au/wp-content/uploads/2016/12/noimage.jpg"),
-                                          )*/
-                                      ),
+                                          )),
                                     ),
                                     Expanded(
                                       child: Container(

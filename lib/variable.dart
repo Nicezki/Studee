@@ -17,9 +17,9 @@ var backgroundColorTheme = Color.fromARGB(255, 229, 255, 230);
 final store = FirebaseFirestore.instance;
 String ID = "";
 String Day = "";
-String globalDay = "";
 int? cur_page;
 String day = '';
+String globalDay = "monday";
 var dateName = [
   'monday',
   'tuesday',
