@@ -121,7 +121,41 @@ class MyStatelessWidget1 extends StatelessWidget {
                               Day = dayname;
                               Navigator.of(context).push(_createRoute());
                             },
-                            onLongPress: () {},
+                            onLongPress: () {
+                              ID = snapshot.data!.docs.elementAt(index).id;
+                              Day = dayname;
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('ลบรายวิชา'),
+                                      content: const Text(
+                                          'คุณต้องการลบรายวิชานี้ใช่หรือไม่'),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('ไม่ใช่'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            store
+                                                .collection('studee')
+                                                .doc(uid)
+                                                .collection('timetable1')
+                                                .doc('timetable')
+                                                .collection(dayname)
+                                                .doc(ID)
+                                                .delete();
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('ลบ'),
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            },
                             child: Column(
                               children: [
                                 Container(
