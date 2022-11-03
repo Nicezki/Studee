@@ -30,7 +30,7 @@ class _SubjectDetailState extends State<SubjectDetail> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => EditItem(
+                          builder: (context) => EditSubject(
                             Map<String,dynamic>.from(snapshot.data!.docs[0].data() as Map)
                           )));
                   },

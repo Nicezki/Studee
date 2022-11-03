@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:studee/edit_subject.dart';
+import 'package:studee/edit_todo.dart';
+
 
 class TaskDetail extends StatefulWidget {
   final String _idi; //if you have multiple values add here
@@ -30,7 +31,7 @@ class _TaskDetailState extends State<TaskDetail> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => EditItem(
+                          builder: (context) => EditTodo(
                             Map<String,dynamic>.from(snapshot.data!.docs[0].data() as Map)
                           )));
                   },
