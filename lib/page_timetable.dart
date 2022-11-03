@@ -39,7 +39,7 @@ class MyStatelessWidget1 extends StatelessWidget {
         });
         return Container(
             child: Scaffold(
-              backgroundColor: backgroundColorTheme,
+          backgroundColor: backgroundColorTheme,
           floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
               Navigator.pushNamed(context, '/add_SecondPage');
@@ -132,16 +132,17 @@ class MyStatelessWidget1 extends StatelessWidget {
                                       width: 125,
                                       height: 125,
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(20),
-                                              bottomLeft: Radius.circular(20)),
-                                          color: Color.fromARGB(
-                                              233, 233, 233, 233),
-                                          image: DecorationImage(
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(20),
+                                            bottomLeft: Radius.circular(20)),
+                                        color:
+                                            Color.fromARGB(233, 233, 233, 233),
+                                        /*image: DecorationImage(
                                             fit: BoxFit.cover,
                                             image: NetworkImage(ds['image'] ??
                                                 "https://timeoutcomputers.com.au/wp-content/uploads/2016/12/noimage.jpg"),
-                                          )),
+                                          )*/
+                                      ),
                                     ),
                                     Expanded(
                                       child: Container(
