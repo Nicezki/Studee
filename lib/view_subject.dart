@@ -35,7 +35,7 @@ class _SubjectDetailState extends State<SubjectDetail> {
                             Map<String,dynamic>.from(snapshot.data!.docs[0].data() as Map)
                           )));
                   },
-                  icon: const Icon(Icons.add),
+                  icon: const Icon(Icons.edit),
                 ),
               ],
             ),
