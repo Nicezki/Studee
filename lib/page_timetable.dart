@@ -60,6 +60,7 @@ class MyStatelessWidget1 extends StatelessWidget {
                   bottomLeft: Radius.circular(6)),
             ),
             flexibleSpace: TabBar(
+              indicatorColor: Color.fromARGB(255, 0, 255, 8),
               isScrollable: true,
               tabs: [
                 Tab(text: 'Monday'),
