@@ -34,91 +34,500 @@ class MyStatelessWidget extends StatelessWidget {
             // To get index of current tab use tabController.index
           }
         });
-        return Scaffold(
-          appBar: AppBar(
+        /*appBar: AppBar(
             toolbarHeight: 0,
             bottom: const TabBar(
               tabs: tabs,
             ),
-          ),
-          body: TabBarView(
-            children: tabs.map((Tab tab) {
-              return Column(
-                children: [
-                  Container(),
-                  SizedBox(height: 6),
-                  Container(),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.735,
-                    child: ListView.builder(
-                        physics: AlwaysScrollableScrollPhysics(),
-                        //shrinkWrap: true,
-                        itemCount: 10,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            margin:
-                                EdgeInsets.only(left: 5, right: 5, bottom: 10),
-                            child: Row(children: [
-                              Container(
-                                width: 120,
-                                height: 120,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: Color.fromARGB(209, 189, 189, 189),
-                                    image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(
-                                            'https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg'))),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  height: 100,
-                                  width: 200,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(20),
-                                        bottomRight: Radius.circular(20),
-                                      ),
-                                      color:
-                                          Color.fromARGB(209, 189, 189, 189)),
-                                  child: Padding(
-                                    padding:
-                                        EdgeInsets.only(left: 10, right: 10),
-                                    child: Column(
-                                      children: [
-                                        Text("tee888 Go Go Go"),
-                                        Text(
-                                            "Good game, pays hard, pays quickly."),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text("B:50"),
-                                            Text("A:99"),
-                                            Text("money:9999"),
-                                            IconButton(
-                                                icon: const Icon(Icons.add),
-                                                onPressed: () {
-                                                  Navigator.pushNamed(
-                                                      context, '/view_subject');
-                                                }),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
+          ),*/
+        return StreamBuilder(
+            /*  stream: store
+                .collection('studee')
+                .doc(uid)
+                .collection('timetable1')
+                .doc('timetable')
+                .collection(day)
+                .snapshots(),*/
+            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          return Scaffold(
+              body: SafeArea(
+            top: true,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 0.0),
+              child: DefaultTabController(
+                length: 7,
+                child: Scaffold(
+                  /*appBar: AppBar(
+                    flexibleSpace: TabBar(
+                      isScrollable: true,
+                      tabs: [
+                        Tab(text: 'Monday'),
+                        Tab(text: 'Tuesday'),
+                        Tab(text: 'Wednesday'),
+                        Tab(text: 'Thursday'),
+                        Tab(text: 'Friday '),
+                        Tab(text: 'Saturday'),
+                        Tab(text: 'Sunday'),
+                      ],
+                    ),
+                  ),*/
+                  body: TabBarView(
+                    children: [
+                      InkWell(
+                        onTap: () {},
+                        child: snapshot.hasData
+                            ? TabBarView(
+                                children: tabs.map((Tab tab) {
+                                  return Column(
+                                    children: [
+                                      SizedBox(height: 6),
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.735,
+                                        child: ListView.builder(
+                                            physics:
+                                                AlwaysScrollableScrollPhysics(),
+                                            //shrinkWrap: true,
+                                            itemCount: snapshot.data!.size,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              day = "monday";
+                                              var model = snapshot.data!.docs
+                                                  .elementAt(index);
+                                              var results =
+                                                  Map<String, dynamic>.from(
+                                                      model.data() as Map);
+                                              return Container(
+                                                margin: EdgeInsets.only(
+                                                    left: 5,
+                                                    right: 5,
+                                                    bottom: 10),
+                                                child: Row(children: [
+                                                  Container(
+                                                    width: 125,
+                                                    height: 125,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        20),
+                                                                bottomLeft:
+                                                                    Radius.circular(
+                                                                        20)),
+                                                        color: Color.fromARGB(
+                                                            209, 189, 189, 189),
+                                                        image: DecorationImage(
+                                                          fit: BoxFit.cover,
+                                                          image: NetworkImage(
+                                                              results['image']),
+                                                        )),
+                                                  ),
+                                                  Expanded(
+                                                    child: Container(
+                                                      height: 125,
+                                                      width: 200,
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    20),
+                                                            bottomRight:
+                                                                Radius.circular(
+                                                                    20),
+                                                          ),
+                                                          color: Color.fromARGB(
+                                                              209,
+                                                              189,
+                                                              189,
+                                                              189)),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 10,
+                                                                right: 10),
+                                                        child: Column(
+                                                          children: [
+                                                            Text(
+                                                              results[
+                                                                  'subj_name'],
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                            ),
+                                                            Text(
+                                                              results[
+                                                                  'details'],
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                            ),
+                                                            Text(
+                                                              "เริ่ม : " +
+                                                                  results[
+                                                                      'start_time'],
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                            ),
+                                                            Text(
+                                                              "จบ : " +
+                                                                  results[
+                                                                      'end_time'],
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                            ),
+                                                            Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                IconButton(
+                                                                    icon: const Icon(
+                                                                        Icons
+                                                                            .document_scanner_sharp),
+                                                                    onPressed:
+                                                                        () {
+                                                                      ID = snapshot
+                                                                          .data!
+                                                                          .docs
+                                                                          .elementAt(
+                                                                              index)
+                                                                          .id as String;
+                                                                      Navigator.pushNamed(
+                                                                          context,
+                                                                          '/view_subject');
+                                                                    })
+                                                              ],
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                                ]),
+                                              );
+                                            }),
+                                      )
+                                    ],
+                                  );
+                                }).toList(),
                               )
-                            ]),
-                          );
-                        }),
-                  )
-                ],
-              );
-            }).toList(),
-          ),
-        );
+                            : const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                      ),
+                      Tab(icon: Icon(Icons.settings)),
+                      Tab(icon: Icon(Icons.dynamic_feed)),
+                      Tab(icon: Icon(Icons.settings)),
+                      Tab(icon: Icon(Icons.dynamic_feed)),
+                      Tab(icon: Icon(Icons.settings)),
+                      Tab(icon: Icon(Icons.dynamic_feed)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ));
+        });
       }),
     );
   }
+}
+
+aaar(String day5) {
+  return StreamBuilder(
+    stream: store
+        .collection('studee')
+        .doc(uid)
+        .collection('timetable1')
+        .doc('timetable')
+        .collection(day5)
+        .snapshots(),
+  );
+}
+
+/*
+child: snapshot.hasData
+                                ? TabBarView(
+                                    children: tabs.map((Tab tab) {
+                                      return Column(
+                                        children: [
+                                          Container(),
+                                          SizedBox(height: 6),
+                                          Container(),
+                                          Container(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.735,
+                                            child: ListView.builder(
+                                                physics:
+                                                    AlwaysScrollableScrollPhysics(),
+                                                //shrinkWrap: true,
+                                                itemCount: snapshot.data!.size,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  var model = snapshot
+                                                      .data!.docs
+                                                      .elementAt(index);
+                                                  var results =
+                                                      Map<String, dynamic>.from(
+                                                          model.data() as Map);
+                                                  return Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 5,
+                                                        right: 5,
+                                                        bottom: 10),
+                                                    child: Row(children: [
+                                                      Container(
+                                                        width: 125,
+                                                        height: 125,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                borderRadius: BorderRadius.only(
+                                                                    topLeft: Radius
+                                                                        .circular(
+                                                                            20),
+                                                                    bottomLeft:
+                                                                        Radius.circular(
+                                                                            20)),
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        209,
+                                                                        189,
+                                                                        189,
+                                                                        189),
+                                                                image:
+                                                                    DecorationImage(
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                  image: NetworkImage(
+                                                                      results[
+                                                                          'image']),
+                                                                )),
+                                                      ),
+                                                      Expanded(
+                                                        child: Container(
+                                                          height: 125,
+                                                          width: 200,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .only(
+                                                                    topRight: Radius
+                                                                        .circular(
+                                                                            20),
+                                                                    bottomRight:
+                                                                        Radius.circular(
+                                                                            20),
+                                                                  ),
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          209,
+                                                                          189,
+                                                                          189,
+                                                                          189)),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    left: 10,
+                                                                    right: 10),
+                                                            child: Column(
+                                                              children: [
+                                                                Text(
+                                                                  results[
+                                                                      'subj_name'],
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                ),
+                                                                Text(
+                                                                  results[
+                                                                      'details'],
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                ),
+                                                                Text(
+                                                                  "เริ่ม : " +
+                                                                      results[
+                                                                          'start_time'],
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                ),
+                                                                Text(
+                                                                  "จบ : " +
+                                                                      results[
+                                                                          'end_time'],
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                ),
+                                                                Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    IconButton(
+                                                                        icon: const Icon(Icons
+                                                                            .document_scanner_sharp),
+                                                                        onPressed:
+                                                                            () {
+                                                                          ID = snapshot
+                                                                              .data!
+                                                                              .docs
+                                                                              .elementAt(index)
+                                                                              .id as String;
+                                                                          Navigator.pushNamed(
+                                                                              context,
+                                                                              '/view_subject');
+                                                                        })
+                                                                  ],
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ]),
+                                                  );
+                                                }),
+                                          )
+                                        ],
+                                      );
+                                    }).toList(),
+                                  )
+                                : const Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+*/
+
+/*  body: snapshot.hasData
+                    ? TabBarView(
+                        children: tabs.map((Tab tab) {
+                          return Column(
+                            children: [
+                              Container(),
+                              SizedBox(height: 6),
+                              Container(),
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.735,
+                                child: ListView.builder(
+                                    physics: AlwaysScrollableScrollPhysics(),
+                                    //shrinkWrap: true,
+                                    itemCount: snapshot.data!.size,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      var model =
+                                          snapshot.data!.docs.elementAt(index);
+                                      var results = Map<String, dynamic>.from(
+                                          model.data() as Map);
+                                      return Container(
+                                        margin: EdgeInsets.only(
+                                            left: 5, right: 5, bottom: 10),
+                                        child: Row(children: [
+                                          Container(
+                                            width: 125,
+                                            height: 125,
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(20),
+                                                    bottomLeft:
+                                                        Radius.circular(20)),
+                                                color: Color.fromARGB(
+                                                    209, 189, 189, 189),
+                                                image: DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: NetworkImage(
+                                                      results['image']),
+                                                )),
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                              height: 125,
+                                              width: 200,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topRight:
+                                                        Radius.circular(20),
+                                                    bottomRight:
+                                                        Radius.circular(20),
+                                                  ),
+                                                  color: Color.fromARGB(
+                                                      209, 189, 189, 189)),
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: 10, right: 10),
+                                                child: Column(
+                                                  children: [
+                                                    Text(
+                                                      results['subj_name'],
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                    Text(
+                                                      results['details'],
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                    Text(
+                                                      "เริ่ม : " +
+                                                          results['start_time'],
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                    Text(
+                                                      "จบ : " +
+                                                          results['end_time'],
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        IconButton(
+                                                            icon: const Icon(Icons
+                                                                .document_scanner_sharp),
+                                                            onPressed: () {
+                                                              ID = snapshot
+                                                                  .data!.docs
+                                                                  .elementAt(
+                                                                      index)
+                                                                  .id as String;
+                                                              Navigator.pushNamed(
+                                                                  context,
+                                                                  '/view_subject');
+                                                            })
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ]),
+                                      );
+                                    }),
+                              )
+                            ],
+                          );
+                        }).toList(),
+                      )
+                    : const Center(
+                        child: CircularProgressIndicator(),
+                      ),*/
+Future<void> Monday() async {
+  Monday();
 }

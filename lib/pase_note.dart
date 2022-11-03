@@ -37,7 +37,7 @@ class MyStatelessWidget2 extends StatelessWidget {
         return StreamBuilder(
             stream: store
                 .collection('studee')
-                .doc('newst1')
+                .doc(uid)
                 .collection('timetable1')
                 .doc('notes')
                 .collection('1')
@@ -70,11 +70,14 @@ class MyStatelessWidget2 extends StatelessWidget {
                                             left: 5, right: 5, bottom: 10),
                                         child: Row(children: [
                                           Container(
-                                            width: 120,
-                                            height: 120,
+                                            width: 125,
+                                            height: 125,
                                             decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
+                                                borderRadius: BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(20),
+                                                    bottomLeft:
+                                                        Radius.circular(20)),
                                                 color: Color.fromARGB(
                                                     209, 189, 189, 189),
                                                 image: DecorationImage(
@@ -85,7 +88,7 @@ class MyStatelessWidget2 extends StatelessWidget {
                                           ),
                                           Expanded(
                                             child: Container(
-                                              height: 100,
+                                              height: 125,
                                               width: 200,
                                               decoration: BoxDecoration(
                                                   borderRadius:
@@ -118,26 +121,25 @@ class MyStatelessWidget2 extends StatelessWidget {
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                     ),
+                                                    Text(
+                                                      "จบ : " + results['end'],
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
                                                     Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
                                                               .spaceBetween,
                                                       children: [
-                                                        Text(
-                                                          "จบ : " +
-                                                              results['end'],
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                        ),
                                                         IconButton(
-                                                            icon: const Icon(
-                                                                Icons.add),
+                                                            icon: const Icon(Icons
+                                                                .document_scanner_sharp),
                                                             onPressed: () {
                                                               ID = snapshot
-                                                                      .data!.docs
-                                                                      .elementAt(
-                                                                          index).id
-                                                                  as String;
+                                                                  .data!.docs
+                                                                  .elementAt(
+                                                                      index)
+                                                                  .id as String;
                                                               Navigator.pushNamed(
                                                                   context,
                                                                   '/view_note');
