@@ -87,10 +87,10 @@ class _AddNoteState extends State<AddNote> {
           print('save button press');
           Map<String, dynamic> data = {
 
-      'หัวข้อ': _name.text,
-      'วิชา': _class.text,
-      'ข้อความ': _message.text,
-      'แท็ก': _tage.text,
+      'title': _name.text,
+      'class': _class.text,
+      'details': _message.text,
+      'type': _tage.text,
        };
        try {
 
