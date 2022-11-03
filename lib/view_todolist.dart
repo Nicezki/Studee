@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:studee/edit_todo.dart';
-import 'package:studee/variable.dart';
-
 
 class TaskDetail extends StatefulWidget {
   final String _idi; //if you have multiple values add here
@@ -29,12 +27,12 @@ class _TaskDetailState extends State<TaskDetail> {
                 IconButton(
                   onPressed: () {
                     //send map of data to edit page
-                      Navigator.push(
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => EditTodo(
-                            Map<String,dynamic>.from(snapshot.data!.docs[0].data() as Map)
-                          )));
+                            builder: (context) => EditTodo(
+                                Map<String, dynamic>.from(
+                                    snapshot.data!.docs[0].data() as Map))));
                   },
                   icon: const Icon(Icons.add),
                 ),
@@ -76,7 +74,6 @@ class _TaskDetailState extends State<TaskDetail> {
   Container buildSubjectList(QuerySnapshot data) {
     var model = data.docs.elementAt(0);
     var results = Map<String, dynamic>.from(model.data() as Map);
-    appColorTheme = Color(results['color']);
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -87,44 +84,48 @@ class _TaskDetailState extends State<TaskDetail> {
               height: 20,
             ),
             CircleAvatar(
-              backgroundImage: NetworkImage(results['image'] ?? 'https://newyoubible.com/wp-content/uploads/2021/07/todo.jpg'),
+              backgroundImage: NetworkImage(results['image']),
               radius: 100,
             ),
             SizedBox(
               height: 20,
             ),
-            Flexible(child: Text(results['subj_name'],style: TextStyle(height: 1, fontSize: 36),)),
+            Flexible(
+                child: Text(
+              results['subj_name'],
+              style: TextStyle(height: 1, fontSize: 36),
+            )),
             DataTable(columns: [
               DataColumn(label: Text('')),
               DataColumn(label: Text('')),
             ], rows: [
               DataRow(cells: [
                 DataCell(Text('รหัสวิชา')),
-                DataCell(Text(results['subj_code']  ??  "ไม่มีข้อมูล")),
+                DataCell(Text(results['subj_code'])),
               ]),
               DataRow(cells: [
                 DataCell(Text('ชื่อวิชา')),
-                DataCell(Text(results['subj_name']  ??  "ไม่มีข้อมูล")),
+                DataCell(Text(results['subj_name'])),
               ]),
               DataRow(cells: [
                 DataCell(Text('ชื่ออาจารย์')),
-                DataCell(Text(results['teacher_name']  ??  "ไม่มีข้อมูล")),
+                DataCell(Text(results['teacher_name'])),
               ]),
               DataRow(cells: [
                 DataCell(Text('ห้องเรียน')),
-                DataCell(Text(results['place']  ??  "ไม่มีข้อมูล")),
+                DataCell(Text(results['place'])),
               ]),
               DataRow(cells: [
                 DataCell(Text('รายละเอียด')),
-                DataCell(Text(results['details']  ??  "ไม่มีข้อมูล")),
+                DataCell(Text(results['details'])),
               ]),
               DataRow(cells: [
                 DataCell(Text('เวลาเริ่มเรียน')),
-                DataCell(Text(results['start_time']  ??  "--:--")),
+                DataCell(Text(results['start_time'])),
               ]),
               DataRow(cells: [
                 DataCell(Text('เวลาสิ้นสุด')),
-                DataCell(Text(results['end_time']  ??  "--:--")),
+                DataCell(Text(results['end_time'])),
               ]),
             ]),
           ]),
@@ -169,17 +170,6 @@ class _TaskDetailState extends State<TaskDetail> {
         .snapshots();
   }
 }
-
-
-
-//Function to Change color of AppBar from firestore
-void changeColor(color)  {
-  var primaryColor = Color.fromARGB(255, 255, 0, 85);
-  
-  
-}
-
-
 
   // Stream<QuerySnapshot> getSubject(String subj_code) {
   //   final studeeRef = _firestore.collection("studee");

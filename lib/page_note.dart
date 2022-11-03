@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studee/variable.dart';
+import 'package:studee/view_notes.dart';
 
 class add_SecondPage2 extends StatelessWidget {
   const add_SecondPage2({Key? key}) : super(key: key);
@@ -60,70 +61,78 @@ class MyStatelessWidget2 extends StatelessWidget {
                       DocumentSnapshot ds = snapshot.data!.docs[index];
                       //card with im
                       return Card(
+                          margin: EdgeInsets.all(14.0),
                           child: InkWell(
-                        onTap: () {
-                          ID = snapshot.data!.docs.elementAt(index).id;
-                          Day = dayname;
-                          Navigator.pushNamed(context, '/view_note');
-                        },
-                        child: Column(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(
-                                  left: 5, right: 5, bottom: 10),
-                              child: Row(children: [
+                            highlightColor: Colors.blue.withOpacity(0.4),
+                            splashColor: Color.fromARGB(255, 255, 81, 249)
+                                .withOpacity(0.5),
+                            focusColor: Color.fromARGB(255, 0, 255, 64)
+                                .withOpacity(0.6),
+                            onTap: () {
+                              ID = snapshot.data!.docs.elementAt(index).id;
+                              Day = dayname;
+                              Navigator.of(context).push(_createRoute());
+                            },
+                            child: Column(
+                              children: [
                                 Container(
-                                  width: 125,
-                                  height: 125,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(20),
-                                        bottomLeft: Radius.circular(20)),
-                                    color: Color.fromARGB(233, 233, 233, 233),
-                                    /*  image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(ds['image']),
-                                      )*/
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    height: 125,
-                                    width: 200,
-                                    decoration: BoxDecoration(
+                                  margin: EdgeInsets.only(
+                                      top: 5, left: 5, right: 5, bottom: 5),
+                                  child: Row(children: [
+                                    Container(
+                                      width: 125,
+                                      height: 125,
+                                      decoration: BoxDecoration(
                                         borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(20),
-                                          bottomRight: Radius.circular(20),
-                                        ),
+                                            topLeft: Radius.circular(20),
+                                            bottomLeft: Radius.circular(20)),
                                         color:
-                                            Color.fromARGB(233, 233, 233, 233)),
-                                    child: Padding(
-                                      padding:
-                                          EdgeInsets.only(left: 10, right: 10),
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "Title :" + ds['title'],
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          Text(
-                                            "Type :" + ds['type'],
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          Text(
-                                            "Details :" + ds['details'],
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ],
+                                            Color.fromARGB(233, 233, 233, 233),
+                                        /* image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(ds['image'] ??
+                                            "https://timeoutcomputers.com.au/wp-content/uploads/2016/12/noimage.jpg"),
+                                      )*/
                                       ),
                                     ),
-                                  ),
-                                )
-                              ]),
+                                    Expanded(
+                                      child: Container(
+                                        height: 125,
+                                        width: 200,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.only(
+                                              topRight: Radius.circular(20),
+                                              bottomRight: Radius.circular(20),
+                                            ),
+                                            color: Color.fromARGB(
+                                                233, 233, 233, 233)),
+                                        child: Padding(
+                                          padding: EdgeInsets.only(
+                                              left: 10, right: 10),
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                "Title :" + ds['title'],
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              Text(
+                                                "Type :" + ds['type'],
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              Text(
+                                                "Details :" + ds['details'],
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ]),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      )
+                          )
                           /*ListTile(
                           leading: Icon(Icons.car_rental),
                           title: Text(ds['subj_name']),
@@ -135,4 +144,22 @@ class MyStatelessWidget2 extends StatelessWidget {
           }),
     );
   }
+}
+
+Route _createRoute() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => NoteDetail(ID),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(0.0, 1.0);
+      const end = Offset.zero;
+      const curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }

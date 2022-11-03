@@ -24,8 +24,6 @@ void main() async {
   runApp(const MyHome());
 }
 
-
-
 class MyHome extends StatefulWidget {
   const MyHome({super.key});
 
@@ -40,19 +38,19 @@ class _MyHomeState extends State<MyHome> {
     return MaterialApp(
       title: appTitle,
       theme: ThemeData(
-       appBarTheme: AppBarTheme(
+        appBarTheme: AppBarTheme(
           color: appColorTheme,
         ),
-       fontFamily: 'IBMPlexSansThai', 
-        ),
+        fontFamily: 'IBMPlexSansThai',
+      ),
 
       initialRoute: '/',
       routes: {
         '/': (context) => MyApp(title: appTitle),
         '/LoginPage': (context) => LoginPage(),
         '/RegisterPage': (context) => RegisterPage(),
-        '/add_SecondPage': (context) => AddNote(),
-        '/add_SecondPage2': (context) => AddTable(),
+        '/add_SecondPage': (context) => AddTable(),
+        '/add_SecondPage2': (context) => AddNote(),
         '/add_SecondPage3': (context) => AddTable2(),
         '/view_subject': (context) => SubjectDetail(ID),
         '/view_note': (context) => NoteDetail(ID),

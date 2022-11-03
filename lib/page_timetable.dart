@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studee/variable.dart';
 import 'package:studee/view_subject.dart';
+import 'package:tab_container/tab_container.dart';
 
 class add_SecondPage extends StatelessWidget {
   const add_SecondPage({Key? key}) : super(key: key);
@@ -38,6 +39,15 @@ class MyStatelessWidget1 extends StatelessWidget {
         return Container(
             child: Scaffold(
           appBar: AppBar(
+            titleSpacing: 00.0,
+            centerTitle: true,
+            toolbarHeight: 40.2,
+            toolbarOpacity: 0.8,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(6),
+                  bottomLeft: Radius.circular(6)),
+            ),
             flexibleSpace: TabBar(
               isScrollable: true,
               tabs: [
@@ -117,7 +127,8 @@ class MyStatelessWidget1 extends StatelessWidget {
                                               233, 233, 233, 233),
                                           image: DecorationImage(
                                             fit: BoxFit.cover,
-                                            image: NetworkImage(ds['image']),
+                                            image: NetworkImage(ds['image'] ??
+                                                "https://timeoutcomputers.com.au/wp-content/uploads/2016/12/noimage.jpg"),
                                           )),
                                     ),
                                     Expanded(
@@ -201,3 +212,19 @@ Route _createRoute() {
     },
   );
 }
+/*
+Path getOuterPath(Rect rect, {TextDirection? textDirection}) {
+  double x = 150, y = 45, r = 0.5;
+  Path path = Path()
+    ..addRRect(RRect.fromRectAndCorners(rect))
+    ..moveTo(rect.bottomRight.dx - 30, rect.bottomCenter.dy)
+    ..relativeQuadraticBezierTo(
+        ((-x / 2) + (x / 6)) * (1 - r), 0, -x / 2 * r, y * r)
+    ..relativeQuadraticBezierTo(
+        -x / 6 * r, y * (1 - r), -x / 2 * (1 - r), y * (1 - r))
+    ..relativeQuadraticBezierTo(
+        ((-x / 2) + (x / 6)) * (1 - r), 0, -x / 2 * (1 - r), -y * (1 - r))
+    ..relativeQuadraticBezierTo(-x / 6 * r, -y * r, -x / 2 * r, -y * r);
+  path.close();
+  return path;
+}*/
