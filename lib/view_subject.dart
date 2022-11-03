@@ -106,10 +106,7 @@ class _SubjectDetailState extends State<SubjectDetail> {
             SizedBox(
               height: 20,
             ),
-            Text(
-              results['subj_name'],
-              style: TextStyle(height: 1, fontSize: 36),
-            ),
+            Flexible(child: Text(results['subj_name'],style: TextStyle(height: 1, fontSize: 36),)),
             DataTable(columns: [
               DataColumn(label: Text('')),
               DataColumn(label: Text('')),
