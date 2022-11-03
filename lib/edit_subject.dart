@@ -44,7 +44,7 @@ class _EditSubjectState extends State<EditSubject>{
   Widget build(BuildContext context)  {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Item'),
+        title: Text('Edit Subject'),
       ),
       body: Form(
         key: key,
@@ -196,13 +196,13 @@ class _EditSubjectState extends State<EditSubject>{
               .collection(Day)
               .doc(widget.dbid)
               .update({
-            'code': _controllerCode.text,
-            'name': _controllerName.text,
-            'teacher': _controllerTeacher.text,
+            'subj_code': _controllerCode.text,
+            'subj_name': _controllerName.text,
+            'teacher_name': _controllerTeacher.text,
             'place': _controllerPlace.text,
             'details': _controllerDetails.text,
-            'start': _controllerStart.text,
-            'end': _controllerEnd.text,
+            'start_time': _controllerStart.text,
+            'end_time': _controllerEnd.text,
           }).then((value) => Navigator.pop(context));
         }
       },

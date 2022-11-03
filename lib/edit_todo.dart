@@ -40,7 +40,7 @@ class _EditTodoState extends State<EditTodo>{
   Widget build(BuildContext context)  {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Item'),
+        title: Text('Edit Todo'),
       ),
       body: Form(
         key: key,
@@ -172,7 +172,7 @@ class _EditTodoState extends State<EditTodo>{
               .doc(widget.dbid)
               .update({
             'title': _controllerTitle.text,
-            'code': _controllerCode.text,
+            'subj_code': _controllerCode.text,
             'status': _controllerStatus.text,
             'details': _controllerDetails.text,
             'start': _controllerStart.text,
