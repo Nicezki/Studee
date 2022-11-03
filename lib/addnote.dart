@@ -3,13 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:image_picker/image_picker.dart';
-
-class Addtable extends StatefulWidget {
-  const Addtable({Key? key}) : super(key: key);
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:studee/variable.dart';
+class AddNote extends StatefulWidget {
+  const AddNote({Key? key}) : super(key: key);
   @override
-  State<Addtable> createState() => _AddtableState();
+  State<AddNote> createState() => _AddNoteState();
 }
-class _AddtableState extends State<Addtable> {
+class _AddNoteState extends State<AddNote> {
+  final _addnote = GlobalKey<FormState>();
+  final _name = TextEditingController();
+  final _class = TextEditingController();
+  final _message = TextEditingController();
+  final _tage = TextEditingController();
+  final store = FirebaseFirestore.instance;
+
   File? _avatar;
   onChooseImage() async {
   final picker = ImagePicker();
@@ -29,9 +37,10 @@ class _AddtableState extends State<Addtable> {
     return Scaffold(
       appBar: AppBar(
           leading: Icon(Icons.book),
-          title: Text('เพิ่มชั้นเรียน'),
+          title: Text('เพิ่มบันทึก'),
         ),
           body: Container(
+            key: _addnote,
             child: SafeArea(
                 child: Center(
               child: Container(
@@ -63,51 +72,7 @@ class _AddtableState extends State<Addtable> {
             color: Color.fromARGB(255, 255, 255, 255),)  
     );
   }
-}
-
-TextFormField nameBox() {
-    return TextFormField(
-      
-      keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        labelText: 'หัวข้อ :',
-       
-      ),
-    );
-  }
-
-  TextFormField classBox() {
-    return TextFormField(
-      
-      keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        labelText: 'วิชา :',
-        
-      ),
-    );
-  }
-
-  TextFormField messageBox() {
-    return TextFormField(
-      
-      keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        labelText: 'ข้อความ :',
-        
-      ),
-    );
-  }
-
-  TextFormField tageBox() {
-    return TextFormField(
-      
-      keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        labelText: 'แท็ก :',
-       
-      ),
-    );
-  }
+//}**** 
 
    ElevatedButton registerButton() {
     return ElevatedButton(
@@ -118,9 +83,111 @@ TextFormField nameBox() {
                    Text("บันทึก", style: TextStyle(fontSize: 20)),
                    
                       ],)),),
-      onPressed: () async {
-      
-      },
+      onPressed: ()async   {
+    
+      //if (_addnote.currentState!.validate());// {
+          print('save button press');
+          Map<String, dynamic> data = {
+
+      'หัวข้อ': _name.text,
+      'วิชา': _class.text,
+      'ข้อความ': _message.text,
+      'แท็ก': _tage.text,
+       };
+       try {
+
+DocumentReference ref =
+
+await store.collection('studee').doc(uid).collection('timetable1').doc('note').collection('1').add(data);
+//FirebaseFirestore.instance.collection("studee").doc(user.user!.uid).collection('timetable1').doc('note').collection('1').doc()
+
+print('save id = ${ref.id}');
+
+Navigator.pop(context);
+
+} catch (e) {
+
+ScaffoldMessenger.of(context).showSnackBar(
+
+SnackBar(
+
+content: Text('Error $e'),
+
+),
+
+);
+     };
+      }
     );
   }
+
+TextFormField nameBox() {
+    return TextFormField(
+      controller: _name,
+     // keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'หัวข้อ :',
+       
+      ),
+      validator: (value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter text';
+    }
+    return null;
+  },
+    );
+  }
+
+  TextFormField classBox() {
+    return TextFormField(
+      controller: _class,
+     // keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'วิชา :',
+        
+      ),
+      validator: (value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter text';
+    }
+    return null;
+  },
+    );
+  }
+
+  TextFormField messageBox() {
+    return TextFormField(
+      controller: _message,
+     // keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'ข้อความ :',
+        
+      ),
+      validator: (value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter text';
+    }
+    return null;
+  },
+    );
+  }
+
+  TextFormField tageBox() {
+    return TextFormField(
+      controller: _tage,
+     // keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'แท็ก :',
+       
+      ),
+     validator: (value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter text';
+    }
+    return null;
+  },
+    );
+  }
+
   
+}//final
