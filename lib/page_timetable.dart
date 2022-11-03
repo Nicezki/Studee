@@ -90,8 +90,10 @@ class MyStatelessWidget extends StatelessWidget {
                       //card with im
                       return Card(
                         child: ListTile(
+                          leading: Image.network(ds['image']),
                           title: Text(ds['subj_name']),
                           subtitle: Text(ds['details']),
+                          trailing: Text(ds['start_time']),
                         ),
                       );
                     })
