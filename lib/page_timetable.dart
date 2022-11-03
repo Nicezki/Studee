@@ -33,8 +33,8 @@ class MyStatelessWidget1 extends StatelessWidget {
         final TabController tabController = DefaultTabController.of(context)!;
         tabController.addListener(() {
           if (!tabController.indexIsChanging) {
-            // Your code goes here.
-            // To get index of current tab use tabController.index
+            globalDay = dateName[tabController.index];
+            print(globalDay);
           }
         });
         return Container(
