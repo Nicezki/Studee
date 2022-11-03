@@ -12,6 +12,7 @@ import 'package:studee/page_task.dart';
 import 'package:studee/page_timetable.dart';
 import 'package:studee/view_notes.dart';
 import 'package:studee/view_todolist.dart';
+import 'package:studee/test.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +28,7 @@ class MyHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: appTitle,
-      initialRoute: '/',
+      initialRoute: '/LoginPage',
       routes: {
         '/': (context) => MyApp(title: appTitle),
         '/LoginPage': (context) => LoginPage(),
@@ -37,6 +38,7 @@ class MyHome extends StatelessWidget {
         '/add_SecondPage3': (context) => add_SecondPage3(),
         '/view_subject': (context) => SubjectDetail(ID),
         '/view_note': (context) => NoteDetail(ID),
+        '/test': (context) => MyApp2(),
       },
       //home: MyApp(title: appTitle),
     );

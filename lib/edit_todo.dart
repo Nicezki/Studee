@@ -3,23 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
-class EditSubject extends StatefulWidget {
-  Map<String,dynamic> subjectItem;
-  EditSubject (this.subjectItem,{Key? key}) : super(key: key);
+class EditTodo extends StatefulWidget {
+  Map<String,dynamic> todoItem;
+  EditTodo (this.todoItem,{Key? key}) : super(key: key);
 
   Color pickerColor = Color(0xff443a49);
 
   @override
-  State<EditSubject> createState() => _EditSubjectState();
+  State<EditTodo> createState() => _EditTodoState();
 }
 var user = FirebaseAuth.instance.currentUser;
 var uid = user!.uid;
 
-class _EditSubjectState extends State<EditSubject>{
+class _EditTodoState extends State<EditTodo>{
   late TextEditingController _controllerCode;
-  late TextEditingController _controllerName;
-  late TextEditingController _controllerTeacher;
-  late TextEditingController _controllerPlace;
+  late TextEditingController _controllerTitle;
+  late TextEditingController _controllerStatus;
   late TextEditingController _controllerDetails;
   late TextEditingController _controllerStart;
   late TextEditingController _controllerEnd;
@@ -28,13 +27,12 @@ class _EditSubjectState extends State<EditSubject>{
   @override
   void initState() {
     super.initState();
-    _controllerCode = TextEditingController(text: widget.subjectItem['subj_code']);
-    _controllerName = TextEditingController(text: widget.subjectItem['subj_name']);
-    _controllerTeacher = TextEditingController(text: widget.subjectItem['teacher_name']);
-    _controllerPlace = TextEditingController(text: widget.subjectItem['place']);
-    _controllerDetails = TextEditingController(text: widget.subjectItem['details']);
-    _controllerStart = TextEditingController(text: widget.subjectItem['start_time']);
-    _controllerEnd = TextEditingController(text: widget.subjectItem['end_time']);
+    _controllerCode = TextEditingController(text: widget.todoItem['subj_code']);
+    _controllerTitle = TextEditingController(text: widget.todoItem['title']);
+    _controllerStatus = TextEditingController(text: widget.todoItem['status']);
+    _controllerDetails = TextEditingController(text: widget.todoItem['details']);
+    _controllerStart = TextEditingController(text: widget.todoItem['start']);
+    _controllerEnd = TextEditingController(text: widget.todoItem['end']);
   }
 
   @override
@@ -47,10 +45,9 @@ class _EditSubjectState extends State<EditSubject>{
         key: key,
         child: ListView(
           children: [
+            buildTitleField(),
             buildCodeField(),
-            buildNameField(),
-            buildTeacherField(),
-            buildPlaceField(),
+            buildStatusField(),
             buildDetailsField(),
             buildStartField(),
             buildEndField(),
@@ -78,16 +75,16 @@ class _EditSubjectState extends State<EditSubject>{
     );
   }
 
-  TextFormField buildNameField() {
+  TextFormField buildTitleField() {
     return TextFormField(
-      controller: _controllerName,
+      controller: _controllerTitle,
       decoration: InputDecoration(
-        labelText: 'Name',
+        labelText: 'Title',
         icon: Icon(Icons.book),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Please fill name in blank';
+          return 'Please fill title in blank';
         } else {
           return null;
         }
@@ -95,40 +92,22 @@ class _EditSubjectState extends State<EditSubject>{
     );
   }
 
-  TextFormField buildTeacherField() {
+  TextFormField buildStatusField() {
     return TextFormField(
-      controller: _controllerTeacher,
+      controller: _controllerStatus,
       decoration: InputDecoration(
-        labelText: 'Teacher',
+        labelText: 'Status',
         icon: Icon(Icons.person),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Please fill teacher in blank';
+          return 'Please fill Status in blank';
         } else {
           return null;
         }
       },
     );
   }
-
-  TextFormField buildPlaceField() {
-    return TextFormField(
-      controller: _controllerPlace,
-      decoration: InputDecoration(
-        labelText: 'Place',
-        icon: Icon(Icons.place),
-      ),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'Please fill place in blank';
-        } else {
-          return null;
-        }
-      },
-    );
-  }
-
 
   TextFormField buildDetailsField() {
     return TextFormField(
@@ -189,12 +168,11 @@ class _EditSubjectState extends State<EditSubject>{
               .collection('studee')
               .doc(uid)
               .collection('timetable1')
-              .doc(widget.subjectItem['id'])
+              .doc(widget.todoItem['id'])
               .update({
+            'title': _controllerTitle.text,
             'code': _controllerCode.text,
-            'name': _controllerName.text,
-            'teacher': _controllerTeacher.text,
-            'place': _controllerPlace.text,
+            'status': _controllerStatus.text,
             'details': _controllerDetails.text,
             'start': _controllerStart.text,
             'end': _controllerEnd.text,
@@ -209,10 +187,9 @@ class _EditSubjectState extends State<EditSubject>{
   @override
 
   void dispose() {
+    _controllerTitle.dispose();
     _controllerCode.dispose();
-    _controllerName.dispose();
-    _controllerTeacher.dispose();
-    _controllerPlace.dispose();
+    _controllerStatus.dispose();
     _controllerDetails.dispose();
     _controllerStart.dispose();
     _controllerEnd.dispose();
