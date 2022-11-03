@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:studee/test.dart';
 import 'package:studee/variable.dart';
 import 'package:studee/view_subject.dart';
 import 'package:tab_container/tab_container.dart';
@@ -110,10 +111,11 @@ class MyStatelessWidget1 extends StatelessWidget {
                       return Card(
                           margin: EdgeInsets.all(14.0),
                           child: InkWell(
-                            highlightColor: Colors.blue.withOpacity(0.4),
-                            splashColor: Color.fromARGB(255, 255, 81, 249)
+                            highlightColor: Color.fromARGB(255, 151, 211, 159)
+                                .withOpacity(0.4),
+                            splashColor: Color.fromARGB(255, 0, 255, 34)
                                 .withOpacity(0.5),
-                            focusColor: Color.fromARGB(255, 0, 255, 64)
+                            focusColor: Color.fromARGB(255, 255, 153, 0)
                                 .withOpacity(0.6),
                             onTap: () {
                               ID = snapshot.data!.docs.elementAt(index).id;

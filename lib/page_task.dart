@@ -73,10 +73,11 @@ class MyStatelessWidget3 extends StatelessWidget {
                       return Card(
                           margin: EdgeInsets.all(14.0),
                           child: InkWell(
-                            highlightColor: Colors.blue.withOpacity(0.4),
-                            splashColor: Color.fromARGB(255, 255, 81, 249)
+                            highlightColor: Color.fromARGB(255, 151, 211, 159)
+                                .withOpacity(0.4),
+                            splashColor: Color.fromARGB(255, 0, 255, 34)
                                 .withOpacity(0.5),
-                            focusColor: Color.fromARGB(255, 0, 255, 64)
+                            focusColor: Color.fromARGB(255, 255, 153, 0)
                                 .withOpacity(0.6),
                             onTap: () {
                               ID = snapshot.data!.docs.elementAt(index).id;
