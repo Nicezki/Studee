@@ -97,6 +97,7 @@ class _AddTableState extends State<AddTable> {
           //if (_addnote.currentState!.validate());// {
           print('save button press');
           Map<String, dynamic> data = {
+            'color': '#29a329',
             'image':
                 'https://timeoutcomputers.com.au/wp-content/uploads/2016/12/noimage.jpg',
             'subj_name': _nameclass.text,
