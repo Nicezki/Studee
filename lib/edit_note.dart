@@ -114,7 +114,7 @@ class _EditNoteState extends State<EditNote>{
               .doc(widget.dbid)
               .update({
             'title': _controllerTitle.text,
-            'Type': _controllerType.text,
+            'type': _controllerType.text,
             'details': _controllerDetails.text,
           }).then((value) => Navigator.pop(context));
         }
