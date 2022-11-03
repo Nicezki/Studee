@@ -31,6 +31,7 @@ class _AddTableState extends State<AddTable> {
     setState(() {
       if (pickedFile != null) {
         _avatar = File(pickedFile.path);
+        
       } else {
         print('No image selected.');
       }
@@ -106,6 +107,8 @@ class _AddTableState extends State<AddTable> {
             'start_time': _startclass.text,
             'end_time': _endclass.text,
             'details': _details.text,
+            'place': 'ห้องเรียน',
+            'color': '#29a329',
           };
 
           try {
