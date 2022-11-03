@@ -31,6 +31,7 @@ class _TaskDetailState extends State<TaskDetail> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => EditTodo(
+                                _id,
                                 Map<String, dynamic>.from(
                                     snapshot.data!.docs[0].data() as Map))));
                   },

@@ -5,7 +5,8 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class EditTodo extends StatefulWidget {
   Map<String,dynamic> todoItem;
-  EditTodo (this.todoItem,{Key? key}) : super(key: key);
+  EditTodo (this.dbid,this.todoItem,{Key? key}) : super(key: key);
+  String dbid;
 
   Color pickerColor = Color(0xff443a49);
 
@@ -168,7 +169,7 @@ class _EditTodoState extends State<EditTodo>{
               .collection('studee')
               .doc(uid)
               .collection('timetable1')
-              .doc(widget.todoItem['id'])
+              .doc(widget.dbid)
               .update({
             'title': _controllerTitle.text,
             'code': _controllerCode.text,
