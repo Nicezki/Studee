@@ -17,8 +17,18 @@ var backgroundColorTheme = Color.fromARGB(255, 229, 255, 230);
 final store = FirebaseFirestore.instance;
 String ID = "";
 String Day = "";
+String globalDay = "";
 int? cur_page;
 String day = '';
+var dateName = [
+  'monday',
+  'tuesday',
+  'wednesday',
+  'thursday',
+  'friday',
+  'saturday',
+  'sunday'
+];
 const List<Tab> tabs = <Tab>[
   Tab(
     text: 'Mon',
@@ -32,3 +42,12 @@ const List<Tab> tabs = <Tab>[
   Tab(text: 'Sat'),
   Tab(text: 'Sun'),
 ];
+
+
+getNamefromFirestore() async {
+  var user = FirebaseAuth.instance.currentUser;
+  var uid = user!.uid;
+  var doc = await store.collection('users').doc(uid).get();
+  var name = doc['name'];
+  return name;
+}
