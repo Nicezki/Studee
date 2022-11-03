@@ -13,6 +13,10 @@ import 'package:studee/page_timetable.dart';
 import 'package:studee/view_notes.dart';
 import 'package:studee/view_todolist.dart';
 import 'package:studee/test.dart';
+import 'package:studee/view_todolist.dart';
+import 'package:studee/addnote.dart';
+import 'package:studee/addtable.dart';
+import 'package:studee/addtodolist.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,12 +51,13 @@ class _MyHomeState extends State<MyHome> {
         '/': (context) => MyApp(title: appTitle),
         '/LoginPage': (context) => LoginPage(),
         '/RegisterPage': (context) => RegisterPage(),
-        '/add_SecondPage': (context) => add_SecondPage(),
-        '/add_SecondPage2': (context) => add_SecondPage2(),
-        '/add_SecondPage3': (context) => add_SecondPage3(),
+        '/add_SecondPage': (context) => Addtable1(),
+        '/add_SecondPage2': (context) => Addtable2(),
+        '/add_SecondPage3': (context) => Addtable3(),
         '/view_subject': (context) => SubjectDetail(ID),
         '/view_note': (context) => NoteDetail(ID),
         '/test': (context) => MyApp2(),
+        '/view_todolist': (context) => TaskDetail(ID),
       },
       //home: MyApp(title: appTitle),
     );

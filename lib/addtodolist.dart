@@ -3,35 +3,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:image_picker/image_picker.dart';
-
-class Addtable extends StatefulWidget {
-  const Addtable({Key? key}) : super(key: key);
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:studee/variable.dart';
+class AddTable extends StatefulWidget {
+  const AddTable({Key? key}) : super(key: key);
   @override
-  State<Addtable> createState() => _AddtableState();
+  State<AddTable> createState() => _AddTableState();
 }
-class _AddtableState extends State<Addtable> {
+class _AddTableState extends State<AddTable> {
+  final _addtable = GlobalKey<FormState>();
+  final _name = TextEditingController();
+  final _class = TextEditingController();
+  final _startdate = TextEditingController();
+  final _enddate = TextEditingController();
+  final _details = TextEditingController();
+  final store = FirebaseFirestore.instance;
+
   File? _avatar;
   onChooseImage() async {
-  final picker = ImagePicker();
-  final pickedFile = await picker.pickImage(
-    source: ImageSource.camera);
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
 
-  setState(() {
-    if (pickedFile != null) {
-    _avatar = File(pickedFile.path);
-    } else {
-      print('No image selected.');
-    }
-});
-}
+    setState(() {
+      if (pickedFile != null) {
+        _avatar = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+        appBar: AppBar(
           leading: Icon(Icons.book),
           title: Text('เพิ่มสิ่งที่ต้องทำ'),
         ),
+
           body: Container(
+            key: _addtable,
             child: SafeArea(
                 child: Center(
               child: Container(
@@ -40,17 +51,16 @@ class _AddtableState extends State<Addtable> {
                      children: <Widget>[
                         _avatar == null
                         ? ElevatedButton(onPressed: () {
-                          onChooseImage();
                         },child: const Text('ใส่รูปภาพ'),
                         )
                         : Image.file(_avatar!),
                         SizedBox(
                             height: 10,
                           ),
-                       nameBox(),
-                       classBox(),
-                       starttimeBox(),
-                       endtimeBox(),
+                       nameclassBox(),
+                       codeclassBox(),
+                       startdateBox(),
+                       enddateBox(),
                        detailsBox(),
                         SizedBox(
                             height: 10,
@@ -64,63 +74,7 @@ class _AddtableState extends State<Addtable> {
             color: Color.fromARGB(255, 255, 255, 255),)  
     );
   }
-}
-
-TextFormField nameBox() {
-    return TextFormField(
-      
-      keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        labelText: 'หัวข้องาน :',
-       
-      ),
-    );
-  }
-
-  TextFormField classBox() {
-    return TextFormField(
-      
-      keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        labelText: 'วิชา :',
-        
-      ),
-    );
-  }
-
-
-  TextFormField starttimeBox() {
-    return TextFormField(
-      
-      keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        labelText: 'วันที่สั่ง :',
-       
-      ),
-    );
-  }
-
-TextFormField endtimeBox() {
-    return TextFormField(
-      
-      keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        labelText: 'วันที่ส่ง :',
-        
-      ),
-    );
-  }
-
-  TextFormField detailsBox() {
-    return TextFormField(
-      
-      keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        labelText: 'รายละเอียด :',
-        
-      ),
-    );
-  }
+//}**** 
 
    ElevatedButton registerButton() {
     return ElevatedButton(
@@ -131,9 +85,129 @@ TextFormField endtimeBox() {
                    Text("บันทึก", style: TextStyle(fontSize: 20)),
                    
                       ],)),),
-      onPressed: () async {
-      
-      },
+      onPressed: ()async   {
+    
+      //if (_addnote.currentState!.validate());// {
+          print('save button press');
+          Map<String, dynamic> data = {
+
+      'หัวข้อ': _name.text,
+      'วิชา': _class.text,
+      'วันที่สั่ง': _startdate.text,
+      'วันที่ส่ง': _enddate.text,
+      'รายละเอียด': _details.text,
+       };
+       try {
+
+DocumentReference ref =
+
+await store.collection('studee').doc(uid).collection('timetable1').doc('timetable').collection('monday').add(data);
+//FirebaseFirestore.instance.collection("studee").doc(user.user!.uid).collection('timetable1').doc('note').collection('1').doc()
+
+print('save id = ${ref.id}');
+
+Navigator.pop(context);
+
+} catch (e) {
+
+ScaffoldMessenger.of(context).showSnackBar(
+
+SnackBar(
+
+content: Text('Error $e'),
+
+),
+
+);
+     };
+      }
+    );
+  }
+
+  TextFormField nameclassBox() {
+    return TextFormField(
+      controller: _name,
+     // keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'หัวข้อ :',
+       
+      ),
+      validator: (value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter text';
+    }
+    return null;
+  },
+    );
+  }
+
+  TextFormField codeclassBox() {
+    return TextFormField(
+      controller: _class,
+     // keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'วิชา :',
+        
+      ),
+      validator: (value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter text';
+    }
+    return null;
+  },
+    );
+  }
+
+  TextFormField startdateBox() {
+    return TextFormField(
+      controller: _startdate,
+     // keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'วันที่สั่ง :',
+        
+      ),
+      validator: (value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter text';
+    }
+    return null;
+  },
+    );
+  }
+
+  TextFormField enddateBox() {
+    return TextFormField(
+      controller: _enddate,
+     // keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'วันที่ส่ง :',
+       
+      ),
+     validator: (value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter text';
+    }
+    return null;
+  },
+    );
+  }
+
+  TextFormField detailsBox() {
+    return TextFormField(
+      controller: _details,
+     // keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        labelText: 'รายละเอียด :',
+       
+      ),
+     validator: (value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter text';
+    }
+    return null;
+  },
     );
   }
   
+}//final
+
