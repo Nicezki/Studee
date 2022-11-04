@@ -110,7 +110,7 @@ class _AddNoteState extends State<AddNote> {
             'title': _name.text,
             'details': _message.text,
             'type': _tage.text,
-            'image': uploadurl,
+            'image': await uploadurl,
           };
           try {
             DocumentReference ref = await store
