@@ -100,9 +100,10 @@ class _RegisterPageState extends State<RegisterPage> {
     });
     await FirebaseFirestore.instance.collection("studee").doc(user.user!.uid).collection('timetable1').doc('note').collection('1').doc().set({
       'color': "#FF0000",
-      'details': "เขียน note ที่นี่",
-      'title': "note สุดยอดเยี่ยมของคุณ",
+      'details': "โน้ตสุดโปรด",
+      'title': "note สุดยอดเยี่ยมของคุณอยู่ที่นี่แล้ว ลองแก้ไขดูสิ",
       "type": "Lecture",
+      "image" : "https://timeoutcomputers.com.au/wp-content/uploads/2016/12/noimage.jpg"
     });
     var days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
     days.forEach((String days) => FirebaseFirestore.instance.collection("studee").doc(user.user!.uid).collection('timetable1').doc('timetable')

@@ -18,6 +18,7 @@ class EditSubject extends StatefulWidget {
 var user = FirebaseAuth.instance.currentUser;
 var user_id = user!.uid;
 
+
 class _EditSubjectState extends State<EditSubject> {
   late TextEditingController _controllerCode;
   late TextEditingController _controllerName;
@@ -86,6 +87,7 @@ class _EditSubjectState extends State<EditSubject> {
       },
     );
   }
+  
 
   TextFormField buildNameField() {
     return TextFormField(

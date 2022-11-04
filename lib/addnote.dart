@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studee/variable.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class AddNote extends StatefulWidget {
   const AddNote({Key? key}) : super(key: key);
@@ -21,6 +22,7 @@ class _AddNoteState extends State<AddNote> {
   final _tage = TextEditingController();
   final store = FirebaseFirestore.instance;
   var uploadurl;
+  var currentColor = Color.fromARGB(255, 61, 169, 64);
 
   File? _avatar;
 
@@ -48,6 +50,7 @@ class _AddNoteState extends State<AddNote> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: currentColor,
           leading: Icon(Icons.book),
           title: Text('เพิ่มบันทึก'),
         ),
@@ -63,12 +66,18 @@ class _AddNoteState extends State<AddNote> {
                         ? Column(
                             children: [
                               ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: currentColor,
+                                ),
                                 onPressed: () {
                                   onChooseImage(0);
                                 },
                                 child: Text('เลือกรูปภาพ'),
                               ),
                               ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: currentColor,
+                                ),
                                 onPressed: () {
                                   onChooseImage(1);
                                 },
@@ -80,6 +89,7 @@ class _AddNoteState extends State<AddNote> {
                     SizedBox(
                       height: 10,
                     ),
+                    colorPickButton(),
                     nameBox(),
                     //classBox(),
                     messageBox(),
@@ -96,8 +106,44 @@ class _AddNoteState extends State<AddNote> {
   }
 //}****
 
+  ElevatedButton colorPickButton() {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: currentColor,
+      ),
+      child: Text('เลือกสี'),
+      onPressed: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text('เลือกสี'),
+                content: SingleChildScrollView(
+                  child: ColorPicker(
+                    pickerColor: currentColor,
+                    onColorChanged: changeColor,
+                    pickerAreaHeightPercent: 0.8,
+                  ),
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    child: const Text('เลือก'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            });
+      },
+    );
+  }
+
   ElevatedButton registerButton() {
     return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: currentColor,
+        ),
         child: Container(
           child: Center(
               child: Column(
@@ -111,7 +157,7 @@ class _AddNoteState extends State<AddNote> {
           //if (_addnote.currentState!.validate());// {
           print('save button press');
           Map<String, dynamic> data = {
-            'color': '#29a329',
+            'color': currentColor.value,
             'title': _name.text,
             'details': _message.text,
             'type': _tage.text,
@@ -204,6 +250,34 @@ class _AddNoteState extends State<AddNote> {
       },
     );
   }
+
+  //Color picker button
+  void _showColorPicker() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Pick a color!'),
+          content: SingleChildScrollView(
+            child: BlockPicker(
+              pickerColor: currentColor,
+              onColorChanged: changeColor,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Got it'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void changeColor(Color color) => setState(() => currentColor = color);
 
   addToFirebaseStorage(imagePath) async {
     File imageFile = File(imagePath);
