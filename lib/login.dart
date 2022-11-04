@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:studee/main.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -14,6 +14,10 @@ class _LoginPageState extends State<LoginPage> {
   // @override
   void initState() {
     super.initState();
+    //clear old user data
+    FirebaseAuth.instance.signOut();
+    //clear variable
+
     
   //   FirebaseAuth.instance.authStateChanges().listen((User? user) {
   //     if (FirebaseAuth.instance.currentUser != null) {
@@ -129,6 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                 if (value.user!.emailVerified) {
                   ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("เข้าสู่ระบบสำเร็จ")));
+                      // initLoginUser();
                   Navigator.pushNamed(context, '/');
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(

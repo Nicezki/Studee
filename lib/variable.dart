@@ -35,6 +35,36 @@ var userFullName = FutureBuilder<DocumentSnapshot>(
   },
 );
 
+initLoginUser() async {
+  var user = await FirebaseAuth.instance.currentUser;
+  var uid = user!.uid;
+  final store = await FirebaseFirestore.instance;
+  String ID = "";
+  String Day = "";
+  int? cur_page;
+  String day = '';
+  String globalDay = "monday";
+  //userFullName get from store.collection('studee').doc(uid).get()
+  var userFullName = FutureBuilder<DocumentSnapshot>(
+    future: store.collection('studee').doc(uid).get(),
+    builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+      if (snapshot.hasError) {
+        return Text("โหลดไม่สำเร็จ");
+      }
+      if (snapshot.connectionState == ConnectionState.done) {
+        Map<String, dynamic> data =
+            snapshot.data!.data() as Map<String, dynamic>;
+        return Text("${data['name']}");
+      }
+      return Text("กำลังโหลด..");
+    },
+  );
+}
+
+logoutUser() async {
+  await FirebaseAuth.instance.signOut();
+}
+
 var dateName = [
   'monday',
   'tuesday',

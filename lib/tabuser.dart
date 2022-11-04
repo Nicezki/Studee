@@ -54,10 +54,8 @@ class MyApp extends StatelessWidget {
             title: const Text('ออกจากระบบ',
                 style: TextStyle(color: Colors.red)),
             onTap: () {
-              user = null;
-              FirebaseAuth.instance.signOut();
+              logoutUser();
               Navigator.pushNamed(context, '/LoginPage');
-              
             },
           ),
         ],

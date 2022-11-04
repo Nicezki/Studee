@@ -194,20 +194,26 @@ class MyStatelessWidget1 extends StatelessWidget {
                                           padding: EdgeInsets.only(
                                               left: 10, right: 10),
                                           child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
-                                              Text(
+                                              Text("ชื่อวิชา : "+
                                                 ds['subj_name'],
                                                 overflow: TextOverflow.ellipsis,
                                               ),
-                                              Text(
+                                              Text("อาจารย์ : "+
+                                                ds['teacher_name'],
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              Text("รายละเอียด : "+
                                                 ds['details'],
                                                 overflow: TextOverflow.ellipsis,
                                               ),
-                                              Text(
+                                              Text("เวลาเริ่ม : "+
                                                 ds['start_time'],
                                                 overflow: TextOverflow.ellipsis,
                                               ),
-                                              Text(
+                                              Text("เวลาจบ : "+
                                                 ds['end_time'],
                                                 overflow: TextOverflow.ellipsis,
                                               ),

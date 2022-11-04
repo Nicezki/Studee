@@ -155,13 +155,14 @@ class MyStatelessWidget3 extends StatelessWidget {
                                         child: Padding(
                                           padding: EdgeInsets.only(
                                               left: 10, right: 10),
-                                          child: Column(
+                                          child: Column(crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
-                                              Text(
+                                              Text("ชื่องาน : "+
                                                 ds['title'],
                                                 overflow: TextOverflow.ellipsis,
                                               ),
-                                              Text(
+                                              Text("รายละเอียด : "+
                                                 ds['details'],
                                                 overflow: TextOverflow.ellipsis,
                                               ),

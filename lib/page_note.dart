@@ -157,18 +157,19 @@ class MyStatelessWidget2 extends StatelessWidget {
                                         child: Padding(
                                           padding: EdgeInsets.only(
                                               left: 10, right: 10),
-                                          child: Column(
+                                          child: Column(crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                "Title :" + ds['title'],
+                                                "ชื่อโน๊ต :" + ds['title'],
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                               Text(
-                                                "Type :" + ds['type'],
+                                                "ประเภท :" + ds['type'],
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                               Text(
-                                                "Details :" + ds['details'],
+                                                "รายละเอียด :" + ds['details'],
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                             ],
