@@ -10,7 +10,7 @@ import 'package:studee/page_timetable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 var user = FirebaseAuth.instance.currentUser;
-var uid = 'Is4z0tu3tUYSKuOt9NoCwXDTTZl1'; //user!.uid;
+var uid = user!.uid;
 var appColorTheme = Color.fromARGB(255, 0, 180, 81);
 var defaultAppColorTheme = Color.fromARGB(255, 0, 180, 81);
 var backgroundColorTheme = Color.fromARGB(255, 229, 255, 230);
@@ -21,7 +21,7 @@ int? cur_page;
 String day = '';
 String globalDay = "monday";
 //userFullName get from store.collection('studee').doc(uid).get()
-var userFullName = FutureBuilder <DocumentSnapshot>(
+var userFullName = FutureBuilder<DocumentSnapshot>(
   future: store.collection('studee').doc(uid).get(),
   builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
     if (snapshot.hasError) {
@@ -57,4 +57,3 @@ const List<Tab> tabs = <Tab>[
   Tab(text: 'Sat'),
   Tab(text: 'Sun'),
 ];
-

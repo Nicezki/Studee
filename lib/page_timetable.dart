@@ -49,6 +49,7 @@ class MyStatelessWidget1 extends StatelessWidget {
             backgroundColor: Color.fromARGB(255, 4, 188, 16),
           ),
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             titleSpacing: 00.0,
             centerTitle: true,
             toolbarHeight: 40.2,

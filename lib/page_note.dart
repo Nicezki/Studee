@@ -13,6 +13,7 @@ class add_SecondPage2 extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroundColorTheme,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Add time-table'),
       ),
       body: Center(child: Text('Add time-table here')),

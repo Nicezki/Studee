@@ -43,35 +43,15 @@ class MyApp extends StatelessWidget {
             ),
             accountName: userFullName,
             accountEmail: Text(user?.email.toString() ?? "No User"),
-            currentAccountPicture: CircleAvatar(
-              child: FlutterLogo(
-                size: 42,
-              ),
-              backgroundColor: backgroundColorTheme,
-            ),
-            otherAccountsPictures: [
-              const CircleAvatar(
-                child: Text('P'),
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.orange,
-              ),
-              CircleAvatar(
-                child:
-                    IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.grey,
-              ),
-            ],
           ),
           ListTile(
-            leading: Icon(Icons.access_alarm),
-            title: const Text('Item 1'),
+            title: const Text('เทอม 1'),
             onTap: () {
               Navigator.pushNamed(context, '/LoginPage');
             },
           ),
           ListTile(
-            title: const Text('Item 2'),
+            title: const Text('เทอม 2'),
             onTap: () {},
           ),
         ],

@@ -12,6 +12,7 @@ class add_SecondPage3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Add time-table'),
       ),
       body: Center(child: Text('Add time-table here')),
