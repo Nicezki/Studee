@@ -92,9 +92,9 @@ class MyStatelessWidget3 extends StatelessWidget {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      title: const Text('ลบรายวิชา'),
+                                      title: const Text('ลบงาน'),
                                       content: const Text(
-                                          'คุณต้องการลบรายวิชานี้ใช่หรือไม่'),
+                                          'คุณต้องการลบงานนี้ใช่หรือไม่'),
                                       actions: <Widget>[
                                         TextButton(
                                           onPressed: () {

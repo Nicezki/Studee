@@ -18,10 +18,10 @@ class _SubjectDetailState extends State<SubjectDetail> {
   Widget build(BuildContext context) {
     String _id = widget._idi;
     return StreamBuilder(
-        stream: getSubject(Day,uid,_id),
+        stream: getSubject(Day, uid, _id),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           return Scaffold(
-            appBar: AppBar( 
+            appBar: AppBar(
               backgroundColor: appColorTheme,
               title: const Text("รายละเอียดตารางเรียน"),
               centerTitle: true,
@@ -29,13 +29,13 @@ class _SubjectDetailState extends State<SubjectDetail> {
                 IconButton(
                   onPressed: () {
                     //send map of data to edit page
-                      Navigator.push(
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => EditSubject(
-                            _id,
-                            Map<String,dynamic>.from(snapshot.data!.docs[0].data() as Map)
-                          )));
+                            builder: (context) => EditSubject(
+                                _id,
+                                Map<String, dynamic>.from(
+                                    snapshot.data!.docs[0].data() as Map))));
                   },
                   icon: const Icon(Icons.edit),
                 ),
@@ -76,23 +76,24 @@ class _SubjectDetailState extends State<SubjectDetail> {
 
   Container buildSubjectList(QuerySnapshot data) {
     var results = Map();
-    try{
-    var model = data.docs.elementAt(0);
-    results = Map<String, dynamic>.from(model.data() as Map);
-    appColorTheme = Color(int.parse(results['color'].substring(1, 7), radix: 16) +
-        0xFF000000);
-    }catch(e){
+    try {
+      var model = data.docs.elementAt(0);
+      results = Map<String, dynamic>.from(model.data() as Map);
+      appColorTheme = Color(
+          int.parse(results['color'].substring(1, 7), radix: 16) + 0xFF000000);
+    } catch (e) {
       results = {
-          "subj_name" : "ไม่มีข้อมูล",
-          "subj_code": "ไม่มีข้อมูล",
-          "start_time": "00:00",
-          "end_time": "01:00",
-          "place": "ไม่มีข้อมูล",
-          "image": "https://timeoutcomputers.com.au/wp-content/uploads/2016/12/noimage.jpg",
-          "details": "ไม่มีข้อมูล",
-          "teacher_name" : "ไม่มีข้อมูล",
-          "color": "#000000"
-        };
+        "subj_name": "ไม่มีข้อมูล",
+        "subj_code": "ไม่มีข้อมูล",
+        "start_time": "00:00",
+        "end_time": "01:00",
+        "place": "ไม่มีข้อมูล",
+        "image":
+            "https://timeoutcomputers.com.au/wp-content/uploads/2016/12/noimage.jpg",
+        "details": "ไม่มีข้อมูล",
+        "teacher_name": "ไม่มีข้อมูล",
+        "color": "#000000"
+      };
     }
     // return Container(
     //   child: Row(
@@ -111,7 +112,7 @@ class _SubjectDetailState extends State<SubjectDetail> {
     //           height: 20,
     //         ),
     //         // Flexible(child: Text(results['subj_name'],style: TextStyle(fontSize: 36),maxLines: 8,softWrap: true,overflow: TextOverflow.ellipsis,)),
-            
+
     //         DataTable(columns: [
     //           DataColumn(label: Text('')),
     //           DataColumn(label: Text('')),
@@ -182,10 +183,10 @@ class _SubjectDetailState extends State<SubjectDetail> {
                     DataCell(Text('ชื่อวิชา')),
                     DataCell(Text(results['subj_name'])),
                   ]),
-                  // DataRow(cells: [
-                  //   DataCell(Text('ชื่ออาจารย์')),
-                  //   DataCell(Text(results['teacher_name'])),
-                  // ]),
+                  DataRow(cells: [
+                    DataCell(Text('ชื่ออาจารย์')),
+                    DataCell(Text(results['teacher_name'])),
+                  ]),
                   DataRow(cells: [
                     DataCell(Text('ห้องเรียน')),
                     DataCell(Text(results['place'])),
@@ -234,7 +235,7 @@ class _SubjectDetailState extends State<SubjectDetail> {
   //       .snapshots();
   //   }
 
-  Stream<QuerySnapshot> getSubject(String thisday,String user,String docId) {
+  Stream<QuerySnapshot> getSubject(String thisday, String user, String docId) {
     print(docId);
     print(user);
     print(thisday);

@@ -5,6 +5,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studee/variable.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
+var uploadurl;
 
 class AddTable extends StatefulWidget {
   const AddTable({Key? key}) : super(key: key);
@@ -26,12 +29,29 @@ class _AddTableState extends State<AddTable> {
   File? _avatar;
   onChooseImage() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     setState(() {
       if (pickedFile != null) {
         _avatar = File(pickedFile.path);
-        
+        // uploadurl = addToFirebaseStorage(pickedFile.path);
+        uploadurl = addToFirebaseStorage(pickedFile.path);
+        //add to firebase storage
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
+  oncapImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    setState(() {
+      if (pickedFile != null) {
+        _avatar = File(pickedFile.path);
+        // uploadurl = addToFirebaseStorage(pickedFile.path);
+        uploadurl = addToFirebaseStorage(pickedFile.path);
+        //add to firebase storage
       } else {
         print('No image selected.');
       }
@@ -57,6 +77,14 @@ class _AddTableState extends State<AddTable> {
                         ? ElevatedButton(
                             onPressed: () {
                               onChooseImage();
+                            },
+                            child: const Text('Add picture'),
+                          )
+                        : Image.file(_avatar!),
+                    _avatar == null
+                        ? ElevatedButton(
+                            onPressed: () {
+                              oncapImage();
                             },
                             child: const Text('Add picture'),
                           )
@@ -99,8 +127,7 @@ class _AddTableState extends State<AddTable> {
           print('save button press');
           Map<String, dynamic> data = {
             'color': '#29a329',
-            'image':
-                'https://timeoutcomputers.com.au/wp-content/uploads/2016/12/noimage.jpg',
+            'image': await uploadurl,
             'subj_name': _nameclass.text,
             'subj_code': _codeclass.text,
             'teacher_name': _teacher.text,
@@ -108,7 +135,6 @@ class _AddTableState extends State<AddTable> {
             'end_time': _endclass.text,
             'details': _details.text,
             'place': 'ห้องเรียน',
-            'color': '#29a329',
           };
 
           try {
@@ -273,3 +299,15 @@ class _AddTableState extends State<AddTable> {
 // );
 //   }
 ////final
+///
+addToFirebaseStorage(imagePath) async {
+  File imageFile = File(imagePath);
+  String fileName = imagePath.split('/').last;
+  Reference firebaseStorageRef =
+      FirebaseStorage.instance.ref().child('studee/$fileName');
+  UploadTask uploadTask = firebaseStorageRef.putFile(imageFile);
+  TaskSnapshot taskSnapshot = await uploadTask;
+  var url = await taskSnapshot.ref.getDownloadURL();
+  print(url);
+  return url;
+}

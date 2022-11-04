@@ -45,13 +45,19 @@ class MyApp extends StatelessWidget {
             accountEmail: Text(user?.email.toString() ?? "No User"),
           ),
           ListTile(
-            title: const Text('เทอม 1'),
+            title: const Text('เลือกชุดข้อมูล'),
             onTap: () {
               Navigator.pushNamed(context, '/LoginPage');
             },
           ),
           ListTile(
-            title: const Text('เทอม 2'),
+            title: const Text('ตั้งค่า'),
+            onTap: () {
+              Navigator.pushNamed(context, '/LoginPage');
+            },
+          ),
+          ListTile(
+            title: const Text('ออกจากระบบ'),
             onTap: () {},
           ),
         ],
