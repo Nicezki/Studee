@@ -29,7 +29,7 @@ class _AddNoteState extends State<AddNote> {
     setState(() {
       if (pickedFile != null) {
         _avatar = File(pickedFile.path);
-        addToFirebaseStorage(_avatar!);
+        addToFirebaseStorage(pickedFile.path);
         //add to firebase storage
       } else {
         print('No image selected.');
@@ -188,10 +188,11 @@ class _AddNoteState extends State<AddNote> {
   }
 
 
-  addToFirebaseStorage(imageFile) async {
-    String fileName = imageFile.path;
+  addToFirebaseStorage(imagePath) async {
+    File imageFile = File(imagePath);
+    String fileName = imagePath.split('/').last;
     Reference firebaseStorageRef =
-        FirebaseStorage.instance.ref().child('uploads/$fileName');
+        FirebaseStorage.instance.ref().child('studee/$fileName');
     UploadTask uploadTask = firebaseStorageRef.putFile(imageFile);
     TaskSnapshot taskSnapshot = await uploadTask;
     taskSnapshot.ref.getDownloadURL().then(
