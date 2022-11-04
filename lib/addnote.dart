@@ -25,22 +25,13 @@ class _AddNoteState extends State<AddNote> {
   File? _avatar;
   onChooseImage() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     setState(() {
       if (pickedFile != null) {
         _avatar = File(pickedFile.path);
         // uploadurl = addToFirebaseStorage(pickedFile.path);
-        uploadurl = FutureBuilder(
-          future: addToFirebaseStorage(pickedFile.path),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return Text(snapshot.data.toString());
-            } else {
-              return Text('https://timeoutcomputers.com.au/wp-content/uploads/2016/12/noimage.jpg');
-            }
-          },
-        );
+        uploadurl = addToFirebaseStorage(pickedFile.path);
         //add to firebase storage
       } else {
         print('No image selected.');
