@@ -23,15 +23,9 @@ class _AddNoteState extends State<AddNote> {
   var uploadurl;
 
   File? _avatar;
-
-  onChooseImage(mode) async {
+  onChooseImage() async {
     final picker = ImagePicker();
-    final pickedFile;
-    if(mode == 0){
-      pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    }else{
-      pickedFile = await picker.pickImage(source: ImageSource.camera);
-    }
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
   oncapImage() async {
     final picker = ImagePicker();
@@ -47,8 +41,6 @@ class _AddNoteState extends State<AddNote> {
       }
     });
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -66,22 +58,12 @@ class _AddNoteState extends State<AddNote> {
                 child: ListView(
                   children: <Widget>[
                     _avatar == null
-                        ? Column(
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                onChooseImage(0);
-                              },
-                              child: Text('เลือกรูปภาพ'),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                onChooseImage(1);
-                              },
-                              child: Text('ถ่ายรูป'),
-                            ),
-                          ],
-                        )
+                        ? ElevatedButton(
+                            onPressed: () {
+                              onChooseImage();
+                            },
+                            child: const Text('ใส่รูปภาพ'),
+                          )
                         : Image.file(_avatar!),
                     SizedBox(
                       height: 10,
