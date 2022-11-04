@@ -93,9 +93,9 @@ class MyStatelessWidget2 extends StatelessWidget {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      title: const Text('ลบรายวิชา'),
+                                      title: const Text('ลบบันทึก'),
                                       content: const Text(
-                                          'คุณต้องการลบรายวิชานี้ใช่หรือไม่'),
+                                          'คุณต้องการลบบันทึกนี้ใช่หรือไม่'),
                                       actions: <Widget>[
                                         TextButton(
                                           onPressed: () {
@@ -136,11 +136,11 @@ class MyStatelessWidget2 extends StatelessWidget {
                                             bottomLeft: Radius.circular(20)),
                                         color:
                                             Color.fromARGB(233, 233, 233, 233),
-                                        /* image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(ds['image'] ??
-                                            "https://timeoutcomputers.com.au/wp-content/uploads/2016/12/noimage.jpg"),
-                                      )*/
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(ds['image'] ??
+                                              "https://timeoutcomputers.com.au/wp-content/uploads/2016/12/noimage.jpg"),
+                                        ),
                                       ),
                                     ),
                                     Expanded(

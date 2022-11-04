@@ -23,35 +23,6 @@ class _AddNoteState extends State<AddNote> {
   var uploadurl;
 
   File? _avatar;
-  onChooseImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      if (pickedFile != null) {
-        _avatar = File(pickedFile.path);
-        // uploadurl = addToFirebaseStorage(pickedFile.path);
-        uploadurl = addToFirebaseStorage(pickedFile.path);
-        //add to firebase storage
-      } else {
-        print('No image selected.');
-      }
-    });
-  }
-
-  oncapImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
-    setState(() {
-      if (pickedFile != null) {
-        _avatar = File(pickedFile.path);
-        // uploadurl = addToFirebaseStorage(pickedFile.path);
-        uploadurl = addToFirebaseStorage(pickedFile.path);
-        //add to firebase storage
-      } else {
-        print('No image selected.');
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,21 +39,10 @@ class _AddNoteState extends State<AddNote> {
                 padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
                 child: ListView(
                   children: <Widget>[
-                    _avatar == null
-                        ? ElevatedButton(
-                            onPressed: () {
-                              onChooseImage();
-                            },
-                            child: const Text('ใส่รูปภาพ'),
-                          )
-                        : Image.file(_avatar!),
                     SizedBox(
                       height: 10,
                     ),
                     nameBox(),
-                    //classBox(),
-                    messageBox(),
-                    tageBox(),
                     SizedBox(
                       height: 10,
                     ),
@@ -114,15 +74,13 @@ class _AddNoteState extends State<AddNote> {
             'title': _name.text,
             'details': _message.text,
             'type': _tage.text,
-            'image': await uploadurl,
+            'image': uploadurl,
           };
           try {
             DocumentReference ref = await store
                 .collection('studee')
                 .doc(uid)
                 .collection('timetable1')
-                .doc('note')
-                .collection('1')
                 .add(data);
 //FirebaseFirestore.instance.collection("studee").doc(user.user!.uid).collection('timetable1').doc('note').collection('1').doc()
 
@@ -145,59 +103,11 @@ class _AddNoteState extends State<AddNote> {
       controller: _name,
       // keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        labelText: 'title :',
+        labelText: 'ชื่อเทอม :',
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please enter text';
-        }
-        return null;
-      },
-    );
-  }
-
-  /* TextFormField classBox() {
-    return TextFormField(
-      controller: _class,
-      // keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        labelText: 'วิชา :',
-      ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter text';
-        }
-        return null;
-      },
-    );
-  }*/
-
-  TextFormField messageBox() {
-    return TextFormField(
-      controller: _message,
-      // keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        labelText: 'details :',
-      ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter text';
-        }
-        return null;
-      },
-    );
-  }
-
-  TextFormField tageBox() {
-    return TextFormField(
-      controller: _tage,
-      // keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        labelText: 'type :',
-      ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter text';
+          return 'โปรดใส่ชื่อเทอม';
         }
         return null;
       },
