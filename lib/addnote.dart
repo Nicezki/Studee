@@ -20,6 +20,7 @@ class _AddNoteState extends State<AddNote> {
   final _message = TextEditingController();
   final _tage = TextEditingController();
   final store = FirebaseFirestore.instance;
+  var uploadurl = '';
 
   File? _avatar;
   onChooseImage() async {
@@ -29,10 +30,11 @@ class _AddNoteState extends State<AddNote> {
     setState(() {
       if (pickedFile != null) {
         _avatar = File(pickedFile.path);
-        addToFirebaseStorage(pickedFile.path);
+        uploadurl = addToFirebaseStorage(pickedFile.path);
         //add to firebase storage
       } else {
         print('No image selected.');
+
       }
     });
   }
@@ -98,6 +100,7 @@ class _AddNoteState extends State<AddNote> {
             'title': _name.text,
             'details': _message.text,
             'type': _tage.text,
+            'image': uploadurl,
           };
           try {
             DocumentReference ref = await store
@@ -195,9 +198,9 @@ class _AddNoteState extends State<AddNote> {
         FirebaseStorage.instance.ref().child('studee/$fileName');
     UploadTask uploadTask = firebaseStorageRef.putFile(imageFile);
     TaskSnapshot taskSnapshot = await uploadTask;
-    taskSnapshot.ref.getDownloadURL().then(
-          (value) => print("Done: $value"),
-        );
+    var url = await taskSnapshot.ref.getDownloadURL();
+    print(url);
+    return url;
   }
 
 
