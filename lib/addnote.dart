@@ -20,7 +20,7 @@ class _AddNoteState extends State<AddNote> {
   final _message = TextEditingController();
   final _tage = TextEditingController();
   final store = FirebaseFirestore.instance;
-  var uploadurl = '';
+  var uploadurl;
 
   File? _avatar;
   onChooseImage() async {
@@ -30,7 +30,17 @@ class _AddNoteState extends State<AddNote> {
     setState(() {
       if (pickedFile != null) {
         _avatar = File(pickedFile.path);
-        uploadurl = addToFirebaseStorage(pickedFile.path);
+        // uploadurl = addToFirebaseStorage(pickedFile.path);
+        uploadurl = FutureBuilder(
+          future: addToFirebaseStorage(pickedFile.path),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Text(snapshot.data.toString());
+            } else {
+              return Text('https://timeoutcomputers.com.au/wp-content/uploads/2016/12/noimage.jpg');
+            }
+          },
+        );
         //add to firebase storage
       } else {
         print('No image selected.');
