@@ -11,21 +11,21 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   //if already login then go to home page
-  @override
+  // @override
   void initState() {
     super.initState();
     
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (FirebaseAuth.instance.currentUser != null) {
-        //snackbar
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('เข้าสู่ระบบอยู่แล้ว คุณจะถูกนำไปยังหน้าหลัก'),
-          ),
-        );
-        Navigator.pushReplacementNamed(context, '/');
-      }
-    });
+  //   FirebaseAuth.instance.authStateChanges().listen((User? user) {
+  //     if (FirebaseAuth.instance.currentUser != null) {
+  //       //snackbar
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         const SnackBar(
+  //           content: Text('เข้าสู่ระบบอยู่แล้ว คุณจะถูกนำไปยังหน้าหลัก'),
+  //         ),
+  //       );
+  //       Navigator.pushReplacementNamed(context, '/');
+  //     }
+  //   });
   }
   final _formstate = GlobalKey<FormState>();
   String? email;
