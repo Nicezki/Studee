@@ -7,13 +7,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studee/variable.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-class AddNote extends StatefulWidget {
-  const AddNote({Key? key}) : super(key: key);
+class Addterm extends StatefulWidget {
+  const Addterm({Key? key}) : super(key: key);
   @override
-  State<AddNote> createState() => _AddNoteState();
+  State<Addterm> createState() => _AddNoteState();
 }
 
-class _AddNoteState extends State<AddNote> {
+class _AddNoteState extends State<Addterm> {
   final _addnote = GlobalKey<FormState>();
   final _name = TextEditingController();
   final _class = TextEditingController();
@@ -29,7 +29,7 @@ class _AddNoteState extends State<AddNote> {
     return Scaffold(
         appBar: AppBar(
           leading: Icon(Icons.book),
-          title: Text('เพิ่มบันทึก'),
+          title: Text('เพิ่มเทอม'),
         ),
         body: Container(
           key: _addnote,
@@ -77,14 +77,80 @@ class _AddNoteState extends State<AddNote> {
             'image': uploadurl,
           };
           try {
-            DocumentReference ref = await store
-                .collection('studee')
-                .doc(uid)
-                .collection('timetable1')
-                .add(data);
-//FirebaseFirestore.instance.collection("studee").doc(user.user!.uid).collection('timetable1').doc('note').collection('1').doc()
-
-            print('save id = ${ref.id}');
+            Future addUserCollection(var user) async {
+              await FirebaseFirestore.instance
+                  .collection('studee')
+                  .doc(uid)
+                  .collection(_name.text)
+                  .doc();
+              await FirebaseFirestore.instance
+                  .collection("studee")
+                  .doc(uid)
+                  .collection(_name.text)
+                  .doc('info')
+                  .set({
+                'name': 'ตารางเรียนเริ่มต้น',
+              });
+              await FirebaseFirestore.instance
+                  .collection("studee")
+                  .doc(uid)
+                  .collection(_name.text)
+                  .doc('note')
+                  .collection('1')
+                  .doc()
+                  .set({
+                'color': "#FF0000",
+                'details': "เขียน note ที่นี่",
+                'title': "note สุดยอดเยี่ยมของคุณ",
+                "type": "Lecture",
+              });
+              var days = [
+                'sunday',
+                'monday',
+                'tuesday',
+                'wednesday',
+                'thursday',
+                'friday',
+                'saturday'
+              ];
+              days.forEach((String days) => FirebaseFirestore.instance
+                      .collection("studee")
+                      .doc(user.user!.uid)
+                      .collection('timetable1')
+                      .doc(_name.text)
+                      .collection(days)
+                      .doc()
+                      .set({
+                    "subj_name": "Mobile Device Programming",
+                    "subj_code": "00123456",
+                    "teacher_name": "นชิรัตน์ ราชบุรี",
+                    "start_time": "09:00",
+                    "end_time": "12:00",
+                    "place": "32100",
+                    "image":
+                        "https://cdn-images-1.medium.com/max/1200/1*5-aoK8IBmXve5whBQM90GA.png",
+                    "details": "วิชาที่ยอดเยี่ยม อาจารย์สอนดีมาก",
+                    "color": "#FF0000"
+                  }));
+              await FirebaseFirestore.instance
+                  .collection("studee")
+                  .doc(user.user!.uid)
+                  .collection('timetable1')
+                  .doc('todolist')
+                  .collection('1')
+                  .doc()
+                  .set({
+                "title": "ทำงาน App ส่งอาจารย์",
+                "subj_code": "00123456",
+                "details": "ทำงานกลุ่มส่งอาจารย์",
+                "status": "in-progress",
+                "image":
+                    "https://cdn-images-1.medium.com/max/1200/1*5-aoK8IBmXve5whBQM90GA.png",
+                "color": "#FF0000",
+                "start": "2022-09-25 10:00:00",
+                "end": "2022-11-04 13:39:59"
+              });
+            }
 
             Navigator.pop(context);
           } catch (e) {
@@ -112,17 +178,5 @@ class _AddNoteState extends State<AddNote> {
         return null;
       },
     );
-  }
-
-  addToFirebaseStorage(imagePath) async {
-    File imageFile = File(imagePath);
-    String fileName = imagePath.split('/').last;
-    Reference firebaseStorageRef =
-        FirebaseStorage.instance.ref().child('studee/$fileName');
-    UploadTask uploadTask = firebaseStorageRef.putFile(imageFile);
-    TaskSnapshot taskSnapshot = await uploadTask;
-    var url = await taskSnapshot.ref.getDownloadURL();
-    print(url);
-    return url;
   }
 } //final

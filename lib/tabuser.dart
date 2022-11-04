@@ -8,9 +8,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studee/test.dart';
 import 'package:studee/variable.dart';
 
-
-
-
 class MyApp extends StatelessWidget {
   final String title;
   const MyApp({Key? key, required this.title}) : super(key: key);
@@ -21,8 +18,7 @@ class MyApp extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Studee'),
         centerTitle: true,
-        
-        
+
         /*actions: [
           IconButton(
               icon: const Icon(Icons.add),
@@ -51,8 +47,14 @@ class MyApp extends StatelessWidget {
             accountEmail: Text(user?.email.toString() ?? "No User"),
           ),
           ListTile(
-            title: const Text('ออกจากระบบ',
-                style: TextStyle(color: Colors.red)),
+            title:
+                const Text('ออกจากระบบ', style: TextStyle(color: Colors.red)),
+            onTap: () {
+              Navigator.pushNamed(context, '/LoginPage');
+            },
+          ),
+          ListTile(
+            title: const Text('ตั้งค่า'),
             onTap: () {
               logoutUser();
               Navigator.pushNamed(context, '/LoginPage');
@@ -63,5 +65,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-

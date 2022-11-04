@@ -130,16 +130,15 @@ class MyStatelessWidget3 extends StatelessWidget {
                                       width: 125,
                                       height: 125,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(20),
-                                            bottomLeft: Radius.circular(20)),
-                                        color:
-                                            Color.fromARGB(233, 233, 233, 233),
-                                        /*  image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(ds['image']),
-                                      )*/
-                                      ),
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(20),
+                                              bottomLeft: Radius.circular(20)),
+                                          color: Color.fromARGB(
+                                              233, 233, 233, 233),
+                                          image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: NetworkImage(ds['image']),
+                                          )),
                                     ),
                                     Expanded(
                                       child: Container(

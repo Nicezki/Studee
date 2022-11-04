@@ -29,9 +29,9 @@ class _AddNoteState extends State<AddNote> {
   onChooseImage(mode) async {
     final picker = ImagePicker();
     final pickedFile;
-    if(mode == 0){
+    if (mode == 0) {
       pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    }else{
+    } else {
       pickedFile = await picker.pickImage(source: ImageSource.camera);
     }
     setState(() {
@@ -45,10 +45,6 @@ class _AddNoteState extends State<AddNote> {
       }
     });
   }
-
-
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -68,27 +64,27 @@ class _AddNoteState extends State<AddNote> {
                   children: <Widget>[
                     _avatar == null
                         ? Column(
-                          children: [
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                              backgroundColor: currentColor,
-                            ),
-                              onPressed: () {
-                                onChooseImage(0);
-                              },
-                              child: Text('เลือกรูปภาพ'),
-                            ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                              backgroundColor: currentColor,
-                            ),
-                              onPressed: () {
-                                onChooseImage(1);
-                              },
-                              child: Text('ถ่ายรูป'),
-                            ),
-                          ],
-                        )
+                            children: [
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: currentColor,
+                                ),
+                                onPressed: () {
+                                  onChooseImage(0);
+                                },
+                                child: Text('เลือกรูปภาพ'),
+                              ),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: currentColor,
+                                ),
+                                onPressed: () {
+                                  onChooseImage(1);
+                                },
+                                child: Text('ถ่ายรูป'),
+                              ),
+                            ],
+                          )
                         : Image.file(_avatar!),
                     SizedBox(
                       height: 10,
@@ -110,36 +106,35 @@ class _AddNoteState extends State<AddNote> {
   }
 //}****
 
-  ElevatedButton colorPickButton(){
+  ElevatedButton colorPickButton() {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: currentColor,
       ),
       child: Text('เลือกสี'),
-      onPressed: (){
+      onPressed: () {
         showDialog(
-          context: context,
-          builder: (BuildContext context){
-            return AlertDialog(
-              title: const Text('เลือกสี'),
-              content: SingleChildScrollView(
-                child: ColorPicker(
-                  pickerColor: currentColor,
-                  onColorChanged: changeColor,
-                  pickerAreaHeightPercent: 0.8,
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text('เลือกสี'),
+                content: SingleChildScrollView(
+                  child: ColorPicker(
+                    pickerColor: currentColor,
+                    onColorChanged: changeColor,
+                    pickerAreaHeightPercent: 0.8,
+                  ),
                 ),
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: const Text('เลือก'),
-                  onPressed: (){
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          }
-        );
+                actions: <Widget>[
+                  TextButton(
+                    child: const Text('เลือก'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            });
       },
     );
   }
@@ -256,7 +251,7 @@ class _AddNoteState extends State<AddNote> {
     );
   }
 
-  //Color picker button 
+  //Color picker button
   void _showColorPicker() {
     showDialog(
       context: context,
@@ -284,7 +279,6 @@ class _AddNoteState extends State<AddNote> {
 
   void changeColor(Color color) => setState(() => currentColor = color);
 
-
   addToFirebaseStorage(imagePath) async {
     File imageFile = File(imagePath);
     String fileName = imagePath.split('/').last;
@@ -296,5 +290,4 @@ class _AddNoteState extends State<AddNote> {
     print(url);
     return url;
   }
-  
 }

@@ -27,25 +27,14 @@ class _AddTableState extends State<AddTable> {
   final store = FirebaseFirestore.instance;
 
   File? _avatar;
-  onChooseImage() async {
+  onChooseImage(mode) async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      if (pickedFile != null) {
-        _avatar = File(pickedFile.path);
-        // uploadurl = addToFirebaseStorage(pickedFile.path);
-        uploadurl = addToFirebaseStorage(pickedFile.path);
-        //add to firebase storage
-      } else {
-        print('No image selected.');
-      }
-    });
-  }
-
-  oncapImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    final pickedFile;
+    if (mode == 0) {
+      pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    } else {
+      pickedFile = await picker.pickImage(source: ImageSource.camera);
+    }
     setState(() {
       if (pickedFile != null) {
         _avatar = File(pickedFile.path);
@@ -74,19 +63,21 @@ class _AddTableState extends State<AddTable> {
                 child: ListView(
                   children: <Widget>[
                     _avatar == null
-                        ? ElevatedButton(
-                            onPressed: () {
-                              onChooseImage();
-                            },
-                            child: const Text('Add picture'),
-                          )
-                        : Image.file(_avatar!),
-                    _avatar == null
-                        ? ElevatedButton(
-                            onPressed: () {
-                              oncapImage();
-                            },
-                            child: const Text('Add picture'),
+                        ? Column(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  onChooseImage(0);
+                                },
+                                child: Text('เลือกรูปภาพ'),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  onChooseImage(1);
+                                },
+                                child: Text('ถ่ายรูป'),
+                              ),
+                            ],
                           )
                         : Image.file(_avatar!),
                     SizedBox(
