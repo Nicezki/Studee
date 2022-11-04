@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
             decoration: BoxDecoration(
               color: defaultAppColorTheme,
             ),
-            accountName: Text('aaa'),
+            accountName: userFullName,
             accountEmail: Text(user?.email.toString() ?? "No User"),
             currentAccountPicture: CircleAvatar(
               child: FlutterLogo(
