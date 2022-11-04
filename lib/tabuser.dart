@@ -3,9 +3,13 @@ import 'package:studee/tabtail.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studee/test.dart';
 import 'package:studee/variable.dart';
+
+
+
 
 class MyApp extends StatelessWidget {
   final String title;
@@ -17,6 +21,8 @@ class MyApp extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Studee'),
         centerTitle: true,
+        
+        
         /*actions: [
           IconButton(
               icon: const Icon(Icons.add),
@@ -45,23 +51,19 @@ class MyApp extends StatelessWidget {
             accountEmail: Text(user?.email.toString() ?? "No User"),
           ),
           ListTile(
-            title: const Text('เลือกชุดข้อมูล'),
+            title: const Text('ออกจากระบบ',
+                style: TextStyle(color: Colors.red)),
             onTap: () {
+              user = null;
+              FirebaseAuth.instance.signOut();
               Navigator.pushNamed(context, '/LoginPage');
+              
             },
-          ),
-          ListTile(
-            title: const Text('ตั้งค่า'),
-            onTap: () {
-              Navigator.pushNamed(context, '/LoginPage');
-            },
-          ),
-          ListTile(
-            title: const Text('ออกจากระบบ'),
-            onTap: () {},
           ),
         ],
       )),
     );
   }
 }
+
+

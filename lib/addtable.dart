@@ -126,7 +126,7 @@ class _AddTableState extends State<AddTable> {
           //if (_addnote.currentState!.validate());// {
           print('save button press');
           Map<String, dynamic> data = {
-            'color': '#29a329',
+            'color': 4282231104,
             'image': await uploadurl,
             'subj_name': _nameclass.text,
             'subj_code': _codeclass.text,

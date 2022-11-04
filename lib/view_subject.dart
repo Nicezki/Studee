@@ -79,8 +79,15 @@ class _SubjectDetailState extends State<SubjectDetail> {
     try {
       var model = data.docs.elementAt(0);
       results = Map<String, dynamic>.from(model.data() as Map);
-      appColorTheme = Color(
-          int.parse(results['color'].substring(1, 7), radix: 16) + 0xFF000000);
+      // appColorTheme = Color(
+      //     int.parse(results['color'].substring(1, 7), radix: 16) + 0xFF000000);
+      try{
+      if (results['color'] != null) {
+        appColorTheme = Color(results['color']);
+      }
+      }catch(e){
+        appColorTheme = Color(4282231104);
+      }
     } catch (e) {
       results = {
         "subj_name": "ไม่มีข้อมูล",

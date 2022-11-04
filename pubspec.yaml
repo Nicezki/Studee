@@ -41,6 +41,14 @@ dependencies:
   flutter_colorpicker: ^1.0.3
   tab_container: ^2.0.0
   firebase_storage: ^10.3.11
+  flutter_automation: ^2.0.0
+  flutter_launcher_icons: ^0.10.0
+
+
+flutter_icons:
+  android: true
+  image_path: "asset/icon.png"
+
 
 dev_dependencies:
   flutter_test:

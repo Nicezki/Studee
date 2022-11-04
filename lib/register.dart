@@ -99,10 +99,11 @@ class _RegisterPageState extends State<RegisterPage> {
       'name': 'ตารางเรียนเริ่มต้น',
     });
     await FirebaseFirestore.instance.collection("studee").doc(user.user!.uid).collection('timetable1').doc('note').collection('1').doc().set({
-      'color': "#FF0000",
-      'details': "เขียน note ที่นี่",
-      'title': "note สุดยอดเยี่ยมของคุณ",
+      'color': 4282231104,
+      'details': "โน้ตสุดโปรด",
+      'title': "note สุดยอดเยี่ยมของคุณอยู่ที่นี่แล้ว ลองแก้ไขดูสิ",
       "type": "Lecture",
+      "image" : "https://timeoutcomputers.com.au/wp-content/uploads/2016/12/noimage.jpg"
     });
     var days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
     days.forEach((String days) => FirebaseFirestore.instance.collection("studee").doc(user.user!.uid).collection('timetable1').doc('timetable')
@@ -115,7 +116,7 @@ class _RegisterPageState extends State<RegisterPage> {
       "place": "32100",
       "image": "https://cdn-images-1.medium.com/max/1200/1*5-aoK8IBmXve5whBQM90GA.png",
       "details": "วิชาที่ยอดเยี่ยม อาจารย์สอนดีมาก",
-      "color": "#FF0000"
+      "color": 4282231104
     }));
     await FirebaseFirestore.instance.collection("studee").doc(user.user!.uid).collection('timetable1').doc('todolist').collection('1').doc().set({
       "title": "ทำงาน App ส่งอาจารย์",
@@ -123,7 +124,7 @@ class _RegisterPageState extends State<RegisterPage> {
       "details": "ทำงานกลุ่มส่งอาจารย์",
       "status": "in-progress",
       "image": "https://cdn-images-1.medium.com/max/1200/1*5-aoK8IBmXve5whBQM90GA.png",
-      "color": "#FF0000",
+      "color": 4282231104,
       "start" : "2022-09-25 10:00:00",
       "end" : "2022-11-04 13:39:59"
     });

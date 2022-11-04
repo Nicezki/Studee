@@ -14,8 +14,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+    
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user != null) {
+      if (FirebaseAuth.instance.currentUser != null) {
         //snackbar
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(

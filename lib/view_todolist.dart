@@ -78,8 +78,15 @@ class _TaskDetailState extends State<TaskDetail> {
     var model = data.docs.elementAt(0);
     var results = Map<String, dynamic>.from(model.data() as Map);
     //results color format is #AABBCC
-    appColorTheme = Color(int.parse(results['color'].substring(1, 7), radix: 16) +
-        0xFF000000);
+    // appColorTheme = Color(int.parse(results['color'].substring(1, 7), radix: 16) +
+    //     0xFF000000);
+    try{
+      if (results['color'] != null) {
+        appColorTheme = Color(results['color']);
+      }
+    }catch(e){
+      appColorTheme = Color(4282231104);
+    }
     
     return Container(
       child: Row(
