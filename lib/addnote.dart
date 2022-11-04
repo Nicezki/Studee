@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studee/variable.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class AddNote extends StatefulWidget {
   const AddNote({Key? key}) : super(key: key);
@@ -28,6 +29,8 @@ class _AddNoteState extends State<AddNote> {
     setState(() {
       if (pickedFile != null) {
         _avatar = File(pickedFile.path);
+        addToFirebaseStorage(_avatar!);
+        //add to firebase storage
       } else {
         print('No image selected.');
       }
@@ -183,4 +186,19 @@ class _AddNoteState extends State<AddNote> {
       },
     );
   }
+
+
+  addToFirebaseStorage(imageFile) async {
+    String fileName = imageFile.path;
+    Reference firebaseStorageRef =
+        FirebaseStorage.instance.ref().child('uploads/$fileName');
+    UploadTask uploadTask = firebaseStorageRef.putFile(imageFile);
+    TaskSnapshot taskSnapshot = await uploadTask;
+    taskSnapshot.ref.getDownloadURL().then(
+          (value) => print("Done: $value"),
+        );
+  }
+
+
+
 } //final
