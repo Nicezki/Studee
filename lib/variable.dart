@@ -20,6 +20,21 @@ String Day = "";
 int? cur_page;
 String day = '';
 String globalDay = "monday";
+//userFullName get from store.collection('studee').doc(uid).get()
+var userFullName = FutureBuilder <DocumentSnapshot>(
+  future: store.collection('studee').doc(uid).get(),
+  builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+    if (snapshot.hasError) {
+      return Text("โหลดไม่สำเร็จ");
+    }
+    if (snapshot.connectionState == ConnectionState.done) {
+      Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+      return Text("${data['name']}");
+    }
+    return Text("กำลังโหลด..");
+  },
+);
+
 var dateName = [
   'monday',
   'tuesday',
@@ -43,10 +58,3 @@ const List<Tab> tabs = <Tab>[
   Tab(text: 'Sun'),
 ];
 
-getNamefromFirestore() async {
-  var user = FirebaseAuth.instance.currentUser;
-  var uid = user!.uid;
-  var doc = await store.collection('users').doc(uid).get();
-  var name = doc['name'];
-  return name;
-}
