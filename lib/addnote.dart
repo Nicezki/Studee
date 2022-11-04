@@ -91,6 +91,7 @@ class _AddNoteState extends State<AddNote> {
           //if (_addnote.currentState!.validate());// {
           print('save button press');
           Map<String, dynamic> data = {
+            'color': '#29a329',
             'title': _name.text,
             'details': _message.text,
             'type': _tage.text,

@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class EditNote extends StatefulWidget {
-  Map<String,dynamic> noteItem;
-  EditNote (this.dbid,this.noteItem,{Key? key}) : super(key: key);
+  Map<String, dynamic> noteItem;
+  EditNote(this.dbid, this.noteItem, {Key? key}) : super(key: key);
   String dbid;
 
   @override
@@ -14,7 +14,7 @@ class EditNote extends StatefulWidget {
 var user = FirebaseAuth.instance.currentUser;
 var user_id = user!.uid;
 
-class _EditNoteState extends State<EditNote>{
+class _EditNoteState extends State<EditNote> {
   late TextEditingController _controllerDetails;
   late TextEditingController _controllerTitle;
   late TextEditingController _controllerType;
@@ -23,16 +23,17 @@ class _EditNoteState extends State<EditNote>{
   @override
   void initState() {
     super.initState();
-    _controllerDetails = TextEditingController(text: widget.noteItem['details']);
+    _controllerDetails =
+        TextEditingController(text: widget.noteItem['details']);
     _controllerTitle = TextEditingController(text: widget.noteItem['title']);
     _controllerType = TextEditingController(text: widget.noteItem['type']);
   }
 
   @override
-  Widget build(BuildContext context)  {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('แก้ไขบันทึก '+_controllerTitle.text),
+        title: Text('แก้ไขบันทึก ' + _controllerTitle.text),
       ),
       body: Form(
         key: key,
@@ -48,17 +49,16 @@ class _EditNoteState extends State<EditNote>{
     );
   }
 
-
   TextFormField buildTitleField() {
     return TextFormField(
       controller: _controllerTitle,
       decoration: InputDecoration(
-        labelText: 'Title',
+        labelText: 'ชื่อเรื่อง',
         icon: Icon(Icons.book),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Please fill title in blank';
+          return 'โปรดกรอกชื่อเรื่อง';
         } else {
           return null;
         }
@@ -70,30 +70,29 @@ class _EditNoteState extends State<EditNote>{
     return TextFormField(
       controller: _controllerType,
       decoration: InputDecoration(
-        labelText: 'Type',
+        labelText: 'ประเภท',
         icon: Icon(Icons.details),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Please fill type in blank';
+          return 'โปรดกรอกประเภท';
         } else {
           return null;
         }
       },
     );
   }
-
 
   TextFormField buildDetailsField() {
     return TextFormField(
       controller: _controllerDetails,
       decoration: InputDecoration(
-        labelText: 'Details',
+        labelText: 'รายละเอียด',
         icon: Icon(Icons.details),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Please fill details in blank';
+          return 'โปรดกรอกรายละเอียด';
         } else {
           return null;
         }
@@ -101,20 +100,16 @@ class _EditNoteState extends State<EditNote>{
     );
   }
 
-  
-
   ElevatedButton buildSaveButton() {
     return ElevatedButton(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
-        elevation: MaterialStateProperty.all(15),
-        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+          elevation: MaterialStateProperty.all(15),
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18.0),
-          )
-        )
-      ),
+          ))),
       onPressed: () {
         if (key.currentState!.validate()) {
           FirebaseFirestore.instance
@@ -131,17 +126,15 @@ class _EditNoteState extends State<EditNote>{
           }).then((value) => Navigator.pop(context));
         }
       },
-      child: Text('Save'),
+      child: Text('บันทึก'),
     );
   }
 
   @override
-
   void dispose() {
     _controllerTitle.dispose();
     _controllerType.dispose();
     _controllerDetails.dispose();
     super.dispose();
   }
-
 }

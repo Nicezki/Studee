@@ -44,16 +44,16 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Time-Table',
+            label: 'ตารางเรียน',
             // activeIcon: TabBarDemo(),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
-            label: 'Note',
+            label: 'บันทึก',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.school),
-            label: 'Task',
+            label: 'งาน',
           ),
         ],
         currentIndex: _selectedIndex,

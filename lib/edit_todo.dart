@@ -4,8 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class EditTodo extends StatefulWidget {
-  Map<String,dynamic> todoItem;
-  EditTodo (this.dbid,this.todoItem,{Key? key}) : super(key: key);
+  Map<String, dynamic> todoItem;
+  EditTodo(this.dbid, this.todoItem, {Key? key}) : super(key: key);
   String dbid;
 
   Color pickerColor = Color(0xff443a49);
@@ -13,10 +13,11 @@ class EditTodo extends StatefulWidget {
   @override
   State<EditTodo> createState() => _EditTodoState();
 }
+
 var user = FirebaseAuth.instance.currentUser;
 var user_id = user!.uid;
 
-class _EditTodoState extends State<EditTodo>{
+class _EditTodoState extends State<EditTodo> {
   late TextEditingController _controllerCode;
   late TextEditingController _controllerTitle;
   late TextEditingController _controllerStatus;
@@ -31,16 +32,17 @@ class _EditTodoState extends State<EditTodo>{
     _controllerCode = TextEditingController(text: widget.todoItem['subj_code']);
     _controllerTitle = TextEditingController(text: widget.todoItem['title']);
     _controllerStatus = TextEditingController(text: widget.todoItem['status']);
-    _controllerDetails = TextEditingController(text: widget.todoItem['details']);
+    _controllerDetails =
+        TextEditingController(text: widget.todoItem['details']);
     _controllerStart = TextEditingController(text: widget.todoItem['start']);
     _controllerEnd = TextEditingController(text: widget.todoItem['end']);
   }
 
   @override
-  Widget build(BuildContext context)  {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('แก้ไขสิ่งที่ต้องทำ '+_controllerTitle.text),
+        title: Text('แก้ไขสิ่งที่ต้องทำ ' + _controllerTitle.text),
       ),
       body: Form(
         key: key,
@@ -63,12 +65,12 @@ class _EditTodoState extends State<EditTodo>{
     return TextFormField(
       controller: _controllerCode,
       decoration: InputDecoration(
-        labelText: 'Code',
+        labelText: 'รายวิชา',
         icon: Icon(Icons.code),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Please fill code in blank';
+          return 'โปรดกรอกรายวิชา';
         } else {
           return null;
         }
@@ -80,12 +82,12 @@ class _EditTodoState extends State<EditTodo>{
     return TextFormField(
       controller: _controllerTitle,
       decoration: InputDecoration(
-        labelText: 'Title',
+        labelText: 'ชื่อเรื่อง',
         icon: Icon(Icons.book),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Please fill title in blank';
+          return 'โปรดกรอกชื่อเรื่อง';
         } else {
           return null;
         }
@@ -97,12 +99,12 @@ class _EditTodoState extends State<EditTodo>{
     return TextFormField(
       controller: _controllerStatus,
       decoration: InputDecoration(
-        labelText: 'Status',
+        labelText: 'สถานะ',
         icon: Icon(Icons.person),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Please fill Status in blank';
+          return 'โปรดกรอกสถานะ';
         } else {
           return null;
         }
@@ -114,12 +116,12 @@ class _EditTodoState extends State<EditTodo>{
     return TextFormField(
       controller: _controllerDetails,
       decoration: InputDecoration(
-        labelText: 'Details',
+        labelText: 'รายละเอียด',
         icon: Icon(Icons.details),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Please fill details in blank';
+          return 'โปรดกรอกรายละเอียด';
         } else {
           return null;
         }
@@ -131,12 +133,12 @@ class _EditTodoState extends State<EditTodo>{
     return TextFormField(
       controller: _controllerStart,
       decoration: InputDecoration(
-        labelText: 'Start',
+        labelText: 'เวลาเริ่ม',
         icon: Icon(Icons.start),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Please fill start in blank';
+          return 'โปรดกรอกเวลาเริ่ม';
         } else {
           return null;
         }
@@ -148,12 +150,12 @@ class _EditTodoState extends State<EditTodo>{
     return TextFormField(
       controller: _controllerEnd,
       decoration: InputDecoration(
-        labelText: 'End',
+        labelText: 'เวลาจบ',
         icon: Icon(Icons.star),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Please fill end in blank';
+          return 'โปรดกรอกเวลาจบ';
         } else {
           return null;
         }
@@ -164,15 +166,13 @@ class _EditTodoState extends State<EditTodo>{
   ElevatedButton buildSaveButton() {
     return ElevatedButton(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
-        elevation: MaterialStateProperty.all(15),
-        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+          elevation: MaterialStateProperty.all(15),
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18.0),
-          )
-        )
-      ),
+          ))),
       onPressed: () {
         if (key.currentState!.validate()) {
           FirebaseFirestore.instance
@@ -192,13 +192,11 @@ class _EditTodoState extends State<EditTodo>{
           }).then((value) => Navigator.pop(context));
         }
       },
-      child: Text('Save'),
+      child: Text('บันทึก'),
     );
   }
-  
-  
-  @override
 
+  @override
   void dispose() {
     _controllerTitle.dispose();
     _controllerCode.dispose();
@@ -208,7 +206,4 @@ class _EditTodoState extends State<EditTodo>{
     _controllerEnd.dispose();
     super.dispose();
   }
-
-  
-
 }
