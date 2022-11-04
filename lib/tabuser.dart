@@ -44,12 +44,12 @@ class MyApp extends StatelessWidget {
             accountName: userFullName,
             accountEmail: Text(user?.email.toString() ?? "No User"),
           ),
-          ListTile(
+       /*   ListTile(
             title: const Text('เลือกชุดข้อมูล'),
             onTap: () {
-              Navigator.pushNamed(context, '/LoginPage');
+              Navigator.pushNamed(context, '/add_term');
             },
-          ),
+          ),*/
           ListTile(
             title: const Text('ตั้งค่า'),
             onTap: () {

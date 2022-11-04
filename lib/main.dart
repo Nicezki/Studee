@@ -17,6 +17,7 @@ import 'package:studee/view_todolist.dart';
 import 'package:studee/addnote.dart';
 import 'package:studee/addtable.dart';
 import 'package:studee/addtodolist.dart';
+import 'package:studee/addterm.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,6 +57,7 @@ class _MyHomeState extends State<MyHome> {
         '/view_note': (context) => NoteDetail(ID),
         '/test': (context) => MyApp2(),
         '/view_todolist': (context) => TaskDetail(ID),
+        '/add_term': (context) => Addterm(),
       },
       //home: MyApp(title: appTitle),
     );

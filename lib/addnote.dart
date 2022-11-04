@@ -27,9 +27,9 @@ class _AddNoteState extends State<AddNote> {
   onChooseImage(mode) async {
     final picker = ImagePicker();
     final pickedFile;
-    if(mode == 0){
+    if (mode == 0) {
       pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    }else{
+    } else {
       pickedFile = await picker.pickImage(source: ImageSource.camera);
     }
     setState(() {
@@ -43,10 +43,6 @@ class _AddNoteState extends State<AddNote> {
       }
     });
   }
-
-
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -65,21 +61,21 @@ class _AddNoteState extends State<AddNote> {
                   children: <Widget>[
                     _avatar == null
                         ? Column(
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                onChooseImage(0);
-                              },
-                              child: Text('เลือกรูปภาพ'),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                onChooseImage(1);
-                              },
-                              child: Text('ถ่ายรูป'),
-                            ),
-                          ],
-                        )
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  onChooseImage(0);
+                                },
+                                child: Text('เลือกรูปภาพ'),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  onChooseImage(1);
+                                },
+                                child: Text('ถ่ายรูป'),
+                              ),
+                            ],
+                          )
                         : Image.file(_avatar!),
                     SizedBox(
                       height: 10,
@@ -220,5 +216,4 @@ class _AddNoteState extends State<AddNote> {
     print(url);
     return url;
   }
-  
 }
