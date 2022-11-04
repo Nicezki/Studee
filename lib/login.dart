@@ -10,6 +10,22 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  //if already login then go to home page
+  @override
+  void initState() {
+    super.initState();
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user != null) {
+        //snackbar
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('เข้าสู่ระบบอยู่แล้ว คุณจะถูกนำไปยังหน้าหลัก'),
+          ),
+        );
+        Navigator.pushReplacementNamed(context, '/');
+      }
+    });
+  }
   final _formstate = GlobalKey<FormState>();
   String? email;
   String? password;
@@ -78,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
         )
       ),
       onPressed: () {
-        print('Goto  Regis pagge');
+        print('ไปยังหน้า Register');
         Navigator.pushNamed(context, '/RegisterPage');
       },
     );
@@ -111,15 +127,15 @@ class _LoginPageState extends State<LoginPage> {
                   .then((value) {
                 if (value.user!.emailVerified) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Login Pass")));
+                      const SnackBar(content: Text("เข้าสู่ระบบสำเร็จ")));
                   Navigator.pushNamed(context, '/');
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Please verify email")));
+                      const SnackBar(content: Text("กรุณายืนยันอีเมล")));
                 }
               }).catchError((reason) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Login or Password Invalid")));
+                    const SnackBar(content: Text("อีเมลหรือรหัสผ่านไม่ถูกต้อง")));
               });
             } on FirebaseAuthException catch (e) {
               if (e.code == 'user-not-found') {
@@ -140,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
       },
       validator: (value) {
         if (value!.length < 8)
-          return 'Please Enter more than 8 Character';
+          return 'Please Enter more than 8 character';
         else
           return null;
       },
@@ -169,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
       decoration: const InputDecoration(
         labelText: 'E-mail',
         icon: Icon(Icons.email),
-        hintText: 'x@x.com',
+        hintText: 'student1@rmutt.ac.th',
       ),
     );
   }

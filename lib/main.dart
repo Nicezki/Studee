@@ -44,7 +44,7 @@ class _MyHomeState extends State<MyHome> {
         fontFamily: 'IBMPlexSansThai',
       ),
 
-      initialRoute: '/',
+      initialRoute: '/LoginPage',
       routes: {
         '/': (context) => MyApp(title: appTitle),
         '/LoginPage': (context) => LoginPage(),
