@@ -5,20 +5,20 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:studee/variable.dart';
 
 class EditSubject extends StatefulWidget {
-  Map<String,dynamic> subjectItem;
+  Map<String, dynamic> subjectItem;
   String dbid;
-  EditSubject (this.dbid,this.subjectItem,{Key? key}) : super(key: key);
-
+  EditSubject(this.dbid, this.subjectItem, {Key? key}) : super(key: key);
 
   Color pickerColor = Color(0xff443a49);
 
   @override
   State<EditSubject> createState() => _EditSubjectState();
 }
+
 var user = FirebaseAuth.instance.currentUser;
 var user_id = user!.uid;
 
-class _EditSubjectState extends State<EditSubject>{
+class _EditSubjectState extends State<EditSubject> {
   late TextEditingController _controllerCode;
   late TextEditingController _controllerName;
   late TextEditingController _controllerTeacher;
@@ -31,20 +31,26 @@ class _EditSubjectState extends State<EditSubject>{
   @override
   void initState() {
     super.initState();
-    _controllerCode = TextEditingController(text: widget.subjectItem['subj_code']);
-    _controllerName = TextEditingController(text: widget.subjectItem['subj_name']);
-    _controllerTeacher = TextEditingController(text: widget.subjectItem['teacher_name']);
+    _controllerCode =
+        TextEditingController(text: widget.subjectItem['subj_code']);
+    _controllerName =
+        TextEditingController(text: widget.subjectItem['subj_name']);
+    _controllerTeacher =
+        TextEditingController(text: widget.subjectItem['teacher_name']);
     _controllerPlace = TextEditingController(text: widget.subjectItem['place']);
-    _controllerDetails = TextEditingController(text: widget.subjectItem['details']);
-    _controllerStart = TextEditingController(text: widget.subjectItem['start_time']);
-    _controllerEnd = TextEditingController(text: widget.subjectItem['end_time']);
+    _controllerDetails =
+        TextEditingController(text: widget.subjectItem['details']);
+    _controllerStart =
+        TextEditingController(text: widget.subjectItem['start_time']);
+    _controllerEnd =
+        TextEditingController(text: widget.subjectItem['end_time']);
   }
 
   @override
-  Widget build(BuildContext context)  {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('แก้ไขวิชา '+_controllerName.text),
+        title: Text('แก้ไขวิชา ' + _controllerName.text),
       ),
       body: Form(
         key: key,
@@ -68,12 +74,12 @@ class _EditSubjectState extends State<EditSubject>{
     return TextFormField(
       controller: _controllerCode,
       decoration: InputDecoration(
-        labelText: 'Code',
+        labelText: 'รายวิชา',
         icon: Icon(Icons.code),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Please fill code in blank';
+          return 'โปรดกรอกรายวิชา';
         } else {
           return null;
         }
@@ -85,12 +91,12 @@ class _EditSubjectState extends State<EditSubject>{
     return TextFormField(
       controller: _controllerName,
       decoration: InputDecoration(
-        labelText: 'Name',
+        labelText: 'ชื่อวิชา',
         icon: Icon(Icons.book),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Please fill name in blank';
+          return 'โปรดกรอกชื่อวิชา';
         } else {
           return null;
         }
@@ -102,12 +108,12 @@ class _EditSubjectState extends State<EditSubject>{
     return TextFormField(
       controller: _controllerTeacher,
       decoration: InputDecoration(
-        labelText: 'Teacher',
+        labelText: 'อาจารย์ผู้สอน',
         icon: Icon(Icons.person),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Please fill teacher in blank';
+          return 'โปรดกรอกชื่ออาจารย์ผู้สอน';
         } else {
           return null;
         }
@@ -119,12 +125,12 @@ class _EditSubjectState extends State<EditSubject>{
     return TextFormField(
       controller: _controllerPlace,
       decoration: InputDecoration(
-        labelText: 'Place',
+        labelText: 'สถานที่/ห้องเรียน',
         icon: Icon(Icons.place),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Please fill place in blank';
+          return 'โปรดกรอกสถานที่ เช่น ห้องเรียน หรือที่อยู่';
         } else {
           return null;
         }
@@ -132,17 +138,16 @@ class _EditSubjectState extends State<EditSubject>{
     );
   }
 
-
   TextFormField buildDetailsField() {
     return TextFormField(
       controller: _controllerDetails,
       decoration: InputDecoration(
-        labelText: 'Details',
+        labelText: 'รายละเอียด',
         icon: Icon(Icons.details),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Please fill details in blank';
+          return 'โปรดกรอกรายละเอียด';
         } else {
           return null;
         }
@@ -154,12 +159,12 @@ class _EditSubjectState extends State<EditSubject>{
     return TextFormField(
       controller: _controllerStart,
       decoration: InputDecoration(
-        labelText: 'Start',
+        labelText: 'เวลาเริ่ม',
         icon: Icon(Icons.start),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Please fill start in blank';
+          return 'โปรดกรอกเวลาเริ่ม';
         } else {
           return null;
         }
@@ -171,12 +176,12 @@ class _EditSubjectState extends State<EditSubject>{
     return TextFormField(
       controller: _controllerEnd,
       decoration: InputDecoration(
-        labelText: 'End',
+        labelText: 'เวลาจบ',
         icon: Icon(Icons.star),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Please fill end in blank';
+          return 'โปรดกรอกเวลาจบ';
         } else {
           return null;
         }
@@ -187,15 +192,13 @@ class _EditSubjectState extends State<EditSubject>{
   ElevatedButton buildSaveButton() {
     return ElevatedButton(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
-        elevation: MaterialStateProperty.all(15),
-        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+          elevation: MaterialStateProperty.all(15),
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18.0),
-          )
-        )
-      ),
+          ))),
       onPressed: () {
         if (key.currentState!.validate()) {
           FirebaseFirestore.instance
@@ -216,13 +219,11 @@ class _EditSubjectState extends State<EditSubject>{
           }).then((value) => Navigator.pop(context));
         }
       },
-      child: Text('Save'),
+      child: Text('บันทึก'),
     );
   }
-  
-  
-  @override
 
+  @override
   void dispose() {
     _controllerCode.dispose();
     _controllerName.dispose();
@@ -233,7 +234,4 @@ class _EditSubjectState extends State<EditSubject>{
     _controllerEnd.dispose();
     super.dispose();
   }
-
-  
-
 }
